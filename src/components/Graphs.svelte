@@ -2,7 +2,7 @@
     import Histogram from "./Histogram.svelte"
     import { LayerCake} from "layercake";
     import { scaleBand, scaleLinear } from 'd3-scale';
-    import { extent, range, bin } from 'd3-array'
+    import { extent, range, bin, groups, ascending } from 'd3-array'
     import data from "../data/sephora_export.csv"
 
     export let prose;
@@ -14,9 +14,22 @@
 
 
     function filterData(cut){
-        if (cut === 'numbers') return lightBin(data.filter(d => d.category === 'NA'))
-        else if (cut === 'rock') return lightBin(data.filter(d => d.category === 'rock' || d.category === 'gem'))
-        else return lightBin(data.filter(d => d.category === cut))
+        let binnedData = null;
+        if (cut === 'numbers') binnedData = lightBin(data.filter(d => d.category === 'NA'))
+        else if (cut === 'rock') binnedData = lightBin(data.filter(d => d.category === 'rock' || d.category === 'gem'))
+        else if (cut === 'wood') binnedData = lightBin(data.filter(d => d.category === 'wood' || d.category === 'plant'))
+        else binnedData = lightBin(data.filter(d => d.category === cut))
+
+        // condense multiple instances of a single name into one
+        let condensedData = []
+        binnedData.forEach(bin => {
+            if (bin.length > 0){
+                const sorted = bin.sort((a,b) => ascending(a.name, b.name) )
+                condensedData.push(groups(sorted, d => d.name)) 
+            } else condensedData.push([])
+        })
+
+        return condensedData;
     }
 </script>
 

@@ -18,7 +18,7 @@
 <style>
     .histogram__container{
         display: flex;
-        flex-direction: row-reverse;
+        flex-direction: row;
     }
 </style>
 
