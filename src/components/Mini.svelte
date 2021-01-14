@@ -4,19 +4,17 @@
 
     // Access the context using the 'LayerCake' keyword
     // Grab some helpful functions
-    const { data, x } = getContext('LayerCake');
-
-    console.log({x})
+    const { data, x, xGet, xScale } = getContext('LayerCake');
 </script>   
 
 <div class='histogram__container'>
     {#each $data as d, i}
     <div class='mini'>
-        {#each d.groups as e, i}
+        {#each d as e, i}
         <div class='container'>
-            <p class='category'>{e[0]}</p>
-            <div class='bar' style="width:{x(e)}px"></div>
-            <p class='percent'>{Math.round((e[1].length / d.length) * 100)}%</p>
+            <p class='category'>{e.category}</p>
+            <div class='bar' style="width:{$xGet(e)}px; background-color:{e.hex}"></div> 
+            <p class='percent'>{e.percent}%</p>
         </div>
         
         {/each}
@@ -32,7 +30,7 @@
     .mini {
         display: flex;
         flex-direction: column;
-        margin-top: 2em;
+        margin: 2em 1em;
         border: 1px solid #000;
         padding: 1rem;
         width: 40%;
@@ -41,9 +39,20 @@
     .container {
         display: flex; 
         flex-direction: row;
+        align-items: center;
+    }
+
+    .bar {
+        height: 1.5em;
+        margin: 0 0.4em;
     }
 
     p {
         margin: 0.5em 0;
+    }
+
+    .category {
+        width: 100px;
+        text-align: right;
     }
 </style>

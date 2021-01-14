@@ -1,8 +1,6 @@
 <script>
     export let group;
 
-    $: console.log({group})
-
 </script>
 
 <div class='histogram__column'>
