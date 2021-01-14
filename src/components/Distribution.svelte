@@ -42,7 +42,7 @@
 </script>
 
 <section>
-    <p>I found approximately 9 naming categories used. The most common (not shown) is to just use a number or letter system. Of the naming systems that use words, these are the categories:</p>
+    <p>I found approximately 9 naming categories used. The most common (not shown but used for 24% of shade names) is to just use a number or letter system. Of the naming systems that use words, these are the categories:</p>
 <ul>
     <li><strong>Color</strong>: Using a word that is known to refer to a specific color (e.g., "brown", "beige", "yellow" etc.)</li>
     <li><strong>Descriptor</strong>: These are words used alone that typically act as adjectives (e.g., "light", "dark" etc.)</li>
