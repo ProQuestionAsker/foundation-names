@@ -28,17 +28,22 @@
     }
 
     .bar {
-        height: 1.5em;
+        height: 1em;
         margin: 0 0.4em;
     }
 
     p {
-        margin: 0.5em 0;
+        margin: 0;
     }
 
     .category {
         width: 30%;
         min-width: 30%;
         text-align: right;
+    }
+
+    .percent {
+        font-size: small;
+        color: gray;
     }
 </style>

@@ -38,8 +38,6 @@
  
     $: flatData = flatten(flatterData)
 
-    $: console.log({condensedData, flatter: flatten(flatData)})
-
 
 </script>
 
