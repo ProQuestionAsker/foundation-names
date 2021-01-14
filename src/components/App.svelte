@@ -6,6 +6,7 @@
   import Footer from "./pudding/Footer.svelte";
   import Graphs from "./Graphs.svelte";
   import copy from "../data/copy.json";
+  import Distribution from "./Distribution.svelte"
 
 </script>
 
@@ -15,11 +16,15 @@
 
 <article>
 <Intro />
+
+<Distribution />
   {#each copy.story as section, i}
   <section id="section-{i}">
     <Graphs prose="{section.prose}" />
   </section>
 {/each}
+
+
 </article>
 
 
