@@ -33,6 +33,8 @@
     }
 </script>
 
+
+
 {#each prose as {sub, text}}
     <h3>{sub}</h3>
     <p class='prose'>{text}</p>
@@ -44,3 +46,10 @@
     
 {/each}
 
+<style>
+    h3 {
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: bold;
+    }
+</style>

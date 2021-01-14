@@ -57,7 +57,7 @@
 
 
 <div class='chart-container'>
-    <h3>Naming Category Distribution by Foundation Shade</h3>
+    <h2>Naming Category Distribution by Foundation Shade</h2>
     {#each condensedData as data}
         <div class='mini-container'>
                     <SmallMultContainer

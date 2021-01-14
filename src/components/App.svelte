@@ -18,6 +18,8 @@
 <Intro />
 
 <Distribution />
+
+<h2>Names of Shades by Category and arranged by lightness of color</h2>
   {#each copy.story as section, i}
   <section id="section-{i}">
     <Graphs prose="{section.prose}" />

@@ -10,6 +10,7 @@
 </script>
 
 <div class='histogram__container'>
+
     {#each $data as d, i}
         <Column group = {d} />
     {/each}
