@@ -1,8 +1,9 @@
 <script>
     import data from "../data/sephora_export.csv"
-    import { LayerCake} from "layercake";
+    import { LayerCake, flatten } from "layercake";
     import Mini from './Mini.svelte'
     import { extent, range, bin, groups, ascending, rollups } from 'd3-array'
+    import SmallMultContainer from "./SmallMultContainer.svelte"
 
     let maxCol = 10;
 
@@ -27,10 +28,17 @@
                     percent: Math.round(d[1] / sorted.length * 100),
                     hex: sorted[0].hex
                 }))
-                console.log({roll})
+ 
                 condensedData.push(roll) 
             } else condensedData.push([])
         })
+
+
+    $: flatterData = flatten(condensedData)
+ 
+    $: flatData = flatten(flatterData)
+
+    $: console.log({condensedData, flatter: flatten(flatData)})
 
 
 </script>
@@ -52,18 +60,33 @@
 
 <div class='chart-container'>
     <h3>Naming Category Distribution by Foundation Shade</h3>
-    <LayerCake data={condensedData}
-    x = {d => d.percent} 
-    xDomain = {[0, 100]}>
-        <Mini />
-    </LayerCake>
+    {#each condensedData as data}
+        <div class='mini-container'>
+                    <SmallMultContainer
+            {data} />
+        </div>
+
+    {/each}
 </div>
 </section>
 
-
-
 <style>
+
     section {
         margin: 1rem;
+    }
+
+    .chart-container {
+        display: flex;
+        flex-wrap: wrap;
+        
+    }
+
+    .mini-container {
+        max-width: 40%;
+        width: 40%;
+        border: 1px solid #000;
+        margin: 1em;
+        padding: 0.5em;
     }
 </style>
