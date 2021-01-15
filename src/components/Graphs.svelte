@@ -51,5 +51,10 @@
         text-transform: uppercase;
         text-align: center;
         font-weight: bold;
+        margin-top: 3em;
+    }
+
+    p {
+        text-align: center;
     }
 </style>
