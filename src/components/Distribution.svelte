@@ -26,7 +26,8 @@
                     category: d[0],
                     count: d[1],
                     percent: Math.round(d[1] / sorted.length * 100),
-                    hex: sorted[0].hex
+                    hex: sorted[0].hex, 
+                    group: i
                 }))
  
                 condensedData.push(roll) 
@@ -37,6 +38,22 @@
     $: flatterData = flatten(condensedData)
  
     $: flatData = flatten(flatterData)
+
+    $: categories = groups(flatData, d => d.category)
+    $: catData = [];
+
+
+    $: categories.forEach(cat => {
+            const filledIn = range(0, 10).map(i => {
+                const val = cat[1]
+                const matched = val.filter(d => d.group === i + 1)
+                return matched.length === 0 ? { group: i + 1, percent: 0} : matched[0];
+            })
+            catData.push({category: cat[0], values: filledIn})
+        })
+
+        $: console.log({catData, condensedData})
+            
 
 
 </script>
@@ -60,10 +77,19 @@
     <h2>Naming Category Distribution by Foundation Shade</h2>
     {#each condensedData as data}
         <div class='mini-container'>
-                    <SmallMultContainer
-            {data} />
+            <SmallMultContainer {data} type = "byShade"/>
         </div>
+    {/each}
+</div>
 
+
+    <h2>Percent of Total Shades in Each Lightness Range by Category</h2>
+<div class='chart-container'>
+
+    {#each catData as data}
+        <div class='cat-container'>
+            <SmallMultContainer {data} type = "byCat"/>
+        </div>
     {/each}
 </div>
 </section>
@@ -83,6 +109,14 @@
     .mini-container {
         max-width: 40%;
         width: 40%;
+        border: 1px solid #000;
+        margin: 1em;
+        padding: 0.5em;
+    }
+
+    .cat-container{
+        max-width: 30%;
+        width: 30%;
         border: 1px solid #000;
         margin: 1em;
         padding: 0.5em;
