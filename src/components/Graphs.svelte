@@ -3,7 +3,7 @@
     import { LayerCake} from "layercake";
     import { scaleBand, scaleLinear } from 'd3-scale';
     import { extent, range, bin, groups, ascending } from 'd3-array'
-    import data from "../data/sephora_export.csv"
+    import data from "../data/shades_export.csv"
 
     export let prose;
     let maxCol = 10;
@@ -14,6 +14,7 @@
 
 
     function filterData(cut){
+        console.log({cut})
         let binnedData = null;
         if (cut === 'numbers') binnedData = lightBin(data.filter(d => d.category === 'NA'))
         else if (cut === 'rock') binnedData = lightBin(data.filter(d => d.category === 'rock' || d.category === 'gem'))

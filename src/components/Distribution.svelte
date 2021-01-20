@@ -1,11 +1,13 @@
 <script>
-    import data from "../data/sephora_export.csv"
+    import data from "../data/shades_export.csv"
     import { LayerCake, flatten } from "layercake";
     import Mini from './Mini.svelte'
     import { extent, range, bin, groups, ascending, rollups } from 'd3-array'
     import SmallMultContainer from "./SmallMultContainer.svelte"
 
     let maxCol = 10;
+
+    $: console.log({data})
 
 
     // figure out which bin each shade goes in
@@ -51,8 +53,6 @@
             })
             catData.push({category: cat[0], values: filledIn})
         })
-
-        $: console.log({catData, condensedData})
             
 
 
