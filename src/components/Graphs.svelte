@@ -1,8 +1,9 @@
 <script>
     import Histogram from "./Histogram.svelte"
-    import { LayerCake} from "layercake";
+    import GradientHistogram from "./GradientHistogram.svelte"
+    import { LayerCake, Canvas } from "layercake";
     import { scaleBand, scaleLinear } from 'd3-scale';
-    import { extent, range, bin, groups, ascending } from 'd3-array'
+    import { extent, range, bin, groups, ascending, rollups, descending } from 'd3-array'
     import data from "../data/shades_export.csv"
 
     export let prose;
@@ -12,9 +13,19 @@
     // figure out which bin each shade goes in
     $: lightBin = bin().thresholds(maxCol).domain([0, 1]).value(d => d.lightness)
 
+    $: filteredData = data.filter(d => d.base !== ("NA")).filter(d => d.base !== "")
+
+
+    $: allBinData = lightBin(filteredData)
+
+    $: top = []
+    $: allBinData.forEach(bin => {
+       const groups = rollups(bin, v => v.length, d => d.name).sort((a, b) => descending(a[1], b[1])).slice(0,5)
+        top.push(groups)
+    })
+
 
     function filterData(cut){
-        console.log({cut})
         let binnedData = null;
         if (cut === 'numbers') binnedData = lightBin(data.filter(d => d.category === 'NA'))
         else if (cut === 'rock') binnedData = lightBin(data.filter(d => d.category === 'rock' || d.category === 'gem'))
@@ -44,6 +55,15 @@
             <Histogram />
         </LayerCake>
     </div>
+
+    <div class='chart-container container-grad'>
+        <LayerCake data={filterData(sub)}>
+            <Canvas>
+                <GradientHistogram />
+            </Canvas>
+
+        </LayerCake>
+    </div>
     
 {/each}
 
@@ -57,5 +77,9 @@
 
     p {
         text-align: center;
+    }
+
+    .container-grad {
+        height: 500px;
     }
 </style>

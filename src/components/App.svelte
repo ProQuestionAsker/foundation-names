@@ -7,6 +7,7 @@
   import Graphs from "./Graphs.svelte";
   import copy from "../data/copy.json";
   import Distribution from "./Distribution.svelte"
+import GradientHistogram from "./GradientHistogram.svelte";
 
 </script>
 
@@ -18,6 +19,7 @@
 <Intro />
 
 <Distribution />
+
 
 <h2>Names of Shades by Category and arranged by lightness of color</h2>
   {#each copy.story as section, i}
