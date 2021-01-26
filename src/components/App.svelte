@@ -18,7 +18,7 @@ import GradientHistogram from "./GradientHistogram.svelte";
 <article>
 <Intro />
 
-<Distribution />
+<!-- <Distribution /> -->
 
 
 <h2>Names of Shades by Category and arranged by lightness of color</h2>

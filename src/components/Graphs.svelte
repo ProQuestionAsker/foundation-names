@@ -43,21 +43,26 @@
 
         return condensedData;
     }
+
+    function filterFlat(cut){
+        if (cut === 'numbers') return data.filter(d => d.category === 'NA')
+        else return data.filter(d => d.category === cut)
+    }
 </script>
 
 
 
 {#each prose as {sub, text}}
     <h3>{sub}</h3>
-    <p class='prose'>{text}</p>
+    <!-- <p class='prose'>{text}</p>
     <div class='chart-container'>
         <LayerCake data={filterData(sub)}>
             <Histogram />
         </LayerCake>
-    </div>
+    </div> -->
 
     <div class='chart-container container-grad'>
-        <LayerCake data={filterData(sub)}>
+        <LayerCake data={filterFlat(sub)}>
             <Canvas>
                 <GradientHistogram />
             </Canvas>
@@ -80,6 +85,6 @@
     }
 
     .container-grad {
-        height: 500px;
+        height: 300px;
     }
 </style>
