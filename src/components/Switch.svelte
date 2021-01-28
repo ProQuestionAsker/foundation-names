@@ -46,7 +46,6 @@
         on:click={handleClick}>
     </button>
 </div>
-<p>Also testing</p>
 {:else}
 <div class="s s--multi">
     <fieldset>

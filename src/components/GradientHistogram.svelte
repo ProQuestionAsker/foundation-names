@@ -18,7 +18,6 @@
 
     $: lightnessScale = scaleLinear().range([margins.left, $width - margins.right]).domain([0.15, 0.99])
 
- 
 
 </script>
 
