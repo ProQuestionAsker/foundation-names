@@ -2,6 +2,7 @@
     import { getContext } from 'svelte';
     import { flatten, scaleCanvas } from 'layercake';
     import { extent, range, bin, groups, ascending, rollups } from 'd3-array'
+    import { scaleLinear } from 'd3-scale';
 
     // Access the context using the 'LayerCake' keyword
     // Grab some helpful functions
@@ -13,7 +14,6 @@
     export let filterProp;
     export let filterValue;
 
-    $: console.log({filterProp, filterValue})
     $: blockHeight = blockWidth / 2;
     let blockPadding = 2;
 
@@ -33,17 +33,36 @@
             .domain([0, 1])
             .value(d => d.lightness)
 
+    $: lightnessScale = scaleLinear().range([margins.left, $width - margins.right]).domain([0.15, 0.99])
+
     // if data needs to be filtered, filter it
     let filteredData = $data;
     $: if (filterProp && filterValue) {
         filteredData = $data.filter(d => d[filterProp] === filterValue)
     }
 
-    $: console.log({filteredData})
-
     // update the binned data if data or column number changes
-    $: binnedData = lightBin($data)
+    $: binnedData = lightBin(filteredData)
 
-    $: console.log({binnedData, colNum, blockWidth})
+    $: console.log({binnedData})
+
+    // build histogram in canvas
+    $: {
+        if ($ctx) {
+            scaleCanvas($ctx, $width, $height);
+            $ctx.clearRect(0, 0, $width, $height);
+
+            binnedData.forEach(bin => {
+                const x = lightnessScale(bin.x0)
+
+                bin.forEach((swatch, i) => {
+                    $ctx.fillStyle = swatch.hex;
+                    $ctx.fillRect(x, (blockHeight + blockPadding) * i, blockWidth, blockHeight);
+                    $ctx.fill();
+                })
+            })
+        }
+    }
+
 
 </script>
