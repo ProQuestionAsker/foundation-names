@@ -1,9 +1,11 @@
 <script>
     import data from "../data/nude_export.csv"
-    import GradientHistogram from "./GradientHistogram.svelte"
+    import SwatchHistogram from "./SwatchHistogram.svelte"
     import { LayerCake, Canvas } from "layercake";
 
     export let step;
+
+    $: filterValue = step === 'natural' ? 'natural' : 'nude'
 
 </script>
 
@@ -11,7 +13,9 @@
 <div class='chart-container container-grad'>
     <LayerCake data={data}>
         <Canvas>
-            <GradientHistogram />
+            <SwatchHistogram blockWidth={20} 
+            filterProp = "namingScheme" 
+            {filterValue} />
         </Canvas>
     </LayerCake>
 </div>
