@@ -8,34 +8,46 @@
   import copy from "../data/copy.json";
   import Distribution from "./Distribution.svelte"
 import GradientHistogram from "./GradientHistogram.svelte";
+  import Nude from "./Nude.svelte"
 
+let scrollytelling;
+$: console.log({scrollytelling})
 </script>
-
 <Meta />
 
-<Header />
+
+
+  <Header bind:state={scrollytelling}/>
 
 <article>
 <Intro />
 
 <!-- <Distribution /> -->
 
-
+<!-- 
 <h2>Names of Shades by Category and arranged by lightness of color</h2>
   {#each copy.story as section, i}
   <section id="section-{i}">
     <Graphs prose="{section.prose}" />
   </section>
-{/each}
+{/each} -->
+
+<Nude state = {scrollytelling}/>
 
 
 </article>
 
 
+
+
+
+
+
 <Footer />
 
 <style>
-  section {
-    padding: 0 1rem;
-  }
+
+
+
+
 </style>
