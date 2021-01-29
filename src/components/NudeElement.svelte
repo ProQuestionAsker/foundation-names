@@ -13,6 +13,7 @@
 
 <p>Currently on {step}</p>
 <div class='container'>
+    <h3>Shades with "{filterValue}" in the name</h3>
     <div class='chart-container container-hist'>
         <LayerCake data={data}>
             <Canvas>
