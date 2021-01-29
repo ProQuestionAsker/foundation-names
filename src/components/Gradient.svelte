@@ -15,7 +15,7 @@
         bottom: 20
     }
 
-    $: lightnessScale = scaleLinear().range([margins.left, $width - margins.right]).domain([0.15, 0.99])
+
 
     // Access the context using the 'LayerCake' keyword
     // Grab some helpful functions
@@ -27,11 +27,23 @@
 
     const n = 512;
 
-    $: flatLight = $data.map(d => +d.lightness).sort((a, b) => ascending(a, b))
+    export let block = 'off'
+    export let filterProp;
+    export let filterValue;
+
+        // if data needs to be filtered, filter it
+        let filteredData = $data;
+    $: if (filterProp && filterValue) {
+        filteredData = $data.filter(d => d[filterProp] === filterValue)
+    }
+
+    $: flatLight = filteredData.map(d => +d.lightness).sort((a, b) => ascending(a, b))
 
 
     $: firstQuant = quantile(flatLight, 0.1)
     $: lastQuant = quantile(flatLight, 0.9)
+    $: lightnessScale = scaleLinear().range([margins.left, $width - margins.right]).domain([0.15, 0.99])
+    $: console.log({firstQuant, lastQuant, $width})
 
 
     $: {
@@ -61,12 +73,16 @@
             //     $ctx.fillRect(i, 0, 1, 1);
             // }
 
+            if (block === 'on'){
+                console.log({check: lightnessScale(firstQuant), check2: lightnessScale(lastQuant)})
+                // draw 80% rectangle
+                //$ctx.beginPath();
+                $ctx.lineWidth = 1;
+                $ctx.strokeRect(lightnessScale(firstQuant), 0 , lightnessScale(lastQuant - firstQuant), 20);
+                // $ctx.stroke();
+            }
 
-            // draw 80% rectangle
-            // $ctx.beginPath();
-            // $ctx.lineWidth = 5;
-            // $ctx.rect(margins.left + lightnessScale(firstQuant), margins.top , lightnessScale(lastQuant - firstQuant), 50);
-            // $ctx.stroke();
+
             
         }
     }

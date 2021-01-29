@@ -8,6 +8,8 @@
     
 
     $: filterValue = step === 'natural' ? 'natural' : 'nude'
+    $: blockValue = step === 'all' || step === 'sort' ? 'off' : 'on'
+    $: console.log({blockValue})
 
 </script>
 
@@ -17,7 +19,8 @@
     <div class='chart-container container-hist'>
         <LayerCake data={data}>
             <Canvas>
-                <Gradient /> 
+                <Gradient block={blockValue} filterProp = "namingScheme" 
+                {filterValue}/> 
             </Canvas>
             <Canvas class="hist">
                 <SwatchHistogram blockWidth={20} 
