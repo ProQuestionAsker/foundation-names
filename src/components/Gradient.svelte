@@ -9,7 +9,7 @@
     import {interpolate, interpolateHslLong} from 'd3-interpolate'
 
     const margins = {
-        top: 20,
+        top: 10,
         left: 20,
         right: 20, 
         bottom: 20
@@ -53,6 +53,7 @@
 
             $ctx.canvas.style.width = `calc(100% - ${margins.right + margins.left}px)`;
             $ctx.canvas.style.marginLeft = `${margins.left}px`;
+            $ctx.canvas.style.marginTop = `${margins.top}px`;
             $ctx.canvas.style.height = "20px";
             $ctx.canvas.style.imageRendering = "pixelated";
 

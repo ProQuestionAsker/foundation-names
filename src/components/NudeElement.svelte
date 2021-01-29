@@ -2,7 +2,7 @@
     import data from "../data/nude_export.csv"
     import SwatchHistogram from "./SwatchHistogram.svelte"
     import Gradient from "./Gradient.svelte"
-    import { LayerCake, Canvas } from "layercake";
+    import { LayerCake, Canvas, Svg } from "layercake";
 
     export let step;
     
@@ -28,6 +28,7 @@
                     {filterValue} 
                     {step} />
             </Canvas>
+            <Svg zIndex={3}></Svg>
         </LayerCake>
     </div>
 

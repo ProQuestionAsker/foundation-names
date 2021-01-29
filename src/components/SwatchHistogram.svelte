@@ -20,7 +20,7 @@
     let blockPadding = 2;
 
     const margins = {
-        top: 30,
+        top: 40,
         left: 20,
         right: 20, 
         bottom: 20
