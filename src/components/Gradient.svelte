@@ -30,6 +30,7 @@
     export let block = 'off'
     export let filterProp;
     export let filterValue;
+    export let step; 
 
         // if data needs to be filtered, filter it
         let filteredData = $data;
@@ -43,30 +44,32 @@
     $: firstQuant = quantile(flatLight, 0.1)
     $: lastQuant = quantile(flatLight, 0.9)
     $: lightnessScale = scaleLinear().range([margins.left, $width - margins.right]).domain([0.15, 0.99])
-    $: console.log({firstQuant, lastQuant, $width})
-
 
     $: {
         if ($ctx) {
             scaleCanvas($ctx, n, 1);
             $ctx.clearRect(0, 0, $width, $height)
 
-            $ctx.canvas.style.width = `calc(100% - ${margins.right + margins.left}px)`;
-            $ctx.canvas.style.marginLeft = `${margins.left}px`;
-            $ctx.canvas.style.marginTop = `${margins.top}px`;
-            $ctx.canvas.style.height = "20px";
-            $ctx.canvas.style.imageRendering = "pixelated";
+            if (step !== 'all') {
+                $ctx.canvas.style.width = `calc(100% - ${margins.right + margins.left}px)`;
+                $ctx.canvas.style.marginLeft = `${margins.left}px`;
+                $ctx.canvas.style.marginTop = `${margins.top}px`;
+                $ctx.canvas.style.height = "20px";
+                $ctx.canvas.style.imageRendering = "pixelated";
 
-            // draw rectangle
-            // $ctx.beginPath();
-            // $ctx.rect(margins.top, margins.left, $width - margins.left - margins.right, 50);
-            // $ctx.stroke();
+                // draw rectangle
+                // $ctx.beginPath();
+                // $ctx.rect(margins.top, margins.left, $width - margins.left - margins.right, 50);
+                // $ctx.stroke();
 
-            for (let i = 0; i < n; ++i) {
-                $ctx.fillStyle = colors(i / (n - 1));
-                $ctx.fillRect(i, 0, 1, 1);
+                for (let i = 0; i < n; ++i) {
+                    $ctx.fillStyle = colors(i / (n - 1));
+                    $ctx.fillRect(i, 0, 1, 1);
+                }
+
             }
 
+            
 
 
             // for (let i = 0; i < n; ++i) {

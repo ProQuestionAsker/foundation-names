@@ -9,7 +9,6 @@
 
     $: filterValue = step === 'natural' ? 'natural' : 'nude'
     $: blockValue = step === 'all' || step === 'sort' ? 'off' : 'on'
-    $: console.log({blockValue})
 
 </script>
 
@@ -20,7 +19,7 @@
         <LayerCake data={data}>
             <Canvas>
                 <Gradient block={blockValue} filterProp = "namingScheme" 
-                {filterValue}/> 
+                {filterValue} {step}/> 
             </Canvas>
             <Canvas class="hist">
                 <SwatchHistogram blockWidth={20} 

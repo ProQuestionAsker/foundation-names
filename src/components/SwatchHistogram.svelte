@@ -46,8 +46,6 @@
         filteredData = $data.filter(d => d[filterProp] === filterValue)
     }
 
-    // shuffle order
-    $: shuffle(filteredData)
 
     // update the binned data if data or column number changes
     $: binnedData = lightBin(filteredData)
@@ -74,10 +72,13 @@
     
     $: tweenedData = tweened(totallyFlat, 500)
 
+    $: console.log({filteredData, totallyFlat})
 
-    $: {
+
+    function updateTween(){
         if (step === 'all') {
             // set bin number to sequential and random
+            shuffle(totallyFlat); 
             const allFlat = totallyFlat.map((d, i) => {
                 const row = ~~ (i / colNum)
                 const binNum = i - (colNum * row)
@@ -88,6 +89,7 @@
                     index: row,
                 }
             })
+
 
             tweenedData.set(allFlat)
         } 
@@ -111,46 +113,11 @@
                $ctx.fillRect(x, y + margins.top, blockWidth, blockHeight)
            })
 
-
-            // totallyFlat.forEach((swatch, i) => {
-            //     const x = lightnessScale(binnedData[swatch.bin].x0)
-            //     const y = swatch.index * (blockHeight + blockPadding)
-
-            //     $ctx.fillStyle = swatch.hex;
-            //     $ctx.fillRect(margins.left + x, y + margins.top, blockWidth, blockHeight)
-            // })
-
-        //     if (step === 'all'){
-        //         filteredData.forEach((swatch, i) => {
-        //             const rowNumber = (~~ (i / colNum))
-        //             const x = (i - (colNum * rowNumber)) * (blockWidth + blockPadding)
-        //             const y = rowNumber * (blockHeight + blockPadding)
-
-        //             $ctx.fillStyle = swatch.hex;
-        //             $ctx.fillRect(margins.left + x, y + margins.top, blockWidth, blockHeight);
-        //             $ctx.fill();
-        //         })
-        //     }
-        //     else {
-        //         // arrange by bins
-        //         totallyFlat.forEach((swatch, i) => {
-        //             console.log({swatch})
-
-        //         })
-
-        //         binnedData.forEach(bin => {
-        //         const x = lightnessScale(bin.x0) - (blockWidth / 2)
-
-        //         bin.forEach((swatch, i) => {
-        //             $ctx.fillStyle = swatch.hex;
-        //             $ctx.fillRect(x, (blockHeight + blockPadding) * i + margins.top, blockWidth, blockHeight);
-        //             $ctx.fill();
-        //         })
-        //     })
-        // }
-            }
-            
+        }
+         
     }
+
+    $: $width, step, updateTween()
 
 
 </script>
