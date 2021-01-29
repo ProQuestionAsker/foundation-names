@@ -1,7 +1,7 @@
 <script>
     import { getContext } from 'svelte';
     import { calcExtents, flatten, scaleCanvas } from 'layercake';
-    import { extent, range, bin, shuffle } from 'd3-array'
+    import { extent, range, bin, shuffle, ascending } from 'd3-array'
     import { scaleLinear } from 'd3-scale';
     import { tweened } from 'svelte/motion'
     import { cubicOut } from 'svelte/easing';
@@ -51,10 +51,12 @@
   
 
     // set up tweening function
-    let blockPositions = tweened(null, {
+    let blockPositions = tweened(filteredData.map(d => ({x: 0, index: 0})), {
             duration: 500,
             easing: cubicOut
-	    })
+        })
+        
+
 
    $: {
         // bin the data
@@ -73,13 +75,17 @@
     })
 
         const semiFlat = flatten(flatBins)
-        const intFlat = flatten(semiFlat)
+        const intFlat = flatten(semiFlat).map((d, i) => ({
+            ...d,
+            id: i
+        }))
 
-        let totallyFlat;
+        let onlyPositions;
+
+        const shuffled = shuffle(intFlat.slice())
 
         if (step === 'all'){
-            console.log('all step')
-            const allFlat = shuffle(intFlat.slice()).map((d, i) => {
+            const allFlat = shuffled.map((d, i) => {
                 const row = ~~ (i / colNum)
                 const binNum = i - (colNum * row)
                 const x0 = binnedData[binNum].x0
@@ -89,19 +95,28 @@
                     index: row,
                 }
             })
+            const sorted = allFlat.sort((a, b) => ascending(a.id, b.id))
 
-             blockPositions.set(allFlat);
-             console.log({tween: $blockPositions, allFlat})
+            onlyPositions = sorted.map(d => ({x: d.x, index: d.index}))
+
+            //  blockPositions.set(sorted);
+            //  console.log({tween: $blockPositions, allFlat})
         }
         else {
             const semiFlat = flatten(flatBins)
             const intFlat = flatten(semiFlat)
-             totallyFlat = intFlat
-             blockPositions.set(totallyFlat)
-             console.log({tween: $blockPositions, totallyFlat})
+            const totallyFlat = intFlat
+
+             onlyPositions = totallyFlat.map(d => ({x: d.x, index: d.index}))
+            //  blockPositions.set(totallyFlat)
+    
         }
+
+        blockPositions.set(onlyPositions);
+
   
     }
+
 
     //$: binnedData, flattenBins()
 
@@ -152,7 +167,7 @@
             scaleCanvas($ctx, $width, $height);
             $ctx.clearRect(0, 0, $width, $height);
 
-            console.log({$blockPositions})
+
 
            $blockPositions.forEach((swatch, i) => {
                const x = swatch.x
