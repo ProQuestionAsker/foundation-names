@@ -4,6 +4,7 @@
     import { extent, range, bin, shuffle } from 'd3-array'
     import { scaleLinear } from 'd3-scale';
     import { tweened } from 'svelte/motion'
+    import { cubicOut } from 'svelte/easing';
 
     // Access the context using the 'LayerCake' keyword
     // Grab some helpful functions
@@ -50,6 +51,8 @@
     // update the binned data if data or column number changes
     $: binnedData = lightBin(filteredData)
 
+
+
     let totallyFlat;
 
     function flattenBins(){
@@ -65,21 +68,11 @@
     })
 
         const semiFlat = flatten(flatBins)
-        totallyFlat =  flatten(semiFlat)
-    }
+        const intFlat = flatten(semiFlat)
 
-    $: binnedData, flattenBins()
-    
-    $: tweenedData = tweened(totallyFlat, 500)
-
-    $: console.log({filteredData, totallyFlat})
-
-
-    function updateTween(){
-        if (step === 'all') {
-            // set bin number to sequential and random
-            shuffle(totallyFlat); 
-            const allFlat = totallyFlat.map((d, i) => {
+        if (step === 'all'){
+            console.log('all step')
+            const allFlat = shuffle(intFlat).map((d, i) => {
                 const row = ~~ (i / colNum)
                 const binNum = i - (colNum * row)
                 const x0 = binnedData[binNum].x0
@@ -90,20 +83,70 @@
                 }
             })
 
-
-            tweenedData.set(allFlat)
-        } 
-        else {
-            const histFlat = totallyFlat;
-            tweenedData.set(histFlat)
+            totallyFlat = allFlat;
         }
+        else {
+            console.log('not all')
+            totallyFlat = intFlat
+        }
+
+        tweenedData.set(totallyFlat)
     }
 
+    $: tweenedData = tweened(totallyFlat, {
+            duration: 500,
+            easing: cubicOut
+	    })
+    $: binnedData, flattenBins()
+
+
+    
+    // $: tweenedData = tweened(totallyFlat, {
+	// 	duration: 500,
+	// 	easing: cubicOut
+	// })
+
+    //$: console.log({filteredData, totallyFlat})
+
+    function updateTween(){
+        console.log({$tweenedData})
+        tweenedData.set(totallyFlat)
+        
+        // if (step === 'all') {
+        //     // set bin number to sequential and random
+        //     shuffle(totallyFlat); 
+        //     const allFlat = totallyFlat.map((d, i) => {
+        //         const row = ~~ (i / colNum)
+        //         const binNum = i - (colNum * row)
+        //         const x0 = binnedData[binNum].x0
+        //         return {
+        //             ...d, 
+        //             x: lightnessScale(x0),
+        //             index: row,
+        //         }
+        //     })
+
+
+        //     tweenedData.set(allFlat)
+        // } 
+        // else {
+        //     const histFlat = totallyFlat;
+        //     tweenedData.set(histFlat)
+        // }
+    }
+
+
+    $: $width, step, flattenBins()
+    //$: totallyFlat, step, updateTween()
+ 
+
     // build histogram in canvas
-    $: {
+    function drawHistogram(){
         if ($ctx) {
             scaleCanvas($ctx, $width, $height);
             $ctx.clearRect(0, 0, $width, $height);
+
+            console.log({$tweenedData})
 
            $tweenedData.forEach((swatch, i) => {
                const x = swatch.x
@@ -114,10 +157,12 @@
            })
 
         }
-         
     }
+        
+         
+    $: $tweenedData, drawHistogram()
 
-    $: $width, step, updateTween()
+
 
 
 </script>
