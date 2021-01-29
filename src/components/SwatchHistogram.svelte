@@ -44,8 +44,6 @@
     // update the binned data if data or column number changes
     $: binnedData = lightBin(filteredData)
 
-    $: console.log({binnedData})
-
     // build histogram in canvas
     $: {
         if ($ctx) {

@@ -1,5 +1,6 @@
 <script>
     import { flatten, scaleCanvas } from 'layercake';
+    import { scaleLinear } from 'd3-scale';
 
     // Import the getContext function from svelte
     import { getContext } from 'svelte';
@@ -7,8 +8,14 @@
     import { quantile, ascending } from 'd3-array';
     import {interpolate, interpolateHslLong} from 'd3-interpolate'
 
-    export let margins;
-    export let lightnessScale;
+    const margins = {
+        top: 20,
+        left: 20,
+        right: 20, 
+        bottom: 20
+    }
+
+    $: lightnessScale = scaleLinear().range([margins.left, $width - margins.right]).domain([0.15, 0.99])
 
     // Access the context using the 'LayerCake' keyword
     // Grab some helpful functions
@@ -18,7 +25,7 @@
     const endColor = hsl(30, 0.5, 0.99)
     const colors = interpolateHslLong(startColor, endColor)
 
-    const n = $width -  margins.right;
+    const n = 512;
 
     $: flatLight = $data.map(d => +d.lightness).sort((a, b) => ascending(a, b))
 
@@ -29,18 +36,25 @@
 
     $: {
         if ($ctx) {
-            scaleCanvas($ctx, $width, $height);
-           // $ctx.clearRect(0, 0, $width, $height)
+            scaleCanvas($ctx, n, 1);
+            $ctx.clearRect(0, 0, $width, $height)
+
+            $ctx.canvas.style.width = `calc(100% - ${margins.right + margins.left}px)`;
+            $ctx.canvas.style.marginLeft = `${margins.left}px`;
+            $ctx.canvas.style.height = "20px";
+            $ctx.canvas.style.imageRendering = "pixelated";
 
             // draw rectangle
             // $ctx.beginPath();
-            $ctx.rect(margins.top, margins.left, $width - margins.left - margins.right, 50);
-            $ctx.stroke();
+            // $ctx.rect(margins.top, margins.left, $width - margins.left - margins.right, 50);
+            // $ctx.stroke();
 
-            for (let i = 20; i < n; ++i) {
+            for (let i = 0; i < n; ++i) {
                 $ctx.fillStyle = colors(i / (n - 1));
-                $ctx.fillRect(i, 20, 1, 50);
+                $ctx.fillRect(i, 0, 1, 1);
             }
+
+
 
             // for (let i = 0; i < n; ++i) {
             //     $ctx.fillStyle = colors(i / (n - 1));
@@ -49,10 +63,10 @@
 
 
             // draw 80% rectangle
-            $ctx.beginPath();
-            $ctx.lineWidth = 5;
-            $ctx.rect(margins.left + lightnessScale(firstQuant), margins.top , lightnessScale(lastQuant - firstQuant), 50);
-            $ctx.stroke();
+            // $ctx.beginPath();
+            // $ctx.lineWidth = 5;
+            // $ctx.rect(margins.left + lightnessScale(firstQuant), margins.top , lightnessScale(lastQuant - firstQuant), 50);
+            // $ctx.stroke();
             
         }
     }
