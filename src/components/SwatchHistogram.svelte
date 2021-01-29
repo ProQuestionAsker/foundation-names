@@ -28,11 +28,9 @@
     }
 
     $: graphWidth = $width - margins.left - margins.right;
-
     $: colNum = Math.round( graphWidth / ((blockPadding * 2) + blockWidth))
 
     $: lightBin = bin()
-            // .thresholds([0.15, 0.99])
             .thresholds(($data, min, max) => range(colNum).map(t => min + (t / colNum) * (max - min)))
             .domain([0.15, 0.99])
             .value(d => d.lightness)
@@ -41,6 +39,7 @@
         .range([margins.left, $width - margins.right])
         .domain([0.15, 0.99])
 
+
     // if data needs to be filtered, filter it
     let filteredData = $data;
     $: if (filterProp && filterValue) {
@@ -48,14 +47,20 @@
     }
 
 
-    // update the binned data if data or column number changes
-    $: binnedData = lightBin(filteredData)
 
+  
 
+    // set up tweening function
+    let blockPositions = tweened(null, {
+            duration: 500,
+            easing: cubicOut
+	    })
 
-    let totallyFlat;
+   $: {
+        // bin the data
+        const binnedData = lightBin(filteredData)
 
-    function flattenBins(){
+        // flatten the data with binning information
         let flatBins = []
         binnedData.forEach((bin, i) => {
         const swatches =  bin.map((d, ind) => ({
@@ -70,9 +75,11 @@
         const semiFlat = flatten(flatBins)
         const intFlat = flatten(semiFlat)
 
+        let totallyFlat;
+
         if (step === 'all'){
             console.log('all step')
-            const allFlat = shuffle(intFlat).map((d, i) => {
+            const allFlat = shuffle(intFlat.slice()).map((d, i) => {
                 const row = ~~ (i / colNum)
                 const binNum = i - (colNum * row)
                 const x0 = binnedData[binNum].x0
@@ -83,21 +90,20 @@
                 }
             })
 
-            totallyFlat = allFlat;
+             blockPositions.set(allFlat);
+             console.log({tween: $blockPositions, allFlat})
         }
         else {
-            console.log('not all')
-            totallyFlat = intFlat
+            const semiFlat = flatten(flatBins)
+            const intFlat = flatten(semiFlat)
+             totallyFlat = intFlat
+             blockPositions.set(totallyFlat)
+             console.log({tween: $blockPositions, totallyFlat})
         }
-
-        tweenedData.set(totallyFlat)
+  
     }
 
-    $: tweenedData = tweened(totallyFlat, {
-            duration: 500,
-            easing: cubicOut
-	    })
-    $: binnedData, flattenBins()
+    //$: binnedData, flattenBins()
 
 
     
@@ -109,8 +115,8 @@
     //$: console.log({filteredData, totallyFlat})
 
     function updateTween(){
-        console.log({$tweenedData})
-        tweenedData.set(totallyFlat)
+        // console.log({$tweenedData})
+        // tweenedData.set(totallyFlat)
         
         // if (step === 'all') {
         //     // set bin number to sequential and random
@@ -136,19 +142,19 @@
     }
 
 
-    $: $width, step, flattenBins()
+
     //$: totallyFlat, step, updateTween()
  
 
     // build histogram in canvas
-    function drawHistogram(){
+    $: {
         if ($ctx) {
             scaleCanvas($ctx, $width, $height);
             $ctx.clearRect(0, 0, $width, $height);
 
-            console.log({$tweenedData})
+            console.log({$blockPositions})
 
-           $tweenedData.forEach((swatch, i) => {
+           $blockPositions.forEach((swatch, i) => {
                const x = swatch.x
                const y = swatch.index * (blockHeight + blockPadding)
 
@@ -159,8 +165,8 @@
         }
     }
         
-         
-    $: $tweenedData, drawHistogram()
+    //$: $width, step, organizeData()
+   // $: tweenedData, console.log('tween updated'), drawHistogram()
 
 
 
