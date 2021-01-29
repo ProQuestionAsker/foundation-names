@@ -15,8 +15,6 @@
         bottom: 20
     }
 
-
-
     // Access the context using the 'LayerCake' keyword
     // Grab some helpful functions
     const { data, xGet, yGet, width, height } = getContext('LayerCake');
@@ -27,23 +25,23 @@
 
     const n = 512;
 
-    export let block = 'off'
-    export let filterProp;
-    export let filterValue;
+    // export let block = 'off'
+    // export let filterProp;
+    // export let filterValue;
     export let step; 
 
         // if data needs to be filtered, filter it
-        let filteredData = $data;
-    $: if (filterProp && filterValue) {
-        filteredData = $data.filter(d => d[filterProp] === filterValue)
-    }
+    //     let filteredData = $data;
+    // $: if (filterProp && filterValue) {
+    //     filteredData = $data.filter(d => d[filterProp] === filterValue)
+    // }
 
-    $: flatLight = filteredData.map(d => +d.lightness).sort((a, b) => ascending(a, b))
+    // $: flatLight = filteredData.map(d => +d.lightness).sort((a, b) => ascending(a, b))
 
 
-    $: firstQuant = quantile(flatLight, 0.1)
-    $: lastQuant = quantile(flatLight, 0.9)
-    $: lightnessScale = scaleLinear().range([margins.left, $width - margins.right]).domain([0.15, 0.99])
+    // $: firstQuant = quantile(flatLight, 0.1)
+    // $: lastQuant = quantile(flatLight, 0.9)
+    // $: lightnessScale = scaleLinear().range([margins.left, $width - margins.right]).domain([0.15, 0.99])
 
     $: {
         if ($ctx) {
@@ -52,7 +50,6 @@
 
             if (step !== 'all') {
                 $ctx.canvas.style.width = `calc(100% - ${margins.right + margins.left}px)`;
-                $ctx.canvas.style.marginLeft = `${margins.left}px`;
                 $ctx.canvas.style.marginTop = `${margins.top}px`;
                 $ctx.canvas.style.height = "20px";
                 $ctx.canvas.style.imageRendering = "pixelated";
@@ -77,14 +74,14 @@
             //     $ctx.fillRect(i, 0, 1, 1);
             // }
 
-            if (block === 'on'){
-                console.log({check: lightnessScale(firstQuant), check2: lightnessScale(lastQuant)})
-                // draw 80% rectangle
-                //$ctx.beginPath();
-                $ctx.lineWidth = 1;
-                $ctx.strokeRect(lightnessScale(firstQuant), 0 , lightnessScale(lastQuant - firstQuant), 20);
-                // $ctx.stroke();
-            }
+            // if (block === 'on'){
+            //     console.log({check: lightnessScale(firstQuant), check2: lightnessScale(lastQuant)})
+            //     // draw 80% rectangle
+            //     //$ctx.beginPath();
+            //     $ctx.lineWidth = 1;
+            //     $ctx.strokeRect(lightnessScale(firstQuant), 0 , lightnessScale(lastQuant - firstQuant), 20);
+            //     // $ctx.stroke();
+            // }
 
 
             

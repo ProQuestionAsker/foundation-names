@@ -8,13 +8,11 @@
 
     // Access the context using the 'LayerCake' keyword
     // Grab some helpful functions
-    const { data, width, height } = getContext('LayerCake');
+    const { data, x, width, height, xScale } = getContext('LayerCake');
 
     const { ctx } = getContext('canvas');
 
     export let blockWidth = 10;
-    export let filterProp;
-    export let filterValue;
     export let step;
 
     $: blockHeight = blockWidth / 2;
@@ -35,23 +33,9 @@
             .domain([0.15, 0.99])
             .value(d => d.lightness)
 
-    $: lightnessScale = scaleLinear()
-        .range([margins.left, $width - margins.right])
-        .domain([0.15, 0.99])
 
-
-    // if data needs to be filtered, filter it
-    let filteredData = $data;
-    $: if (filterProp && filterValue) {
-        filteredData = $data.filter(d => d[filterProp] === filterValue)
-    }
-
-
-
-  
-
-    // set up tweening function
-    let blockPositions = tweened(filteredData.map(d => ({x: 0, index: 0})), {
+        // // set up tweening function
+    $: blockPositions = tweened($data.map(d => ({x: 0, index: 0})), {
             duration: 500,
             easing: cubicOut
         })
@@ -61,14 +45,14 @@
 
    $: {
         // bin the data
-        const binnedData = lightBin(filteredData)
+        const binnedData = lightBin($data)
 
         // flatten the data with binning information
         let flatBins = []
         binnedData.forEach((bin, i) => {
         const swatches =  bin.map((d, ind) => ({
             ...d,
-            x: lightnessScale(bin.x0),
+            x: $xScale(bin.x0),
             index: ind
         }))
 
@@ -94,7 +78,7 @@
                 const x0 = binnedData[binNum].x0
                 return {
                     ...d, 
-                    x: lightnessScale(x0),
+                    x: $xScale(x0),
                     index: row,
                 }
             })
@@ -102,8 +86,6 @@
 
             onlyPositions = sorted.map(d => ({x: d.x, index: d.index}))
 
-            //  blockPositions.set(sorted);
-            //  console.log({tween: $blockPositions, allFlat})
         }
         else {
             const semiFlat = flatten(flatBins)
@@ -121,49 +103,6 @@
     }
 
 
-    //$: binnedData, flattenBins()
-
-
-    
-    // $: tweenedData = tweened(totallyFlat, {
-	// 	duration: 500,
-	// 	easing: cubicOut
-	// })
-
-    //$: console.log({filteredData, totallyFlat})
-
-    function updateTween(){
-        // console.log({$tweenedData})
-        // tweenedData.set(totallyFlat)
-        
-        // if (step === 'all') {
-        //     // set bin number to sequential and random
-        //     shuffle(totallyFlat); 
-        //     const allFlat = totallyFlat.map((d, i) => {
-        //         const row = ~~ (i / colNum)
-        //         const binNum = i - (colNum * row)
-        //         const x0 = binnedData[binNum].x0
-        //         return {
-        //             ...d, 
-        //             x: lightnessScale(x0),
-        //             index: row,
-        //         }
-        //     })
-
-
-        //     tweenedData.set(allFlat)
-        // } 
-        // else {
-        //     const histFlat = totallyFlat;
-        //     tweenedData.set(histFlat)
-        // }
-    }
-
-
-
-    //$: totallyFlat, step, updateTween()
- 
-
     // build histogram in canvas
     $: {
         if ($ctx) {
@@ -179,19 +118,13 @@
                    const hex = flattenedData[i].hex
                    $ctx.fillStyle = hex;
                }
-               //console.log({test: flattenedData[i].hex})
 
-               //$ctx.fillStyle = hex;
                $ctx.fillRect(x, y + margins.top, blockWidth, blockHeight)
            })
 
         }
     }
-        
-    //$: $width, step, organizeData()
-   // $: tweenedData, console.log('tween updated'), drawHistogram()
-
-
+    
 
 
 </script>

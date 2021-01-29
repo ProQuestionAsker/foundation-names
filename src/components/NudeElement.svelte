@@ -2,13 +2,18 @@
     import data from "../data/nude_export.csv"
     import SwatchHistogram from "./SwatchHistogram.svelte"
     import Gradient from "./Gradient.svelte"
+    import GradientAnnotation from "./GradientAnnotation.svelte"
     import { LayerCake, Canvas, Svg } from "layercake";
 
     export let step;
+
+    const xKey = 'lightness'
     
 
     $: filterValue = step === 'natural' ? 'natural' : 'nude'
     $: blockValue = step === 'all' || step === 'sort' ? 'off' : 'on'
+
+    $: filteredData = data.filter(d => d.namingScheme === filterValue)
 
 </script>
 
@@ -16,18 +21,18 @@
 <div class='container'>
     <h3>Shades with "{filterValue}" in the name</h3>
     <div class='chart-container container-hist'>
-        <LayerCake data={data}>
+        <LayerCake data={filteredData} x = {d => d.lightness}
+            padding={ { top: 20, right: 20, bottom: 20, left: 20 } }
+            xDomain = {[0.15, 0.99]}>
             <Canvas>
-                <Gradient block={blockValue} filterProp = "namingScheme" 
-                {filterValue} {step}/> 
+                <Gradient {step}/> 
             </Canvas>
             <Canvas class="hist">
-                <SwatchHistogram blockWidth={20} 
-                    filterProp = "namingScheme" 
-                    {filterValue} 
-                    {step} />
+                <SwatchHistogram blockWidth={20} {step} />
             </Canvas>
-            <Svg zIndex={3}></Svg>
+            <!-- <Svg zIndex={3}>
+                <GradientAnnotation block={blockValue} />
+            </Svg> -->
         </LayerCake>
     </div>
 
