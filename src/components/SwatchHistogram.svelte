@@ -18,7 +18,7 @@
     let blockPadding = 2;
 
     const margins = {
-        top: 20,
+        top: 30,
         left: 20,
         right: 20, 
         bottom: 20
@@ -55,7 +55,7 @@
 
                 bin.forEach((swatch, i) => {
                     $ctx.fillStyle = swatch.hex;
-                    $ctx.fillRect(x, (blockHeight + blockPadding) * i, blockWidth, blockHeight);
+                    $ctx.fillRect(x, (blockHeight + blockPadding) * i + margins.top, blockWidth, blockHeight);
                     $ctx.fill();
                 })
             })
