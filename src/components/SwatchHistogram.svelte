@@ -1,8 +1,9 @@
 <script>
     import { getContext } from 'svelte';
-    import { flatten, scaleCanvas } from 'layercake';
+    import { calcExtents, flatten, scaleCanvas } from 'layercake';
     import { extent, range, bin, groups, ascending, rollups } from 'd3-array'
     import { scaleLinear } from 'd3-scale';
+    import { tweened } from 'svelte/motion'
 
     // Access the context using the 'LayerCake' keyword
     // Grab some helpful functions
@@ -13,6 +14,7 @@
     export let blockWidth = 10;
     export let filterProp;
     export let filterValue;
+    export let step;
 
     $: blockHeight = blockWidth / 2;
     let blockPadding = 2;
@@ -33,7 +35,9 @@
             .domain([0, 1])
             .value(d => d.lightness)
 
-    $: lightnessScale = scaleLinear().range([margins.left, $width - margins.right]).domain([0.15, 0.99])
+    $: lightnessScale = scaleLinear()
+        .range([margins.left, $width - margins.right])
+        .domain([0.15, 0.99])
 
     // if data needs to be filtered, filter it
     let filteredData = $data;
@@ -50,8 +54,21 @@
             scaleCanvas($ctx, $width, $height);
             $ctx.clearRect(0, 0, $width, $height);
 
-            binnedData.forEach(bin => {
-                const x = lightnessScale(bin.x0)
+            if (step === 'all'){
+                filteredData.forEach((swatch, i) => {
+                    const rowNumber = (~~ (i / colNum))
+                    const x = (i - (colNum * rowNumber)) * (blockWidth + blockPadding)
+                    const y = rowNumber * (blockHeight + blockPadding)
+
+                    $ctx.fillStyle = swatch.hex;
+                    $ctx.fillRect(margins.left + x, y + margins.top, blockWidth, blockHeight);
+                    $ctx.fill();
+                })
+            }
+            else {
+                // arrange by bins
+                binnedData.forEach(bin => {
+                const x = lightnessScale(bin.x0) - (blockWidth / 2)
 
                 bin.forEach((swatch, i) => {
                     $ctx.fillStyle = swatch.hex;
@@ -60,6 +77,8 @@
                 })
             })
         }
+            }
+            
     }
 
 

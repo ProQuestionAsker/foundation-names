@@ -21,7 +21,8 @@
             <Canvas class="hist">
                 <SwatchHistogram blockWidth={20} 
                     filterProp = "namingScheme" 
-                    {filterValue} />
+                    {filterValue} 
+                    {step} />
             </Canvas>
         </LayerCake>
     </div>
