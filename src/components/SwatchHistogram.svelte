@@ -55,7 +55,8 @@
             duration: 500,
             easing: cubicOut
         })
-        
+      
+    let flattenedData;
 
 
    $: {
@@ -81,6 +82,8 @@
         }))
 
         let onlyPositions;
+
+        flattenedData = intFlat
 
         const shuffled = shuffle(intFlat.slice())
 
@@ -167,13 +170,18 @@
             scaleCanvas($ctx, $width, $height);
             $ctx.clearRect(0, 0, $width, $height);
 
-
-
            $blockPositions.forEach((swatch, i) => {
                const x = swatch.x
                const y = swatch.index * (blockHeight + blockPadding)
+               //const hex = flattenedData[i].hex
 
-               $ctx.fillStyle = swatch.hex;
+               if (flattenedData[i]){
+                   const hex = flattenedData[i].hex
+                   $ctx.fillStyle = hex;
+               }
+               //console.log({test: flattenedData[i].hex})
+
+               //$ctx.fillStyle = hex;
                $ctx.fillRect(x, y + margins.top, blockWidth, blockHeight)
            })
 
