@@ -1,13 +1,13 @@
 <script>
     import { getContext } from 'svelte';
     import { calcExtents, flatten, scaleCanvas } from 'layercake';
-    import { extent, range, bin, shuffle, ascending } from 'd3-array'
+    import { extent, range, bin, shuffle, ascending, quantile } from 'd3-array'
     import { scaleLinear } from 'd3-scale';
 
 
     // Access the context using the 'LayerCake' keyword
     // Grab some helpful functions
-    const { data, width, height } = getContext('LayerCake');
+    const { data, width, height, x, xScale } = getContext('LayerCake');
 
     const margins = {
         top: 40,
@@ -18,19 +18,35 @@
 
     $: graphWidth = $width - margins.left - margins.right;
 
-    // // if data needs to be filtered, filter it
-    // let filteredData = $data;
-    // $: if (filterProp && filterValue) {
-    //     filteredData = $data.filter(d => d[filterProp] === filterValue)
-    // }
 
-    // $: flatLight = filteredData.map(d => +d.lightness).sort((a, b) => ascending(a, b))
+    $: flatLight = $data.map(d => +d.lightness).sort((a, b) => ascending(a, b))
 
 
-    // $: firstQuant = quantile(flatLight, 0.1)
-    // $: lastQuant = quantile(flatLight, 0.9)
-    // $: lightnessScale = scaleLinear().range([margins.left, $width - margins.right]).domain([0.15, 0.99])
+    $: firstQuant = quantile(flatLight, 0.1)
+    $: lastQuant = quantile(flatLight, 0.9)
+
+    $: halfWay = ((lastQuant - firstQuant) / 2) + firstQuant
 
 </script>
 
-<rect ></rect>
+<text
+    x = {$xScale(halfWay)}
+    text-anchor = "middle"
+    alignment-baseline = "hanging"
+    font-size = "12px"
+    fill = var(--gray)
+>80% of shades fall in this range</text>
+
+<rect x = {$xScale(firstQuant)}
+    y = 15
+    width = {$xScale(lastQuant) - $xScale(firstQuant)}
+    height = 20
+    fill = "none"
+    stroke = "black"
+    stroke-width = 3
+></rect>
+
+<style>
+
+</style>
+

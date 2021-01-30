@@ -19,7 +19,7 @@
     let blockPadding = 2;
 
     const margins = {
-        top: 40,
+        top: 50,
         left: 20,
         right: 20, 
         bottom: 20
@@ -116,11 +116,57 @@
 
                if (flattenedData[i]){
                    const hex = flattenedData[i].hex
-                   $ctx.fillStyle = hex;
+ 
+                    if (step === 'nudestix'){
+                        // if nudestix step then full opacity for nudestix and half for everything else
+                        $ctx.globalAlpha = flattenedData[i].brand === 'NUDESTIX' ? 1 : 0.5
+
+                        if (flattenedData[i].brand === 'NUDESTIX'){
+                            $ctx.lineWidth = 1
+                            $ctx.strokeRect(x, y + margins.top, blockWidth, blockHeight)
+                        }
+                    }
+
+                    if (step === 'highlight'){
+                        const name = flattenedData[i].name 
+                        const highlightedNames = ['nude mocha', 'nude vanilla', 'nude bisque'];
+                        const match = highlightedNames.includes(name)
+
+                        $ctx.globalAlpha = match ? 1 : 0.5
+
+                        if (match){
+                            $ctx.strokeStyle = "#000000"
+                            $ctx.lineWidth = 2
+                            $ctx.strokeRect(x, y + margins.top, blockWidth, blockHeight)                      
+                        }
+                    }
+
+                    $ctx.fillStyle = hex;
+                    $ctx.fillRect(x, y + margins.top , blockWidth, blockHeight)
+
+                    if (step === 'highlight'){
+                        const name = flattenedData[i].name 
+                        const highlightedNames = ['nude mocha', 'nude vanilla', 'nude bisque'];
+                        const match = highlightedNames.includes(name)
+
+                        if (match){
+                            $ctx.strokeStyle = "#FFFFFF"
+                            $ctx.fillStyle = "#000000"
+                            $ctx.font = 'bold 14px sans-serif'
+                            $ctx.textAlign = name === 'nude mocha' ?  'start' : 'center'
+                            $ctx.textBaseline = 'hanging'
+                            $ctx.strokeText(name, x, y + margins.top + blockHeight + blockPadding) 
+                            $ctx.fillText(name, x, y + margins.top + blockHeight + blockPadding)
+                        }
+
+ 
+                    }
+                 
                }
 
-               $ctx.fillRect(x, y + margins.top, blockWidth, blockHeight)
+               
            })
+           
 
         }
     }

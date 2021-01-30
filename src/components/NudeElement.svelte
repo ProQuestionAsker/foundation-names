@@ -30,9 +30,11 @@
             <Canvas class="hist">
                 <SwatchHistogram blockWidth={20} {step} />
             </Canvas>
-            <!-- <Svg zIndex={3}>
-                <GradientAnnotation block={blockValue} />
-            </Svg> -->
+            <Svg zIndex={3}>
+                {#if (step !== 'all' && step !== 'sort') }
+                    <GradientAnnotation block={blockValue} />
+                {/if}
+            </Svg>
         </LayerCake>
     </div>
 
@@ -45,7 +47,7 @@
     }
 
     .container-hist {
-        height: 300px;
+        height: 500px;
     }
 
 </style>
