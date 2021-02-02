@@ -24,9 +24,9 @@
   --bg: var(--white);
   --fg: var(--off-black);
   --default: var(--gray-light);
-  --primary: var(--blue);
+  --primary: var(--red);
   --secondary: var(--green);
-  --accent-color: var(--primary);
+  --accent-color: cornflowerblue;
 
   /* water.css */
 
