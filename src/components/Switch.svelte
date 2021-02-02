@@ -50,9 +50,9 @@
 <div class="s s--multi">
     <fieldset>
     <legend>{label}</legend>
-        {#each options as option}
-            <input type="radio" id={option} name="option" value={option} bind:group={value}>
-            <label for={option}>
+        {#each options as option, i}
+            <input type="radio" id={`switch-${id}-${i}`} name="option" value={option} bind:group={value}>
+            <label for={`switch-${id}-${i}`}>
                 {option}
             </label> 
         {/each}

@@ -9,6 +9,7 @@
   import Distribution from "./Distribution.svelte"
 import GradientHistogram from "./GradientHistogram.svelte";
   import Nude from "./Nude.svelte"
+  import Food from "./Food.svelte"
 
 let scrollytelling;
 $: console.log({scrollytelling})
@@ -33,6 +34,7 @@ $: console.log({scrollytelling})
 {/each} -->
 
 <Nude state = {scrollytelling}/>
+<Food />
 
 
 </article>
