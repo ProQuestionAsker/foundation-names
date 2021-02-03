@@ -44,7 +44,7 @@
                     <!-- <SwatchHistogram blockWidth={20}/> -->
                 </Canvas>
                 <Svg zIndex={3}>            
-                    <Line allData = {data} blockWidth = {20} />
+                    <Line allData = {data} blockWidth = {20} step="compare"/>
                 </Svg>
             </LayerCake>
         </div>

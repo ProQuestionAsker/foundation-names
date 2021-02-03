@@ -117,11 +117,13 @@
     }
 
     .full {
-        fill: #01A38A;
-        stroke: #01A38A;
+        fill: #999;
+        stroke: #999;
+        stroke-dasharray: 5px;
     }
     .filtered {
-        fill: #FE9100;
-        stroke: #FE9100;
+        fill: #574CFA;
+        stroke: #574CFA;
+
     }
 </style>
