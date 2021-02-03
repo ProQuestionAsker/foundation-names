@@ -31,6 +31,7 @@
 
 <text
     x = {$xScale(halfWay)}
+    y = {$height + 25}
     text-anchor = "middle"
     alignment-baseline = "hanging"
     font-size = "12px"
@@ -38,7 +39,7 @@
 >80% of shades fall in this range</text>
 
 <rect x = {$xScale(firstQuant)}
-    y = 15
+    y = {$height}
     width = {$xScale(lastQuant) - $xScale(firstQuant)}
     height = 20
     fill = "none"

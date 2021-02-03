@@ -30,11 +30,13 @@
         <LayerCake data={filteredData} x = {d => d.lightness}
             padding={ { top: 20, right: 20, bottom: 20, left: 20 } }
             xDomain = {[0.15, 0.99]}>
-            <Canvas>
+            <Canvas id='test'>
                 <Gradient {step}/> 
             </Canvas>
-            <Canvas class="hist">                
-                <SwatchHistogram bind:binnedData = {filteredBins} blockWidth={blockWidth} {step} />
+            <Canvas class="hist">     
+              
+                    <SwatchHistogram bind:binnedData = {filteredBins} blockWidth={blockWidth} {step} />
+        
             </Canvas>
             <Svg zIndex={3}>
                 {#if (step !== 'all' && step !== 'sort') }
@@ -43,7 +45,8 @@
                 {#if (step === 'distribution' || step === 'compare')}        
                     <Line {allData} {filteredBins} {blockWidth} {step}/>
                 {/if}
-            </Svg>
+            </Svg>            
+ 
         </LayerCake>
     </div>
 
@@ -58,5 +61,6 @@
     .container-hist {
         height: 500px;
     }
+
 
 </style>

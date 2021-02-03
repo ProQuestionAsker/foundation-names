@@ -6,7 +6,7 @@
     import { hsl } from 'd3-color';
     import { interpolateHslLong} from 'd3-interpolate'
     
-    const marginTop = 15;
+    const marginTop = 5;
 
     // Access the context using the 'LayerCake' keyword
     // Grab some helpful functions
@@ -30,6 +30,7 @@
                 $ctx.canvas.style.marginTop = `${marginTop}px`;
                 $ctx.canvas.style.height = "20px";
                 $ctx.canvas.style.imageRendering = "pixelated";
+                $ctx.canvas.style.transform = `translate(0, ${$height - marginTop}px)`
 
                 // draw rectangle
                 for (let i = 0; i < n; ++i) {

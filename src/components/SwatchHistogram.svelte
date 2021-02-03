@@ -23,7 +23,7 @@
         top: 50,
         left: 20,
         right: 20, 
-        bottom: 20
+        bottom: 10
     }
 
     $: graphWidth = $width - margins.left - margins.right;
@@ -40,6 +40,12 @@
             duration: 500,
             easing: cubicOut
         })
+
+    $: blockOpacity = tweened(1, {
+        duration: 1000,
+        delay: 1000,
+        easing: cubicOut
+    })
       
     let flattenedData;
 
@@ -99,9 +105,11 @@
         }
 
         blockPositions.set(onlyPositions);
-
   
     }
+
+    $: if (step === 'distribution') blockOpacity.set(0)
+
 
 
     // build histogram in canvas
@@ -112,7 +120,7 @@
 
            $blockPositions.forEach((swatch, i) => {
                const x = swatch.x
-               const y = swatch.index * (blockHeight + blockPadding)
+               const y = $height - margins.bottom - ((swatch.index + 1) * (blockHeight + blockPadding))
                //const hex = flattenedData[i].hex
 
                if (flattenedData[i]){
@@ -124,7 +132,7 @@
 
                         if (flattenedData[i].brand === 'NUDESTIX'){
                             $ctx.lineWidth = 1
-                            $ctx.strokeRect(x, y + margins.top, blockWidth, blockHeight)
+                            $ctx.strokeRect(x, y, blockWidth, blockHeight)
                         }
                     }
 
@@ -138,12 +146,18 @@
                         if (match){
                             $ctx.strokeStyle = "#000000"
                             $ctx.lineWidth = 2
-                            $ctx.strokeRect(x, y + margins.top, blockWidth, blockHeight)                      
+                            $ctx.strokeRect(x, y, blockWidth, blockHeight)                      
                         }
                     }
 
-                    $ctx.fillStyle = hex;
-                    $ctx.fillRect(x, y + margins.top , blockWidth, blockHeight)
+                    if (step !== 'compare'){
+                        if (step === 'distribution'){
+                            $ctx.globalAlpha = $blockOpacity
+                        }
+                        $ctx.fillStyle = hex;
+                        $ctx.fillRect(x, y, blockWidth, blockHeight)
+                    }
+
 
                     if (step === 'highlight'){
                         const name = flattenedData[i].name 
@@ -156,8 +170,8 @@
                             $ctx.font = 'bold 14px sans-serif'
                             $ctx.textAlign = name === 'nude mocha' ?  'start' : 'center'
                             $ctx.textBaseline = 'hanging'
-                            $ctx.strokeText(name, x, y + margins.top + blockHeight + blockPadding) 
-                            $ctx.fillText(name, x, y + margins.top + blockHeight + blockPadding)
+                            $ctx.strokeText(name, x, y + blockHeight + blockPadding) 
+                            $ctx.fillText(name, x, y + blockHeight + blockPadding)
                         }
 
  

@@ -3,7 +3,7 @@
     import { extent, range, bin, shuffle, ascending, max } from 'd3-array'
     import { format } from 'd3-format';
     import { scaleLinear } from 'd3-scale';
-    import { line, curveStepAfter } from 'd3-shape';
+    import { line, curveStepBefore } from 'd3-shape';
     import { fade } from 'svelte/transition'
 
 
@@ -29,16 +29,25 @@
         top: 50,
         left: 20,
         right: 20, 
-        bottom: 20
+        bottom: 10
     }
 
     $: graphWidth = $width - margins.left - margins.right;
     $: colNum = Math.round( graphWidth / ((blockPadding * 2) + blockWidth))
 
+    $: maxScale = max(scaledDistribution.map(d => d.count))
+
+    $: yScale = scaleLinear()
+        .range([0, +maxScale])
+        .domain([height, +maxScale * (blockHeight + blockPadding)])
+
+        $: console.log({test: yScale(5), maxScale})
+
     $: lineGenerator = line()
-        .x(d => $xScale(d.x0))
-        .y(d => margins.top + d.count * (blockHeight + blockPadding))
-        .curve(curveStepAfter)
+        .x(d => $xScale(d.x1))
+        //.y(d => yScale(d.count))
+        .y(d => $height - margins.bottom - (+d.count * (blockHeight + blockPadding)))
+        .curve(curveStepBefore)
 
 
     $: lightBin = bin()
@@ -58,7 +67,7 @@
         x0: d.x0,
         x1: d.x1,
         count: d.length, 
-        center: (d.x1 - d.x0) + d.x0
+        center: ((d.x1 - d.x0) / 2) + d.x0
     }))
     // let distributionScale;
     // let scaledDistribution;
@@ -75,6 +84,12 @@
             count: formatNumber(distributionScale(d.count)),
             center: (d.x1 - d.x0) + d.x0
         }))
+        
+        $: scaledDistribution.push({count: 0, x1: 1})
+        $: scaledDistribution.unshift({count: 0, x1: 0.15})
+        $: binnedFiltered.push({count: 0, x1: 1})
+        $: binnedFiltered.unshift({count: 0, x1: 0.15})//.sort((a, b) => ascending(a.x1, b.x1))
+
 
         $: linePath = lineGenerator(scaledDistribution)
         $: filteredLine = lineGenerator(binnedFiltered)
