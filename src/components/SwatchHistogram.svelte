@@ -14,6 +14,7 @@
 
     export let blockWidth = 10;
     export let step;
+    export let binnedData;
 
     $: blockHeight = blockWidth / 2;
     let blockPadding = 2;
@@ -45,7 +46,7 @@
 
    $: {
         // bin the data
-        const binnedData = lightBin($data)
+        binnedData = lightBin($data)
 
         // flatten the data with binning information
         let flatBins = []

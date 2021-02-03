@@ -2,6 +2,7 @@
     import data from "../data/shades_export.csv"
     import SwatchHistogram from "./SwatchHistogram.svelte"
     import Gradient from "./Gradient.svelte"
+    import Line from "./Line.svelte"
     import GradientAnnotation from "./GradientAnnotation.svelte"
     import { LayerCake, Canvas, Svg } from "layercake";
     import Switch from "./Switch.svelte"
@@ -18,7 +19,7 @@
         const cat = data.filter(d => d.category === sectionName)
         const scheme = cat.filter(d => switchValue[sectionName] === 'varied' ? 
             d.namingScheme === 'variety' : d.namingScheme === 'NA') 
-            console.log({cat, scheme, switchValue, sectionName})
+            // console.log({cat, scheme, switchValue, sectionName})
         return cat
     }
 
@@ -40,8 +41,11 @@
                     <Gradient /> 
                 </Canvas>
                 <Canvas class="hist">
-                    <SwatchHistogram blockWidth={20}/>
+                    <!-- <SwatchHistogram blockWidth={20}/> -->
                 </Canvas>
+                <Svg zIndex={3}>            
+                    <Line allData = {data} blockWidth = {20} />
+                </Svg>
             </LayerCake>
         </div>
 
