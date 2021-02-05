@@ -29,11 +29,11 @@
 </script>
 
 <h2>Food and Drink</h2>
-{#each sections as sectionLabel}
+{#each sections as sectionLabel (sectionLabel)}
     <div class='container'>
         <h3>Shades with {sectionLabel} Items in the name</h3>
         <div class='chart-container container-hist'>
-            <!-- <Switch bind:value={switchValue[sectionLabel]} label="Choose a naming scheme" design="multi" options={['consistent', 'varied']}  /> -->
+            <Switch bind:value={switchValue[sectionLabel]} label="Choose a naming scheme" design="multi" options={['consistent', 'varied']}  />
             <LayerCake data={filterData(sectionLabel)} x = {d => d.lightness}
                 padding={ { top: 20, right: 20, bottom: 20, left: 20 } }
                 xDomain = {[0.15, 0.99]}>
@@ -41,10 +41,10 @@
                     <Gradient /> 
                 </Canvas>
                 <Canvas class="hist">
-                    <!-- <SwatchHistogram blockWidth={20}/> -->
+                    <SwatchHistogram blockWidth={20} />
                 </Canvas>
                 <Svg zIndex={3}>            
-                    <Line allData = {data} blockWidth = {20} step="compare"/>
+                    <!-- <Line allData = {data} blockWidth = {20} step="compare"/> -->
                 </Svg>
             </LayerCake>
         </div>

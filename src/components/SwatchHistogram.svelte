@@ -10,13 +10,14 @@
     // Grab some helpful functions
     const { data, x, width, height, xScale } = getContext('LayerCake');
 
+    $: console.log({$data})
+
     const { ctx } = getContext('canvas');
 
     export let blockWidth = 10;
     export let step;
     export let binnedData;
-
-    $: blockHeight = blockWidth / 2;
+    export let blockHeight = blockWidth / 2;
     let blockPadding = 2;
 
     const margins = {
@@ -155,7 +156,17 @@
                             $ctx.globalAlpha = $blockOpacity
                         }
                         $ctx.fillStyle = hex;
+
+                        const name = flattenedData[i].name 
                         $ctx.fillRect(x, y, blockWidth, blockHeight)
+                        // $ctx.strokeStyle = "#FFFFFF"
+                            // // $ctx.fillStyle = "#000000"
+                            // $ctx.font = '14px sans-serif'
+                            // $ctx.textAlign = 'center'
+                            // $ctx.textBaseline = 'middle'
+                            // // $ctx.strokeText(name, x, y + blockHeight + blockPadding) 
+                            // $ctx.fillText(name, x, y + blockHeight + blockPadding)
+
                     }
 
 

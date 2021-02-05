@@ -19,8 +19,6 @@
     export let blockWidth = 10;
     export let step;
 
-    // binned data from swatch histograms component
-    export let filteredBins;
 
     $:  blockHeight = blockWidth / 2
     const blockPadding = 2;
@@ -69,9 +67,6 @@
         count: d.length, 
         center: ((d.x1 - d.x0) / 2) + d.x0
     }))
-    // let distributionScale;
-    // let scaledDistribution;
-    // let linePath;
 
 
         $: distributionScale = scaleLinear()
@@ -105,7 +100,19 @@
 
     {#if step === 'compare'}
         <path class='path-line full' transition:fade d={linePath}></path>
+
+        <g class='annotation__low'>
+            <text>
+                <tspan>When the all shades</tspan>
+                <tspan>line appears above the </tspan>
+                <tspan>"nude" shades line, there</tspan>
+                <tspan>are fewer shades named "nude"</tspan>
+                <tspan>than we'd expect in this color range</tspan>
+            </text>
+
+        </g>
     {/if}
+
 {/if}
 
 <style>

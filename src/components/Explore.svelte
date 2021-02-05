@@ -1,0 +1,104 @@
+<script>
+    import data from "../data/shades_export.csv"
+    import SwatchHistogram from "./SwatchHistogram.svelte"
+    import { group, ascending} from 'd3-array'
+    import Gradient from "./Gradient.svelte"
+    import Line from "./Line.svelte"
+    import GradientAnnotation from "./GradientAnnotation.svelte"
+    import { LayerCake, Canvas, Svg } from "layercake";
+    import Switch from "./Switch.svelte"
+
+    let categorySel = 'all'
+    let brandSel = 'All'
+
+    //$: filteredData = data.filter(d => d.category === 'food').filter(d => switchValue === 'varied' ? d.namingScheme === 'variety' : d.namingScheme === 'NA' )
+
+    const sections = ['drink', 'food']
+
+    let filteredLength = 6000
+
+    $: blockWidth = filteredLength > 1000 ? 5 : 10 
+    $: blockHeight = filteredLength > 1000 ? 2 : blockWidth / 2
+
+    let allBrands = Array.from(group(data, d => d.brand).keys()).sort((a, b) => ascending(a.toLowerCase(), b.toLowerCase()))
+    allBrands.unshift('All')
+
+    let allCategories = [];
+
+    let filteredData;
+
+    function filterData(){
+        let filtered;
+        if (categorySel === 'all' && brandSel === 'All') filtered = data;
+        else if (categorySel === 'all' && brandSel !== 'All') filtered = data.filter(d => d.brand === brandSel);
+        else if (categorySel !== 'all' && brandSel === 'All') filtered = data.filter(d => d.category === categorySel);
+        else filtered = data.filter(d => d.category === categorySel && d.brand === brandSel)
+
+        filteredLength = filtered.length
+        
+        filteredData = filtered
+
+        // finding all categories for selected brand
+
+        if (brandSel === 'All'){
+            allCategories = Array.from(group(data, d => d.category).keys()).sort((a, b) => ascending(a, b)).filter(d => d !== 'NA')
+            allCategories.unshift('all')
+        } 
+        else {
+            const selBrand = data.filter(d => d.brand === brandSel)
+            allCategories = Array.from(group(selBrand, d => d.category).keys()).sort((a, b) => ascending(a, b)).filter(d => d !== 'NA')
+            allCategories.unshift('all')
+        }
+
+    }
+
+    $: categorySel, brandSel, filterData()
+    $: filteredData, blockWidth, blockHeight
+    $: console.log({filteredLength, blockWidth, blockHeight})
+
+
+   
+</script>
+
+<h2>Explore</h2>
+    <div class='container'>
+        <h3>Explore the shades</h3>
+        <div class='ui-elements'>
+            <select bind:value={brandSel} on:blur="{() => filterData()}">
+                {#each allBrands as brand}
+                    <option>{brand}</option>
+                {/each}
+            </select>
+
+            <select bind:value={categorySel} on:blur="{() => filterData()}">
+                {#each allCategories as category}
+                    <option>{category}</option>
+                {/each}
+            </select>
+        </div>
+        <div class='chart-container container-hist'>
+            <LayerCake data={filteredData} x = {d => d.lightness}
+                padding={ { top: 20, right: 20, bottom: 20, left: 20 } }
+                xDomain = {[0.15, 0.99]}>
+                <Canvas>
+                    <!-- <Gradient />  -->
+                </Canvas>
+                <Canvas class="hist">
+                    <SwatchHistogram {blockWidth} {blockHeight} />
+                </Canvas>
+                <Svg zIndex={3}>            
+                    <!-- <Line allData = {data} blockWidth = {20} step="compare"/> -->
+                </Svg>
+            </LayerCake>
+        </div>
+
+    </div>
+
+
+
+
+<style>
+    .chart-container{
+        height: 1000px;
+    }
+</style>

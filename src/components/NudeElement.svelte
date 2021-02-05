@@ -34,9 +34,7 @@
                 <Gradient {step}/> 
             </Canvas>
             <Canvas class="hist">     
-              
-                    <SwatchHistogram bind:binnedData = {filteredBins} blockWidth={blockWidth} {step} />
-        
+                <SwatchHistogram bind:binnedData = {filteredBins} blockWidth={blockWidth} {step} />
             </Canvas>
             <Svg zIndex={3}>
                 {#if (step !== 'all' && step !== 'sort') }
