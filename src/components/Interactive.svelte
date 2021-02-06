@@ -35,7 +35,7 @@
     $: blockValue = step === 'all' || step === 'sort' ? 'off' : 'on'
 
     let wordWidth = 100;
-    let wordHeight = 14;
+    let wordHeight = 12;
     $: wordColNum = Math.round(graphWidth / ((blockPadding * 2) + wordWidth))
 
     // binning data

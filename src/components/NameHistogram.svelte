@@ -1,7 +1,7 @@
 <script>
     import { getContext } from 'svelte';
     import { calcExtents, flatten, scaleCanvas } from 'layercake';
-    import { extent, range, bin, shuffle, ascending } from 'd3-array'
+    import { extent, range, bin, shuffle, descending } from 'd3-array'
     import { scaleLinear } from 'd3-scale';
     import { tweened } from 'svelte/motion'
     import { cubicOut } from 'svelte/easing';
@@ -24,11 +24,15 @@
         let flatBins = []
 
         binnedData.forEach((bin, i) => {
-        const swatches =  bin.map((d, ind) => ({
+        const sorted = bin.sort((a, b) => descending(a.name, b.name))
+        console.log({sorted})
+        const swatches =  sorted.map((d, ind) => ({
             ...d,
             x: $xScale(bin.x0),
             index: ind
         }))
+        
+        console.log({swatches})
 
         flatBins.push(swatches)
     })
@@ -38,6 +42,7 @@
             id: i
         }))
         flattenedData = intFlat
+        console.log({flattenedData})
     }
 
 
@@ -62,8 +67,8 @@
                 $ctx.strokeStyle = "#FFFFFF"
                 $ctx.fillStyle = swatch.hex;
                 // $ctx.fillStyle = "#000000"
-                $ctx.font = '14px sans-serif'
-                $ctx.textAlign = 'center'
+                $ctx.font = '12px sans-serif'
+                $ctx.textAlign = 'start'
                 $ctx.textBaseline = 'middle'
                 // $ctx.strokeText(name, x, y + blockHeight + blockPadding) 
                 $ctx.fillText(swatch.name, x, y + wordHeight + blockPadding)
