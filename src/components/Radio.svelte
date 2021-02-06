@@ -33,6 +33,7 @@
     label {
       user-select: none;
       line-height: 1.2em;
+      display: inline;
     }
   
     .sr-only {

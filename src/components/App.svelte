@@ -35,8 +35,8 @@ $: console.log({scrollytelling})
 {/each} -->
 
 <Nude state = {scrollytelling}/>
-<!-- <Food />
-<Explore /> -->
+<!-- <Food /> -->
+<Explore />
 
 
 </article>

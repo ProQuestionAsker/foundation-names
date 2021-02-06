@@ -8,14 +8,13 @@
     import { LayerCake, Canvas, Svg } from "layercake";
     import Switch from "./Switch.svelte"
     import Radio from "./Radio.svelte"
+    import Interactive from "./Interactive.svelte"
 
     let categorySel = 'all'
     let brandSel = 'All'
     let radioValue = 'swatches'
 
     $: console.log({radioValue})
-
-    //$: filteredData = data.filter(d => d.category === 'food').filter(d => switchValue === 'varied' ? d.namingScheme === 'variety' : d.namingScheme === 'NA' )
 
     const sections = ['drink', 'food']
 
@@ -89,24 +88,16 @@
             ]}
             legend="Show Me" />
         </div>
-        <div class='chart-container container-hist'>
-            <LayerCake data={filteredData} x = {d => d.lightness}
-                padding={ { top: 20, right: 20, bottom: 20, left: 20 } }
-                xDomain = {[0.15, 0.99]}>
-                <Canvas>
-                    <Gradient /> 
-                </Canvas>
-                <Canvas class="hist">
-                    {#if radioValue == 'swatches'}
-                        <SwatchHistogram {blockWidth} {blockHeight} />
-                    {/if}
-                </Canvas>
-                <Svg zIndex={3}>        
-                    {#if radioValue == 'histogram'}    
-                        <Line allData = {data} blockWidth = {20} step="compare"/>
-                    {/if}
-                </Svg>
-            </LayerCake>
+
+        <div class='container'>
+            <div class='chart-container container-hist'>
+                <LayerCake data={filteredData} x = {d => d.lightness}
+                    padding={ { top: 20, right: 20, bottom: 20, left: 20 } }
+                    xDomain = {[0.15, 0.99]}>
+                            
+                    <Interactive allData = {data} {blockWidth} {blockHeight} {radioValue}/>
+                </LayerCake>
+            </div>
         </div>
 
     </div>
@@ -116,6 +107,6 @@
 
 <style>
     .chart-container{
-        height: 1000px;
+        height: 500px;
     }
 </style>

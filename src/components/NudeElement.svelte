@@ -12,44 +12,13 @@
 
     export let step;
 
-    // // dimensions
-    // let width;
-    // let blockPadding = 2;
     let blockWidth = 20;
     $: blockHeight = blockWidth / 2;
-    // const margins = {
-    //     top: 50,
-    //     left: 20,
-    //     right: 20, 
-    //     bottom: 10
-    // }
-
-
-    // // data    
-    // let filteredBins;
-    // let binnedData;
 
     $: filterValue = step === 'natural' ? 'natural' : 'nude'
     $: blockValue = step === 'all' || step === 'sort' ? 'off' : 'on'
 
     $: filteredData = data.filter(d => d.namingScheme === filterValue)
-
-    // $: graphWidth = width - margins.left - margins.right;
-    // $: colNum = Math.round( graphWidth / ((blockPadding * 2) + blockWidth))
-
-    // // binning data
-    // $: lightBin = bin()
-    //     .thresholds((data, min, max) => range(colNum).map(t => min + (t / colNum) * (max - min)))
-    //     .domain([0.15, 0.99])
-    //     .value(d => d.lightness)
-
-    // $: binnedFiltered = lightBin(data)
-    // $: binnedAll = lightBin(allData)
-    // $: console.log({width, colNum, graphWidth})
-
-
-
-
 
 </script>
 
@@ -64,7 +33,6 @@
             <Interactive {step} {allData} {blockWidth} {blockHeight}/>
         </LayerCake>
     </div>
-
 </div>
 
 
