@@ -18,10 +18,8 @@
 
     $: graphWidth = $width - margins.left - margins.right;
 
-
     $: flatLight = $data.map(d => +d.lightness).sort((a, b) => ascending(a, b))
-
-
+    
     $: firstQuant = quantile(flatLight, 0.1)
     $: lastQuant = quantile(flatLight, 0.9)
 

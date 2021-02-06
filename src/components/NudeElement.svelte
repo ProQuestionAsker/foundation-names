@@ -7,19 +7,49 @@
     import Line from "./Line.svelte"
     import { LayerCake, Canvas, Svg } from "layercake";
     import { fade } from 'svelte/transition';
+    import { extent, range, bin, shuffle, ascending } from 'd3-array'
+    import Interactive from "./Interactive.svelte"
 
     export let step;
 
-    let filteredBins;
+    // // dimensions
+    // let width;
+    // let blockPadding = 2;
+    let blockWidth = 20;
+    $: blockHeight = blockWidth / 2;
+    // const margins = {
+    //     top: 50,
+    //     left: 20,
+    //     right: 20, 
+    //     bottom: 10
+    // }
 
-    const xKey = 'lightness'
-    
+
+    // // data    
+    // let filteredBins;
+    // let binnedData;
 
     $: filterValue = step === 'natural' ? 'natural' : 'nude'
     $: blockValue = step === 'all' || step === 'sort' ? 'off' : 'on'
-    const blockWidth = 20
 
     $: filteredData = data.filter(d => d.namingScheme === filterValue)
+
+    // $: graphWidth = width - margins.left - margins.right;
+    // $: colNum = Math.round( graphWidth / ((blockPadding * 2) + blockWidth))
+
+    // // binning data
+    // $: lightBin = bin()
+    //     .thresholds((data, min, max) => range(colNum).map(t => min + (t / colNum) * (max - min)))
+    //     .domain([0.15, 0.99])
+    //     .value(d => d.lightness)
+
+    // $: binnedFiltered = lightBin(data)
+    // $: binnedAll = lightBin(allData)
+    // $: console.log({width, colNum, graphWidth})
+
+
+
+
 
 </script>
 
@@ -30,21 +60,8 @@
         <LayerCake data={filteredData} x = {d => d.lightness}
             padding={ { top: 20, right: 20, bottom: 20, left: 20 } }
             xDomain = {[0.15, 0.99]}>
-            <Canvas id='test'>
-                <Gradient {step}/> 
-            </Canvas>
-            <Canvas class="hist">     
-                <SwatchHistogram bind:binnedData = {filteredBins} blockWidth={blockWidth} {step} />
-            </Canvas>
-            <Svg zIndex={3}>
-                {#if (step !== 'all' && step !== 'sort') }
-                    <GradientAnnotation block={blockValue} />
-                {/if}       
-                {#if (step === 'distribution' || step === 'compare')}        
-                    <Line {allData} {filteredBins} {blockWidth} {step}/>
-                {/if}
-            </Svg>            
- 
+                    
+            <Interactive {step} {allData} {blockWidth} {blockHeight}/>
         </LayerCake>
     </div>
 

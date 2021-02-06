@@ -10,15 +10,15 @@
     // Grab some helpful functions
     const { data, x, width, height, xScale } = getContext('LayerCake');
 
-    $: console.log({$data})
-
     const { ctx } = getContext('canvas');
 
-    export let blockWidth = 10;
+    // export let blockWidth = 10;
     export let step;
-    export let binnedData;
+    export let blockWidth;
     export let blockHeight = blockWidth / 2;
-    let blockPadding = 2;
+    export let blockPadding = 2;
+    export let colNum;
+    export let binnedData;
 
     const margins = {
         top: 50,
@@ -27,17 +27,8 @@
         bottom: 10
     }
 
-    $: graphWidth = $width - margins.left - margins.right;
-    $: colNum = Math.round( graphWidth / ((blockPadding * 2) + blockWidth))
-
-    $: lightBin = bin()
-            .thresholds(($data, min, max) => range(colNum).map(t => min + (t / colNum) * (max - min)))
-            .domain([0.15, 0.99])
-            .value(d => d.lightness)
-
-
-        // // set up tweening function
-    $: blockPositions = tweened($data.map(d => ({x: 0, index: 0})), {
+    // set up tweening function
+    $: blockPositions = tweened(null, {
             duration: 500,
             easing: cubicOut
         })
@@ -50,31 +41,27 @@
       
     let flattenedData;
 
-
    $: {
-        // bin the data
-        binnedData = lightBin($data)
-
         // flatten the data with binning information
         let flatBins = []
+        let onlyPositions;
+    
         binnedData.forEach((bin, i) => {
-        const swatches =  bin.map((d, ind) => ({
-            ...d,
-            x: $xScale(bin.x0),
-            index: ind
-        }))
+            const swatches =  bin.map((d, ind) => ({
+                ...d,
+                x: $xScale(bin.x0),
+                index: ind
+            }))
 
-        flatBins.push(swatches)
-    })
+            flatBins.push(swatches)
+        })
+
 
         const semiFlat = flatten(flatBins)
         const intFlat = flatten(semiFlat).map((d, i) => ({
             ...d,
             id: i
         }))
-
-        let onlyPositions;
-
         flattenedData = intFlat
 
         const shuffled = shuffle(intFlat.slice())
@@ -100,17 +87,16 @@
             const intFlat = flatten(semiFlat)
             const totallyFlat = intFlat
 
+
              onlyPositions = totallyFlat.map(d => ({x: d.x, index: d.index}))
             //  blockPositions.set(totallyFlat)
     
         }
 
         blockPositions.set(onlyPositions);
-  
     }
 
     $: if (step === 'distribution') blockOpacity.set(0)
-
 
 
     // build histogram in canvas
@@ -156,9 +142,6 @@
                             $ctx.globalAlpha = $blockOpacity
                         }
                         $ctx.fillStyle = hex;
-
-                        const name = flattenedData[i].name 
-                        $ctx.fillRect(x, y, blockWidth, blockHeight)
                         // $ctx.strokeStyle = "#FFFFFF"
                             // // $ctx.fillStyle = "#000000"
                             // $ctx.font = '14px sans-serif'
@@ -166,9 +149,9 @@
                             // $ctx.textBaseline = 'middle'
                             // // $ctx.strokeText(name, x, y + blockHeight + blockPadding) 
                             // $ctx.fillText(name, x, y + blockHeight + blockPadding)
-
+                        const name = flattenedData[i].name 
+                        $ctx.fillRect(x, y, blockWidth, blockHeight)
                     }
-
 
                     if (step === 'highlight'){
                         const name = flattenedData[i].name 
@@ -184,16 +167,9 @@
                             $ctx.strokeText(name, x, y + blockHeight + blockPadding) 
                             $ctx.fillText(name, x, y + blockHeight + blockPadding)
                         }
-
- 
                     }
-                 
                }
-
-               
            })
-           
-
         }
     }
     

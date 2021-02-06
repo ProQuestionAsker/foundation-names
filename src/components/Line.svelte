@@ -16,11 +16,10 @@
 
     // data as prop, not from layercake!
     export let allData;
+    export let filteredData;
     export let blockWidth = 10;
+    export let blockHeight = blockWidth / 2;
     export let step;
-
-
-    $:  blockHeight = blockWidth / 2
     const blockPadding = 2;
 
     const margins = {
@@ -30,38 +29,22 @@
         bottom: 10
     }
 
-    $: graphWidth = $width - margins.left - margins.right;
-    $: colNum = Math.round( graphWidth / ((blockPadding * 2) + blockWidth))
-
     $: maxScale = max(scaledDistribution.map(d => d.count))
-
-    $: yScale = scaleLinear()
-        .range([0, +maxScale])
-        .domain([height, +maxScale * (blockHeight + blockPadding)])
-
-        $: console.log({test: yScale(5), maxScale})
 
     $: lineGenerator = line()
         .x(d => $xScale(d.x1))
-        //.y(d => yScale(d.count))
         .y(d => $height - margins.bottom - (+d.count * (blockHeight + blockPadding)))
         .curve(curveStepBefore)
 
-
-    $: lightBin = bin()
-            .thresholds(($data, min, max) => range(colNum).map(t => min + (t / colNum) * (max - min)))
-            .domain([0.15, 0.99])
-            .value(d => d.lightness)
-
     // get bins for all of the data
-    $: binnedData = lightBin(allData).map(d => ({
+    $: binnedData = allData.map(d => ({
         x0: d.x0,
         x1: d.x1,
         count: d.length
     }))
 
     // get bins for this filtered section of data
-    $: binnedFiltered = lightBin($data).map(d => ({
+    $: binnedFiltered = filteredData.map(d => ({
         x0: d.x0,
         x1: d.x1,
         count: d.length, 
@@ -69,29 +52,25 @@
     }))
 
 
-        $: distributionScale = scaleLinear()
-            .range([0, max(binnedFiltered.map(d => d.count))])
-            .domain([0, max(binnedData.map(d => d.count))])
+    $: distributionScale = scaleLinear()
+        .range([0, max(binnedFiltered.map(d => d.count))])
+        .domain([0, max(binnedData.map(d => d.count))])
 
 
-        $: scaledDistribution = binnedData.map(d => ({
-            ...d,
-            count: formatNumber(distributionScale(d.count)),
-            center: (d.x1 - d.x0) + d.x0
-        }))
-        
-        $: scaledDistribution.push({count: 0, x1: 1})
-        $: scaledDistribution.unshift({count: 0, x1: 0.15})
-        $: binnedFiltered.push({count: 0, x1: 1})
-        $: binnedFiltered.unshift({count: 0, x1: 0.15})//.sort((a, b) => ascending(a.x1, b.x1))
+    $: scaledDistribution = binnedData.map(d => ({
+        ...d,
+        count: formatNumber(distributionScale(d.count)),
+        center: (d.x1 - d.x0) + d.x0
+    }))
+    
+    $: scaledDistribution.push({count: 0, x1: 1})
+    $: scaledDistribution.unshift({count: 0, x1: 0.15})
+    $: binnedFiltered.push({count: 0, x1: 1})
+    $: binnedFiltered.unshift({count: 0, x1: 0.15})
 
 
-        $: linePath = lineGenerator(scaledDistribution)
-        $: filteredLine = lineGenerator(binnedFiltered)
-
-        $: console.log({filteredLine, binnedFiltered, scaledDistribution})
-
-
+    $: linePath = lineGenerator(scaledDistribution)
+    $: filteredLine = lineGenerator(binnedFiltered)
     
 </script>
 
