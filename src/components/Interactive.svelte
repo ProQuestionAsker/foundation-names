@@ -1,5 +1,5 @@
 <script>
-    import { Canvas, Svg } from "layercake";
+    import { Canvas, Svg, Html } from "layercake";
     import { getContext } from 'svelte';
     import { range, bin } from 'd3-array'
     import SwatchHistogram from "./SwatchHistogram.svelte"
@@ -7,6 +7,7 @@
     import Gradient from "./Gradient.svelte"
     import GradientAnnotation from "./GradientAnnotation.svelte"
     import NameHistogram from "./NameHistogram.svelte"
+    import Table from "./Table.svelte"
 
 
     // Access the context using the 'LayerCake' keyword
@@ -47,6 +48,10 @@
     $: binnedFiltered = lightBin($data)
     $: binnedAll = lightBin(allData)
 
+    function roundNumber(num){
+        return Math.round(num * 100)/100
+    }
+
     // binning for words
     $: wordBin = bin()
         .thresholds(($data, min, max) => range(wordColNum).map(t => min + (t / wordColNum) * (max - min)))
@@ -54,6 +59,10 @@
         .value(d => d.lightness)
     
     $: filteredWordBin = wordBin($data)
+
+    $: tableData = $data.map(d => ([d.brand, d.product, d.name, d.hex, roundNumber(d.lightness)]))
+
+    let tableHeaders = ['brand', 'product', 'name', 'hex', 'lightness']
 
 </script>
 
@@ -89,6 +98,11 @@
             <Line allData = {binnedAll} filteredData = {binnedFiltered} {blockWidth} {blockHeight} step = {'compare'}/>
         {/if}
     </Svg>  
+    <Html zIndex={4}>
+        {#if radioValue === 'table'}
+            <Table headers = {tableHeaders} rows = {tableData} perPage = {10} />
+        {/if}
+    </Html>
 {/if}
 
 <style>
