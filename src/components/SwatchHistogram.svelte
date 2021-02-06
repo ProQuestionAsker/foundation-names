@@ -14,6 +14,7 @@
 
     // export let blockWidth = 10;
     export let step;
+    export let radioValue;
     export let blockWidth;
     export let blockHeight = blockWidth / 2;
     export let blockPadding = 2;
@@ -96,7 +97,8 @@
         blockPositions.set(onlyPositions);
     }
 
-    $: if (step === 'distribution') blockOpacity.set(0)
+    $: if (step === 'distribution' || radioValue === 'histogram') blockOpacity.set(0)
+    $: console.log({radioValue})
 
 
     // build histogram in canvas
@@ -138,7 +140,7 @@
                     }
 
                     if (step !== 'compare'){
-                        if (step === 'distribution'){
+                        if (step === 'distribution' || radioValue === 'histogram'){
                             $ctx.globalAlpha = $blockOpacity
                         }
                         $ctx.fillStyle = hex;

@@ -77,8 +77,8 @@
         <Gradient /> 
     </Canvas>
     <Canvas class="hist">     
-        {#if radioValue === 'swatches'}
-            <SwatchHistogram blockWidth={blockWidth} {blockHeight} {blockPadding} {colNum} binnedData = {binnedFiltered} />
+        {#if radioValue === 'swatches' || radioValue === 'histogram'}
+            <SwatchHistogram blockWidth={blockWidth} {blockHeight} {blockPadding} {colNum} binnedData = {binnedFiltered} {radioValue} />
         {:else if radioValue === 'names'}
             <NameHistogram {wordWidth} {wordHeight} {wordColNum} {blockPadding} binnedData = {filteredWordBin}  />
         {/if}
