@@ -82,27 +82,33 @@
         {/if}
     </Svg>  
 {:else}
+    {#if radioValue !== 'table'}
     <Canvas id='test'>
         <Gradient /> 
     </Canvas>
-    <Canvas class="hist">     
-        {#if radioValue === 'swatches' || radioValue === 'histogram'}
-            <SwatchHistogram blockWidth={blockWidth} {blockHeight} {blockPadding} {colNum} binnedData = {binnedFiltered} {radioValue} />
-        {:else if radioValue === 'names'}
-            <NameHistogram {wordWidth} {wordHeight} {wordColNum} {blockPadding} binnedData = {filteredWordBin}  />
-        {/if}
-    </Canvas>
+    {/if}
+    {#if radioValue === 'swatches' || radioValue === 'names'}
+        <Canvas class="hist">     
+            {#if radioValue === 'swatches' }
+                <SwatchHistogram blockWidth={blockWidth} {blockHeight} {blockPadding} {colNum} binnedData = {binnedFiltered} {radioValue} />
+            {:else if radioValue === 'names'}
+                <NameHistogram {wordWidth} {wordHeight} {wordColNum} {blockPadding} binnedData = {filteredWordBin}  />
+            {/if}
+        </Canvas>
+    {/if}
+    {#if radioValue !== 'table'}
     <Svg zIndex={3}>
         <GradientAnnotation block={blockValue} />    
         {#if radioValue === 'histogram'}     
             <Line allData = {binnedAll} filteredData = {binnedFiltered} {blockWidth} {blockHeight} step = {'compare'}/>
         {/if}
     </Svg>  
-    <Html zIndex={4}>
-        {#if radioValue === 'table'}
+    {/if}
+    {#if radioValue === 'table'}
+        <Html zIndex={4}>
             <Table headers = {tableHeaders} rows = {tableData} perPage = {10} />
-        {/if}
-    </Html>
+        </Html>        
+    {/if}
 {/if}
 
 <style>
