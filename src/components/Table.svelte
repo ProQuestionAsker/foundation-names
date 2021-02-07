@@ -1,5 +1,6 @@
 <script>
     import Icon from "./helpers/Icon.svelte"
+    import { ascending, descending } from 'd3-array'
 
     export let headers;
     export let rows;
@@ -14,7 +15,7 @@
     $: sortStatus = [];
     $: sortDirection = 'ascending'
 
-    function updateSortStatus(column){
+    function updateSortStatus(column, index){
         // reset all to "none"
         headers.forEach(d => {
             sortStatus[d] = "none"
@@ -35,19 +36,27 @@
         icon: 'chevron-down'
     }}
 
-    $: console.log({sortIcons})
-
     $: headers.forEach(d => {
         sortStatus[d] = "none"
     })
 
-    $: console.log({sortStatus})
-
     $: sortBy = 'none'
 
-    $: console.log({sortBy})
+    $: sortedRows = rows
 
-    $: trimmedRows = rows.slice(start, end)
+    $: if (sortBy !== 'none' && sortBy !== 4){
+        if (sortDirection === 'ascending') sortedRows = rows.sort((a, b) => ascending(a[sortBy].toLowerCase(), b[sortBy].toLowerCase())) 
+        else sortedRows = rows.sort((a, b) => descending(a[sortBy].toLowerCase(), b[sortBy].toLowerCase()) ) 
+    }
+
+    $: if (sortBy === 4){
+        if (sortDirection === 'ascending') sortedRows = rows.sort((a, b) => ascending(a[sortBy], b[sortBy])) 
+        else sortedRows = rows.sort((a, b) => descending(a[sortBy], b[sortBy]) ) 
+    }
+
+    $: trimmedRows = sortedRows.slice(start, end)
+
+    $: console.log({trimmedRows, sortedRows})
 
     $: totalRows, currentPage = 0
     $: currentPage, start, end
@@ -60,17 +69,18 @@
     <table>
     <tbody>
         <tr>
-            {#each headers as header (header)}
+            {#each headers as header, i (header)}
                 <th>
                     {header}
-                    <button class={header === sortBy ? 'sort selected' : 'sort'} 
+                    <button class={i === sortBy ? 'sort selected' : 'sort'} 
                         aria-sort={sortStatus[header]}
                         on:click="{() => {
-                            sortBy = header
-                            updateSortStatus(header)
+                            sortBy = i
+                            updateSortStatus(header, i)
                         }}"
                     >
-                        <Icon name={sortIcons[sortStatus[header]].icon} direction={sortIcons[sortStatus[header]].direction} />
+                        <Icon name={sortIcons[sortStatus[header]].icon} direction={sortIcons[sortStatus[header]].direction}
+                            stroke = {i === sortBy ? 'white' : 'gray'} />
                     </button>
                 </th>
             {/each}
@@ -121,6 +131,7 @@
     .pagination {
         display: flex;
         align-items: center;
+        justify-content: center;
     }
 
     .pagination p {
@@ -130,6 +141,10 @@
     td {
         white-space: nowrap;
         overflow: hidden;
+    }
+
+    .selected {
+        background-color: var(--accent-color)
     }
 
 </style>
