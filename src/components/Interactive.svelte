@@ -48,6 +48,31 @@
     $: binnedFiltered = lightBin($data)
     $: binnedAll = lightBin(allData)
 
+    let comboData;
+
+    $: {
+        const filterLimited = binnedFiltered.map(d => ({
+            ...d,
+            x0: d.x0,
+            count: d.length,
+            percent: d.length / $data.length
+        }))
+
+        const allLimited = binnedAll.map(d => ({
+            x0: d.x0,
+            count: d.length,
+            percent: d.length / allData.length
+        }))
+
+        comboData = filterLimited.map((d, i) => ({
+            ...d, 
+            allCount: Math.round(allLimited[i].percent * ($data.length))
+        }))
+    }
+
+
+
+
     function roundNumber(num){
         return Math.round(num * 100)/100
     }
@@ -78,7 +103,7 @@
             <GradientAnnotation block={blockValue} />
         {/if}       
         {#if (step === 'distribution' || step === 'compare')}        
-            <Line allData = {binnedAll} filteredData = {binnedFiltered} {blockWidth} {blockHeight} {step}/>
+            <Line filteredData = {comboData} {blockWidth} {blockHeight} {step}/>
         {/if}
     </Svg>  
 {:else}
@@ -100,7 +125,7 @@
         <Svg zIndex={3}>
             <GradientAnnotation block={blockValue} />    
             {#if radioValue === 'histogram'}     
-                <Line allData = {binnedAll} filteredData = {binnedFiltered} {blockWidth} {blockHeight} step = {'compare'}/>
+                <Line filteredData = {comboData} {blockWidth} {blockHeight} step = {'compare'}/>
             {/if}
         </Svg>  
     {/if}
