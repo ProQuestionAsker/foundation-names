@@ -83,9 +83,9 @@
     </Svg>  
 {:else}
     {#if radioValue !== 'table'}
-    <Canvas id='test'>
-        <Gradient /> 
-    </Canvas>
+        <Canvas id='test'>
+            <Gradient /> 
+        </Canvas>
     {/if}
     {#if radioValue === 'swatches' || radioValue === 'names'}
         <Canvas class="hist">     
@@ -97,16 +97,16 @@
         </Canvas>
     {/if}
     {#if radioValue !== 'table'}
-    <Svg zIndex={3}>
-        <GradientAnnotation block={blockValue} />    
-        {#if radioValue === 'histogram'}     
-            <Line allData = {binnedAll} filteredData = {binnedFiltered} {blockWidth} {blockHeight} step = {'compare'}/>
-        {/if}
-    </Svg>  
+        <Svg zIndex={3}>
+            <GradientAnnotation block={blockValue} />    
+            {#if radioValue === 'histogram'}     
+                <Line allData = {binnedAll} filteredData = {binnedFiltered} {blockWidth} {blockHeight} step = {'compare'}/>
+            {/if}
+        </Svg>  
     {/if}
     {#if radioValue === 'table'}
         <Html zIndex={4}>
-            <Table headers = {tableHeaders} rows = {tableData} perPage = {10} />
+            <Table headers = {tableHeaders} rows = {tableData} perPage = {20} />
         </Html>        
     {/if}
 {/if}

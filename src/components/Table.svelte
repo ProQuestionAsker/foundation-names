@@ -11,10 +11,47 @@
     $: end = start + perPage - 1;
     $: totalPages = Math.ceil(totalRows / perPage)
 
+    $: sortStatus = [];
+    $: sortDirection = 'ascending'
+
+    function updateSortStatus(column){
+        // reset all to "none"
+        headers.forEach(d => {
+            sortStatus[d] = "none"
+        })
+
+        sortDirection === 'ascending' ? sortDirection = 'descending' : sortDirection = 'ascending'
+        sortStatus[column] = sortDirection
+    }
+
+    $: sortIcons = {'none' : {
+        direction: 'e',
+        icon: 'code'
+    }, 'ascending' : {
+        direction: 'n',
+        icon: 'chevron-up'
+    }, 'descending' : {
+        direction: 'n',
+        icon: 'chevron-down'
+    }}
+
+    $: console.log({sortIcons})
+
+    $: headers.forEach(d => {
+        sortStatus[d] = "none"
+    })
+
+    $: console.log({sortStatus})
+
+    $: sortBy = 'none'
+
+    $: console.log({sortBy})
+
     $: trimmedRows = rows.slice(start, end)
 
     $: totalRows, currentPage = 0
     $: currentPage, start, end
+
 
 
 </script>
@@ -23,8 +60,19 @@
     <table>
     <tbody>
         <tr>
-            {#each headers as header}
-                <th>{header}</th>
+            {#each headers as header (header)}
+                <th>
+                    {header}
+                    <button class={header === sortBy ? 'sort selected' : 'sort'} 
+                        aria-sort={sortStatus[header]}
+                        on:click="{() => {
+                            sortBy = header
+                            updateSortStatus(header)
+                        }}"
+                    >
+                        <Icon name={sortIcons[sortStatus[header]].icon} direction={sortIcons[sortStatus[header]].direction} />
+                    </button>
+                </th>
             {/each}
         </tr>
 
