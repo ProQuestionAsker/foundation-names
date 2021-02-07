@@ -34,6 +34,8 @@
       user-select: none;
       line-height: 1.2em;
       display: inline;
+      font-weight: 400;
+      color: var(--gray);
     }
   
     .sr-only {

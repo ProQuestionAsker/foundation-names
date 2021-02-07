@@ -67,17 +67,27 @@
     <div class='container'>
         <h3>Explore the shades</h3>
         <div class='ui-elements'>
-            <select bind:value={brandSel} on:blur="{() => filterData()}">
-                {#each allBrands as brand}
-                    <option>{brand}</option>
-                {/each}
-            </select>
+            <div class='select-group'>
+                <div>
+                    <label for="brandSelect">Filter data by brand</label>
+                    <select id="brandSelect" 
+                        bind:value={brandSel} on:blur="{() => filterData()}">
+                        {#each allBrands as brand}
+                            <option>{brand}</option>
+                        {/each}
+                    </select>
+                </div>
+                <div>
+                    <label for="categorySelect">Filter by name category</label>
+                    <select id="categorySelect" bind:value={categorySel} on:blur="{() => filterData()}">
+                        {#each allCategories as category}
+                            <option>{category}</option>
+                        {/each}
+                    </select>
+                </div>
 
-            <select bind:value={categorySel} on:blur="{() => filterData()}">
-                {#each allCategories as category}
-                    <option>{category}</option>
-                {/each}
-            </select>
+             </div>
+            
 
             <Radio bind:value={radioValue}
             options={[
@@ -108,5 +118,24 @@
 <style>
     .chart-container{
         height: 900px;
+    }
+
+    label {
+        color: var(--gray)
+    }
+
+    .select-group {
+        display: flex;
+    }
+
+    .select-group div:first-of-type{
+        margin-right: 1rem;
+    }
+
+    .select-group label {
+        font-size: 0.9em;
+        /* font-weight: 600; */
+        color: var(--gray);
+        text-transform: uppercase;
     }
 </style>
