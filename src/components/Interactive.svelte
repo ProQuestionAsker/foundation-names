@@ -1,18 +1,19 @@
 <script>
     import { Canvas, Svg, Html } from "layercake";
     import { getContext } from 'svelte';
-    import { range, bin } from 'd3-array'
+    import { range, bin, least, greatest, ascending } from 'd3-array'
     import SwatchHistogram from "./SwatchHistogram.svelte"
     import Line from "./Line.svelte"
     import Gradient from "./Gradient.svelte"
     import GradientAnnotation from "./GradientAnnotation.svelte"
     import NameHistogram from "./NameHistogram.svelte"
     import Table from "./Table.svelte"
+    import Annotations from "./Annotations.svelte"
 
 
     // Access the context using the 'LayerCake' keyword
     // Grab some helpful functions
-    const { data, width } = getContext('LayerCake');
+    const { data, width, xScale, height } = getContext('LayerCake');
 
     export let step;
     export let blockWidth = 20;
@@ -49,6 +50,10 @@
     $: binnedAll = lightBin(allData)
 
     let comboData;
+    $: leastMissing = least(comboData, (a, b) => ascending(a.difference, b.difference) )
+    $: greatestMissing = greatest(comboData, (a, b) => ascending(a.difference, b.difference) )
+
+    $: console.log({leastMissing, greatestMissing})
 
     $: {
         const filterLimited = binnedFiltered.map(d => ({
@@ -66,7 +71,8 @@
 
         comboData = filterLimited.map((d, i) => ({
             ...d, 
-            allCount: Math.round(allLimited[i].percent * ($data.length))
+            allCount: Math.round(allLimited[i].percent * ($data.length)),
+            difference: Math.round(allLimited[i].percent * ($data.length)) - d.count
         }))
     }
 
@@ -89,6 +95,18 @@
 
     let tableHeaders = ['brand', 'product', 'name', 'hex', 'lightness']
 
+    $: annotations = [{
+        text: 'When the <span style="color:var(--gray); font-weight:700">all shades</span> line appears above the <span style="color:var(--accent-color); font-weight:700">"nude" shades</span> line, there are fewer shades named “nude” than we’d expect in this color range',
+        x: $xScale(greatestMissing.x0),
+        y: 150
+    }, {
+        text: 'When the <span style="color:var(--accent-color); font-weight:700">"nude" shades</span> line is higher than the <span style="color:var(--gray); font-weight:700">all shades</span> line there are more shades named "nude" in this color range than we would expect',
+        x: $xScale(leastMissing.x0),
+        y: 0
+    }]
+
+    $: console.log({annotations})
+
 </script>
 
 {#if step}
@@ -106,6 +124,11 @@
             <Line filteredData = {comboData} {blockWidth} {blockHeight} {step}/>
         {/if}
     </Svg>  
+    {#if step === 'compare'}
+        <Html >
+            <Annotations {annotations} />
+        </Html>
+    {/if}
 {:else}
     {#if radioValue !== 'table'}
         <Canvas id='test'>

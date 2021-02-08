@@ -172,7 +172,9 @@ fieldset {
 }
 legend {
   font-size: 0.9em;
-  font-weight: 600;
+  /* font-weight: 600; */
+  color: var(--gray);
+  text-transform: uppercase;
 }
 input[type="range"] {
   padding: 0;

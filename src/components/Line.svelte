@@ -53,17 +53,6 @@
 
     {#if step === 'compare'}
         <path class='path-line full' transition:fade d={linePath}></path>
-
-        <g class='annotation__low'>
-            <text>
-                <tspan>When the all shades</tspan>
-                <tspan>line appears above the </tspan>
-                <tspan>"nude" shades line, there</tspan>
-                <tspan>are fewer shades named "nude"</tspan>
-                <tspan>than we'd expect in this color range</tspan>
-            </text>
-
-        </g>
     {/if}
 
 {/if}
