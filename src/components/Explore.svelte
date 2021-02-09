@@ -100,12 +100,12 @@
         </div>
 
         <div class='container'>
-            <figure class='chart-container container-hist'>
+            <figure class='chart-container container-hist' >
                 <LayerCake data={filteredData} x = {d => d.lightness}
                     padding={ { top: 20, right: 20, bottom: 20, left: 20 } }
                     xDomain = {[0.15, 0.99]}>
                             
-                    <Interactive allData = {data} {blockWidth} {blockHeight} {radioValue}/>
+                    <Interactive allData = {data} {blockWidth} {blockHeight} {radioValue}  />
                 </LayerCake>
             </figure>
         </div>
@@ -117,7 +117,7 @@
 
 <style>
     .chart-container{
-        height: 800px;
+        height: 600px;
     }
 
     label {

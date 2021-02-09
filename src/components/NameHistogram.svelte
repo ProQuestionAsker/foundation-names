@@ -1,7 +1,7 @@
 <script>
     import { getContext } from 'svelte';
     import { calcExtents, flatten, scaleCanvas } from 'layercake';
-    import { extent, range, bin, shuffle, descending } from 'd3-array'
+    import { extent, range, bin, shuffle, descending, ascending } from 'd3-array'
     import { scaleLinear } from 'd3-scale';
     import { tweened } from 'svelte/motion'
     import { cubicOut } from 'svelte/easing';
@@ -16,33 +16,34 @@
     export let wordColNum;
     export let binnedData;
     export let blockPadding;
+    // export let canvasHeight;
 
 
-    let flattenedData;
+    $: flattenedData = $data.sort((a, b) => ascending(+a.lightness, b.lightness))
     
-    $: {
-        let flatBins = []
+    // $: {
+    // //     let flatBins = []
 
-        binnedData.forEach((bin, i) => {
-        const sorted = bin.sort((a, b) => descending(a.lightness, b.lightness))
+    // //     binnedData.forEach((bin, i) => {
+    // //     const sorted = bin.sort((a, b) => descending(+a.lightness, +b.lightness))
 
-        const swatches =  sorted.map((d, ind) => ({
-            ...d,
-            x: $xScale(bin.x0),
-            index: ind
-        }))
+    // //     const swatches =  sorted.map((d, ind) => ({
+    // //         ...d,
+    // //         x: $xScale(bin.x0),
+    // //         index: ind
+    // //     }))
         
 
-        flatBins.push(swatches)
-    })
-        const semiFlat = flatten(flatBins)
-        const intFlat = flatten(semiFlat).map((d, i) => ({
-            ...d,
-            id: i
-        }))
-        flattenedData = intFlat
+    // //     flatBins.push(swatches)
+    // // })
+    // //     const semiFlat = flatten(flatBins)
+    // //     const intFlat = flatten(semiFlat).map((d, i) => ({
+    // //         ...d,
+    // //         id: i
+    // //     }))
+    // //     flattenedData = intFlat
 
-    }
+    // }
 
 
     const margins = {
@@ -82,8 +83,8 @@
 
                 if (i === flatWords.length - 1){
                     const newHeight = (row + blockPadding) * 12 
-                    $ctx.canvas.height = `${newHeight}`;
-                    console.log({newHeight})
+                    // $ctx.canvas.height = `${newHeight}`;
+                    // $ctx.canvas.width = `${$width}`
                 }
 
                 return ({
@@ -95,7 +96,7 @@
     
             })
 
-            console.log({row})
+            console.log({theseWords})
 
             // const allFlat = shuffled.map((d, i) => {
             //     const row = ~~ (i / colNum)
@@ -114,11 +115,15 @@
        
                 $ctx.strokeStyle = "#FFFFFF"
                 $ctx.fillStyle = swatch.hex;
-                // $ctx.fillStyle = "#000000"
-
-                $ctx.textAlign = 'start'
-                $ctx.textBaseline = 'middle'
-                // $ctx.strokeText(name, x, y + blockHeight + blockPadding) 
+               
+                
+                //$ctx.fillRect(swatch.wordX - (blockPadding / 2), y, swatch.textWidth + (blockPadding), 12)
+                
+                // $ctx.globalCompositeOperation = "difference";
+                //$ctx.fillStyle = swatch.lightness <= 0.5 ? '#fff': '#000'
+                // $ctx.textAlign = 'start'
+                $ctx.textBaseline = 'hanging'
+                // // $ctx.strokeText(name, x, y + blockHeight + blockPadding) 
                 $ctx.fillText(swatch.name, swatch.wordX, y)
             })
 

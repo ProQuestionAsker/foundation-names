@@ -70,10 +70,9 @@
     <tbody>
         <tr>
             {#each headers as header, i (header)}
-                <th>
+                <th aria-sort={sortStatus[header]}>
                     {header}
                     <button class={i === sortBy ? 'sort selected' : 'sort'} 
-                        aria-sort={sortStatus[header]}
                         on:click="{() => {
                             sortBy = i
                             updateSortStatus(header, i)

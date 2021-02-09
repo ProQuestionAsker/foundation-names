@@ -20,7 +20,7 @@
     export let blockHeight = blockWidth / 2;
     export let allData;
     export let radioValue;
-
+    // export let canvasHeight = 800;
 
     // dimensions
     let blockPadding = 2;
@@ -105,8 +105,6 @@
         y: 0
     }]
 
-    $: console.log({annotations})
-
 </script>
 
 {#if step}
@@ -130,24 +128,22 @@
         </Html>
     {/if}
 {:else}
-    {#if radioValue !== 'table'}
+    {#if radioValue === 'swatches'}
         <Canvas id='test'>
             <Gradient /> 
         </Canvas>
     {/if}
     {#if radioValue === 'swatches' || radioValue === 'names'}
-    <div class='canvas-container'>
-                <Canvas class="hist">     
+        <Canvas class="hist">     
             {#if radioValue === 'swatches' }
                 <SwatchHistogram blockWidth={blockWidth} {blockHeight} {blockPadding} {colNum} binnedData = {binnedFiltered} {radioValue} />
             {:else if radioValue === 'names'}
-                <NameHistogram {wordWidth} {wordHeight} {wordColNum} binnedData = {filteredWordBin} blockPadding = {8}  />
+                <NameHistogram {wordWidth} {wordHeight} {wordColNum} binnedData = {filteredWordBin} blockPadding = {8} />
             {/if}
         </Canvas>
-    </div>
 
     {/if}
-    {#if radioValue !== 'table'}
+    {#if radioValue === 'swatches'}
         <Svg zIndex={3}>
             <GradientAnnotation block={blockValue} />    
             {#if radioValue === 'histogram'}     
@@ -163,9 +159,9 @@
 {/if}
 
 <style>
-    .canvas-container {
-        height: 800px;
+    /* .canvas-container {
         overflow: auto;
         position: relative;
-    }
+        height: 3000px;
+    } */
 </style>
