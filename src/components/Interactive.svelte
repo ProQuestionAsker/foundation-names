@@ -11,6 +11,7 @@
     import Annotations from "./Annotations.svelte"
 
 
+
     // Access the context using the 'LayerCake' keyword
     // Grab some helpful functions
     const { data, width, xScale, height } = getContext('LayerCake');

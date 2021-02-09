@@ -9,6 +9,7 @@
     import Switch from "./Switch.svelte"
     import Radio from "./Radio.svelte"
     import Interactive from "./Interactive.svelte"
+    import Checkbox from "./Checkbox.svelte"
 
     let categorySel = 'all'
     let brandSel = 'All'
@@ -86,6 +87,9 @@
                     </select>
                 </div>
 
+                {#if radioValue === 'swatches'}
+                    <Checkbox checks = {[{name: 'all', label: 'Compare to all shades', selected: 'false'}]} />
+                {/if}
              </div>
             
 
@@ -93,7 +97,6 @@
             options={[
               {name: 'swatches', label: 'swatches'},
               {name: 'names', label: 'names'},
-              {name: 'histogram', label: 'histogram'}, 
               {name: 'table', label: 'table'}
             ]}
             legend="Show Me" />
