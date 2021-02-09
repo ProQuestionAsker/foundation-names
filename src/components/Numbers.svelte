@@ -11,22 +11,33 @@
     $: console.log({baseline, darkToLight})
 </script>
 
-<section>
-    {#each baseline as product}
-        <NumberDistribution data={product} />
-    {/each}
+<section>   
+     <div class='container'>
+        {#each baseline as product}
+            <NumberDistribution data={product} />
+        {/each}
+    </div>
 
     <p>TK text here separating the sections</p>
 
-    {#each darkToLight as product}
-        <NumberDistribution data={product} />
-    {/each}
+    <div class='container'>
+        {#each darkToLight as product}
+            <NumberDistribution data={product} />
+        {/each}
+    </div>
+
 </section>
 
 <style>
     section {
         max-width: 50rem;  
         margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .container {
+        display: flex;
+        flex-wrap: wrap;
     }
 
 </style>
