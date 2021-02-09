@@ -11,6 +11,7 @@ import GradientHistogram from "./GradientHistogram.svelte";
   import Nude from "./Nude.svelte"
   import Food from "./Food.svelte"
   import Explore from "./Explore.svelte"
+  import Numbers from "./Numbers.svelte"
 
 let scrollytelling;
 $: console.log({scrollytelling})
@@ -34,9 +35,10 @@ $: console.log({scrollytelling})
   </section>
 {/each} -->
 
-<Nude state = {scrollytelling}/>
+<Numbers />
+<!-- <Nude state = {scrollytelling}/> -->
 <!-- <Food /> -->
-<Explore />
+<!-- <Explore /> -->
 
 
 </article>
