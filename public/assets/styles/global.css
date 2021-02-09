@@ -50,6 +50,42 @@
   --highlight: var(--yellow);
 }
 
+.prose {
+  max-width: 50rem;
+  margin: 0 auto 1rem auto;
+  font-family: var(--serif);
+  font-size: 18px;
+}
+
+.divider-wrapper {
+  margin: 4rem auto 0 auto;
+  max-width: 45rem;
+  padding: 0 1rem;
+}
+
+.divider-line {
+  border-top: 1px solid var(--gray-dark);
+  width: 100%;
+}
+
+.divider-text {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.section-hed {
+  padding: 0.25rem 1rem;
+  font-family: "National 2 Narrow";
+  font-size: 36px;
+  font-weight: 200;
+  color: var(--white);
+  background-color: var(--off-black);
+  text-align: center;
+  display: inline;
+  border: 6px solid var(--white);
+}
+
 .skip-to-main {
   border: none;
   width: 1px;

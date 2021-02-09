@@ -1,6 +1,7 @@
 <script>
     import copy from "../data/copy.json";
     import NudeElement from "./NudeElement.svelte";
+    import Switch from "./Switch.svelte"
 
     export let state = "on";
     let activeStep = "all";
@@ -10,6 +11,23 @@
     }
 
 </script>
+
+<section>
+ 
+        <div class='divider-text'>
+            <h3 class='section-hed'>Nude and Natural</h3>
+        </div>
+
+        {#each copy.nude as {type, value}}
+            <p class='prose'>{value}</p>
+        {/each}
+
+        <div class='warning'>
+            <p class='warning-prose'>The next graphics in this story will utilize scroll-driven animations. Use this toggle to disable this and view static graphics instead.</p>
+            <Switch label="Animations are " design="inner" bind:value={state} />
+        </div>
+
+
 
 {#if state === "on"}
     <div class='scroll'>
@@ -41,6 +59,9 @@
 
 {/if}
 
+
+</section>
+
 <style>
     .scroll, .standard-group {
         display: flex;
@@ -59,5 +80,22 @@
     .standard {
         max-width: 50rem;
         margin: 0 auto;
+    }
+
+    .warning {
+        max-width: 40rem;
+        padding: 1rem;
+        background-color: #F1F0FF;
+        margin: 2rem auto;
+        border: 1px solid var(--accent-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 5px;
+    }
+
+    .warning-prose{
+        margin: 0;
+        max-width: 400px;
     }
 </style>

@@ -71,7 +71,7 @@
     .s--inner button {
         padding: 0.5em;
         background-color: #fff;
-        border: 1px solid var(--gray);
+        /* border: 1px solid var(--gray); */
     }
     [role='switch'][aria-checked='true'] :first-child,
     [role='switch'][aria-checked='false'] :last-child {
@@ -84,6 +84,10 @@
         user-select: none;
         pointer-events:none;
         padding: 0.25em;
+    }
+
+    .s--inner span {
+        color: var(--accent-color)
     }
 
     .s--inner button:focus {
@@ -133,6 +137,10 @@
     .s--slider button:focus {
         box-shadow: 0 0px 8px var(--accent-color);
         border-radius: 1.5em;
+    }
+
+    .s--slider span {
+        font-weight: bold;
     }
 
     /* Multi Design Option */
