@@ -136,13 +136,16 @@
         </Canvas>
     {/if}
     {#if radioValue === 'swatches' || radioValue === 'names'}
-        <Canvas class="hist">     
+    <div class='canvas-container'>
+                <Canvas class="hist">     
             {#if radioValue === 'swatches' }
                 <SwatchHistogram blockWidth={blockWidth} {blockHeight} {blockPadding} {colNum} binnedData = {binnedFiltered} {radioValue} />
             {:else if radioValue === 'names'}
-                <NameHistogram {wordWidth} {wordHeight} {wordColNum} {blockPadding} binnedData = {filteredWordBin}  />
+                <NameHistogram {wordWidth} {wordHeight} {wordColNum} binnedData = {filteredWordBin} blockPadding = {8}  />
             {/if}
         </Canvas>
+    </div>
+
     {/if}
     {#if radioValue !== 'table'}
         <Svg zIndex={3}>
@@ -160,5 +163,9 @@
 {/if}
 
 <style>
-
+    .canvas-container {
+        height: 800px;
+        overflow: auto;
+        position: relative;
+    }
 </style>

@@ -98,7 +98,7 @@
     }
 
     $: if (step === 'distribution' || radioValue === 'histogram') blockOpacity.set(0)
-    $: console.log({radioValue})
+ 
 
 
     // build histogram in canvas

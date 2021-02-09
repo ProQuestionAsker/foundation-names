@@ -24,15 +24,14 @@
         let flatBins = []
 
         binnedData.forEach((bin, i) => {
-        const sorted = bin.sort((a, b) => descending(a.name, b.name))
-        console.log({sorted})
+        const sorted = bin.sort((a, b) => descending(a.lightness, b.lightness))
+
         const swatches =  sorted.map((d, ind) => ({
             ...d,
             x: $xScale(bin.x0),
             index: ind
         }))
         
-        console.log({swatches})
 
         flatBins.push(swatches)
     })
@@ -42,7 +41,7 @@
             id: i
         }))
         flattenedData = intFlat
-        console.log({flattenedData})
+
     }
 
 
@@ -54,25 +53,90 @@
     }
 
 
-    $: console.log({flattenedData})
-
     $: {
         if ($ctx) {
             $ctx.clearRect(0, 0, $width, $height);
+            $ctx.font = '12px sans-serif'
+            const flatWords = flattenedData.map(d => ({
+                ...d,
+                textWidth: $ctx.measureText(d.name).width
+            }))
 
-            flattenedData.forEach((swatch, i) => {
-               const x = swatch.x
-               const y = $height - margins.bottom - ((swatch.index + 1) * (wordHeight + blockPadding))
+            let row = 0;
+            let currentRowWidth = 0;
 
+            const theseWords = flatWords.map((d, i) => {
+                let thisRow;
+                let thisX;
+                if (currentRowWidth + d.textWidth + blockPadding > $width){
+                    row += 1
+                    currentRowWidth = d.textWidth;
+                    thisRow = row;
+                    thisX = 0
+                } else {
+                    thisRow = row;
+                    thisX = i === 0 ? currentRowWidth : currentRowWidth + blockPadding;
+                    currentRowWidth += d.textWidth + blockPadding
+                }
+
+
+                if (i === flatWords.length - 1){
+                    const newHeight = (row + blockPadding) * 12 
+                    $ctx.canvas.height = `${newHeight}`;
+                    console.log({newHeight})
+                }
+
+                return ({
+                    ...d,
+                    wordRow: thisRow,
+                    wordX: thisX
+                })
+
+    
+            })
+
+            console.log({row})
+
+            // const allFlat = shuffled.map((d, i) => {
+            //     const row = ~~ (i / colNum)
+            //     const binNum = i - (colNum * row)
+            //     const x0 = binnedData[binNum].x0
+            //     return {
+            //         ...d, 
+            //         x: $xScale(x0),
+            //         index: row,
+            //     }
+            // })
+
+
+            theseWords.forEach((swatch, i) => {
+                const y = swatch.wordRow * wordHeight + blockPadding
+       
                 $ctx.strokeStyle = "#FFFFFF"
                 $ctx.fillStyle = swatch.hex;
                 // $ctx.fillStyle = "#000000"
-                $ctx.font = '12px sans-serif'
+
                 $ctx.textAlign = 'start'
                 $ctx.textBaseline = 'middle'
                 // $ctx.strokeText(name, x, y + blockHeight + blockPadding) 
-                $ctx.fillText(swatch.name, x, y + wordHeight + blockPadding)
+                $ctx.fillText(swatch.name, swatch.wordX, y)
             })
+
+
+
+            // flattenedData.forEach((swatch, i) => {
+            //    const x = swatch.x
+            //    const y = $height - margins.bottom - ((swatch.index + 1) * (wordHeight + blockPadding))
+    
+            //     $ctx.strokeStyle = "#FFFFFF"
+            //     $ctx.fillStyle = swatch.hex;
+            //     // $ctx.fillStyle = "#000000"
+            //     $ctx.font = '12px sans-serif'
+            //     $ctx.textAlign = 'start'
+            //     $ctx.textBaseline = 'middle'
+            //     // $ctx.strokeText(name, x, y + blockHeight + blockPadding) 
+            //     $ctx.fillText(swatch.name, x, y + wordHeight + blockPadding)
+            // })
         }
     }
 </script>
