@@ -86,6 +86,10 @@
   border: 6px solid var(--white);
 }
 
+section {
+  padding: 0 1rem;
+}
+
 .skip-to-main {
   border: none;
   width: 1px;

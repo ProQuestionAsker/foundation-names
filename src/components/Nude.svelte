@@ -67,6 +67,10 @@
         display: flex;
     }
 
+    .scroll {
+        position: relative;
+    }
+
     .standard-group {
         flex-direction: column;
     }
@@ -82,6 +86,12 @@
         margin: 0 auto;
     }
 
+    .element-scroll {
+        position: sticky;
+        height: 50vh;
+        top: 25vh;
+    }
+
     .warning {
         max-width: 40rem;
         padding: 1rem;
@@ -92,6 +102,7 @@
         justify-content: space-between;
         align-items: center;
         border-radius: 5px;
+        flex-wrap: wrap;
     }
 
     .warning-prose{

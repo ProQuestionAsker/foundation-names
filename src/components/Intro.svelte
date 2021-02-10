@@ -18,7 +18,6 @@ import copy from "../data/copy.json";
 <style>
 section {
     max-width: 60rem;
-    padding: 1rem;
     margin: 0 auto;
 }
 
