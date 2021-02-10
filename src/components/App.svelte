@@ -13,14 +13,13 @@ import GradientHistogram from "./GradientHistogram.svelte";
   import Explore from "./Explore.svelte"
   import Numbers from "./Numbers.svelte"
 
-let scrollytelling;
-$: console.log({scrollytelling})
+
 </script>
 <Meta />
 
 
 
-  <Header bind:state={scrollytelling}/>
+  <Header />
 
 <article>
 <Intro />
@@ -36,9 +35,9 @@ $: console.log({scrollytelling})
 {/each} -->
 
 <Numbers />
-<Nude state = {scrollytelling}/>
-<!-- <Food /> -->
-<!-- <Explore /> -->
+<Nude />
+<Food />
+<Explore />
 
 
 </article>

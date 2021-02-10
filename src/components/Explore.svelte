@@ -64,7 +64,12 @@
    
 </script>
 
-<h2>Explore</h2>
+<section>
+
+<div class='divider-text'>
+    <h3 class='section-hed'>Explore</h3>
+</div>
+
     <div class='container'>
         <h3>Explore the shades</h3>
         <div class='ui-elements'>
@@ -116,9 +121,16 @@
     </div>
 
 
+</section>
+
+
 
 
 <style>
+
+    section {
+        padding: 0 1rem;
+    }
     .chart-container{
         height: 600px;
     }

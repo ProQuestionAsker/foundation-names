@@ -94,6 +94,10 @@ import { afterUpdate, onDestroy, onMount } from "svelte";
 {/if}
 
 
+{#each copy.postNude as {type, value}}
+    <p class='prose'>{value}</p>
+{/each}
+
 </section>
 
 <style>
