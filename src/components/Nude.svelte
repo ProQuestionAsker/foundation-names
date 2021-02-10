@@ -4,17 +4,18 @@
     import Switch from "./Switch.svelte"
     import 'intersection-observer'
     import scrollama from 'scrollama'
-import { onMount } from "svelte";
+import { afterUpdate, onDestroy, onMount } from "svelte";
 
     export let state = "on";
     let activeStep = "all";
+    let steps;
 
-    const scroller = scrollama();
+    let scroller = scrollama();
 
-    $: if (state === 'on') {
+    $: console.log({scroller})
 
-        onMount(() => {
-            scroller
+    $: if (steps && state === 'on'){
+        scroller
             .setup({
                 step: ".step"
             })
@@ -22,9 +23,25 @@ import { onMount } from "svelte";
                 const { element } = response
                 activeStep = element.dataset.step
             })
-        })
         
     }
+
+    // $: onMount(() => {
+    //         console.log('mounted')
+    //         scroller
+    //         .setup({
+    //             step: ".step"
+    //         })
+    //         .onStepEnter((response) => {
+    //             const { element } = response
+    //             activeStep = element.dataset.step
+    //         })
+    //     })
+
+    //     onDestroy(() => scroller = scrollama())
+
+        
+    
 
 
 
@@ -49,7 +66,7 @@ import { onMount } from "svelte";
 
 {#if state === "on"}
     <div class='scroll'>
-            <div class='step-container'>
+            <div class='step-container' bind:this={steps}>
             {#each copy.steps as step, i}
                 <div class='step' data-step={step.step}>
                     <p class='prose'>{step.text}</p>
@@ -66,7 +83,7 @@ import { onMount } from "svelte";
     <div class='standard'>
         {#each copy.steps as step, i}
         <div class='standard-group'>
-            <p>{step.text}</p>
+            <p class='prose'>{step.text}</p>
             <div class='element element-standard'>
                 <NudeElement step = {step.step} />
             </div>
@@ -91,7 +108,9 @@ import { onMount } from "svelte";
 
     .standard-group {
         flex-direction: column;
+        margin-top: 5rem;
     }
+
 
     .step-container {
         width: 50vw;

@@ -54,8 +54,6 @@
     $: leastMissing = least(comboData, (a, b) => ascending(a.difference, b.difference) )
     $: greatestMissing = greatest(comboData, (a, b) => ascending(a.difference, b.difference) )
 
-    $: console.log({leastMissing, greatestMissing})
-
     $: {
         const filterLimited = binnedFiltered.map(d => ({
             ...d,

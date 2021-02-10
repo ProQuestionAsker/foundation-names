@@ -42,7 +42,7 @@
     }
 
     .container-hist {
-        height: 500px;
+        height: 400px;
     }
 
     h4 {
