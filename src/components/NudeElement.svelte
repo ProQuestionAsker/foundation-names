@@ -22,9 +22,8 @@
 
 </script>
 
-<p>Currently on {step}</p>
 <div class='container'>
-    <h3>Shades with "{filterValue}" in the name</h3>
+    <h4>Shades with "{filterValue}" in the name</h4>
     <div class='chart-container container-hist'>
         <LayerCake data={filteredData} x = {d => d.lightness}
             padding={ { top: 20, right: 20, bottom: 20, left: 20 } }
@@ -37,12 +36,19 @@
 
 
 <style>
+
     .chart-container{
         position: relative;
     }
 
     .container-hist {
         height: 500px;
+    }
+
+    h4 {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
     }
 
 

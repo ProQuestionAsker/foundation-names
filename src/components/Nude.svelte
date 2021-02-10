@@ -2,13 +2,31 @@
     import copy from "../data/copy.json";
     import NudeElement from "./NudeElement.svelte";
     import Switch from "./Switch.svelte"
+    import 'intersection-observer'
+    import scrollama from 'scrollama'
+import { onMount } from "svelte";
 
     export let state = "on";
     let activeStep = "all";
 
-    function updateStep(){
+    const scroller = scrollama();
 
+    $: if (state === 'on') {
+
+        onMount(() => {
+            scroller
+            .setup({
+                step: ".step"
+            })
+            .onStepEnter((response) => {
+                const { element } = response
+                activeStep = element.dataset.step
+            })
+        })
+        
     }
+
+
 
 </script>
 
@@ -34,8 +52,7 @@
             <div class='step-container'>
             {#each copy.steps as step, i}
                 <div class='step' data-step={step.step}>
-                    <p>{step.text}</p>
-                    <button on:click="{() => activeStep = step.step}">Update Step</button>
+                    <p class='prose'>{step.text}</p>
                 </div>
             {/each}
         </div>
@@ -69,16 +86,34 @@
 
     .scroll {
         position: relative;
+        margin-top: 6rem;
     }
 
     .standard-group {
         flex-direction: column;
     }
 
+    .step-container {
+        width: 50vw;
+    }
+
+    .step {
+        height: 95vh;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .step p {
+        background-color: transparent;
+        border: 1px solid var(--off-black);
+        padding: 1rem 1.5rem;
+        box-shadow: 12px -12px 0 -1px var(--white), 12px -12px 0 0 #000;
+    }
+
     .element-scroll {
         width: 50%;
         min-width: 50%;
-        margin-left: 3rem;
+        margin-left: 4rem;
     }
 
     .standard {
