@@ -15,8 +15,6 @@
     let brandSel = 'All'
     let radioValue = 'swatches'
 
-    $: console.log({radioValue})
-
     const sections = ['drink', 'food']
 
     let filteredLength = 6000
@@ -58,7 +56,6 @@
 
     $: categorySel, brandSel, filterData()
     $: filteredData, blockWidth, blockHeight
-    $: console.log({filteredLength, blockWidth, blockHeight})
 
 
    

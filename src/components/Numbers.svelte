@@ -8,8 +8,6 @@
 
     $: baseline = groups(data.filter(d => baselineIDs.includes(+d.id)), d => d.id)
     $: darkToLight = groups(data.filter(d => d.lightToDark === 'FALSE'), d => d.id)
-
-    $: console.log({copy})
 </script>
 
 <section>   

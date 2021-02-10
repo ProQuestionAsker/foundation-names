@@ -12,7 +12,6 @@ import { afterUpdate, onDestroy, onMount } from "svelte";
 
     let scroller = scrollama();
 
-    $: console.log({scroller})
 
     $: if (steps && state === 'on'){
         scroller
@@ -26,22 +25,6 @@ import { afterUpdate, onDestroy, onMount } from "svelte";
         
     }
 
-    // $: onMount(() => {
-    //         console.log('mounted')
-    //         scroller
-    //         .setup({
-    //             step: ".step"
-    //         })
-    //         .onStepEnter((response) => {
-    //             const { element } = response
-    //             activeStep = element.dataset.step
-    //         })
-    //     })
-
-    //     onDestroy(() => scroller = scrollama())
-
-        
-    
 
 
 
