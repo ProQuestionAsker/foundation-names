@@ -11,9 +11,9 @@
 
 <figure >
     <div class='container'>
-        <h3>{brand}</h3>
-        <h4 class='sub'>{product}</h4>
-        <div class='swatch-container' role = 'img' aria-label="Colored stripes of sequentially numbered foundation where {values.length} shades go from {lightToDark}">
+        <p class='brand' aria-hidden="true">{brand}</p>
+        <p class='sub' aria-hidden="true">{product}</p>
+        <div class='swatch-container' role = 'img' aria-label="Colored stripes of {brand}'s {product} sequentially numbered foundation where {values.length} shades go from {lightToDark}">
             {#each values as swatch, i}
             <div class='single-swatch'>
                 <div class='swatch' style="background-color:{swatch.hex}"></div>
@@ -34,7 +34,7 @@
         flex: 1 1 0;
     }
 
-    h3 {
+    .brand {
         font-weight: bold;
         margin-bottom: 0.25rem;
     }

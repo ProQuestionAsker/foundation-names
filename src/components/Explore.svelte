@@ -10,6 +10,7 @@
     import Radio from "./Radio.svelte"
     import Interactive from "./Interactive.svelte"
     import Checkbox from "./Checkbox.svelte"
+    import SectionHed from "./SectionHed.svelte"
 
     let categorySel = 'all'
     let brandSel = 'All'
@@ -63,9 +64,7 @@
 
 <section>
 
-<div class='divider-text'>
-    <h3 class='section-hed'>Explore</h3>
-</div>
+<SectionHed text={'Explore'} />
 
     <div class='container'>
         <h3>Explore the shades</h3>

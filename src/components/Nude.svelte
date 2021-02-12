@@ -4,7 +4,8 @@
     import Switch from "./Switch.svelte"
     import 'intersection-observer'
     import scrollama from 'scrollama'
-import { afterUpdate, onDestroy, onMount } from "svelte";
+    import SectionHed from "./SectionHed.svelte"
+
 
     export let state = "on";
     let activeStep = "all";
@@ -31,10 +32,8 @@ import { afterUpdate, onDestroy, onMount } from "svelte";
 </script>
 
 <section>
- 
-        <div class='divider-text'>
-            <h3 class='section-hed'>Nude and Natural</h3>
-        </div>
+        <SectionHed text={'Nude and Natural'} />
+
 
         {#each copy.nude as {type, value}}
             <p class='prose'>{value}</p>

@@ -65,6 +65,7 @@
         }))
         flattenedData = intFlat
 
+
         const shuffled = shuffle(intFlat.slice())
 
         if (step === 'all'){

@@ -8,6 +8,7 @@
     import Switch from "./Switch.svelte"
     import Interactive from "./Interactive.svelte"
     import copy from "../data/copy.json";
+    import SectionHed from "./SectionHed.svelte"
 
 
 
@@ -32,9 +33,7 @@
 </script>
 
 <section>
-<div class='divider-text'>
-    <h3 class='section-hed'>Food and Drink</h3>
-</div>
+<SectionHed text={'Food and Drinks'} />
 
 {#each copy.foodIntro as {type, value}}
     <p class='prose'>{value}</p>
@@ -42,8 +41,8 @@
 
 {#each sections as sectionLabel (sectionLabel)}
     <div class='container'>
-        <h4>Shades with {sectionLabel} Items in the name</h4>
-        <div class='chart-container container-hist'>
+        <p class='chart-title'>Shades with {sectionLabel} Items in the name</p>
+        <div class='chart-container container-hist {sectionLabel}'>
             <LayerCake data={filterData(sectionLabel)} x = {d => d.lightness}
                 padding={ { top: 20, right: 20, bottom: 20, left: 20 } }
                 xDomain = {[0.15, 0.99]}>
@@ -85,7 +84,11 @@
         margin: 0 auto 5rem auto;
     }
 
-    h4 {
+    .chart-container.drink{
+        height: 400px;
+    }
+
+    .chart-title {
         font-size: 24px;
         font-weight: bold;
         text-align: center;

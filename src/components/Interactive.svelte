@@ -1,7 +1,7 @@
 <script>
     import { Canvas, Svg, Html } from "layercake";
     import { getContext } from 'svelte';
-    import { range, bin, least, greatest, ascending } from 'd3-array'
+    import { range, bin, least, greatest, ascending, max } from 'd3-array'
     import SwatchHistogram from "./SwatchHistogram.svelte"
     import Line from "./Line.svelte"
     import Gradient from "./Gradient.svelte"
@@ -14,11 +14,11 @@
 
     // Access the context using the 'LayerCake' keyword
     // Grab some helpful functions
-    const { data, width, xScale, height } = getContext('LayerCake');
+    const { data, width, height, xScale } = getContext('LayerCake');
 
     export let step;
     export let blockWidth = 20;
-    export let blockHeight = blockWidth / 2;
+    export let blockHeight = blockWidth / 3;
     export let allData;
     export let radioValue;
     // export let canvasHeight = 800;
@@ -49,6 +49,17 @@
 
     $: binnedFiltered = lightBin($data)
     $: binnedAll = lightBin(allData)
+
+    $: console.log({bf: binnedFiltered.length})
+
+    // $: tallestBin = max(binnedFiltered.map(d => d.length))
+    // $: console.log({$height})
+
+    // $: if (tallestBin * ((blockWidth / 2) + blockPadding) > $height){
+    //     blockHeight = Math.floor(Math.max(2, $height / tallestBin - blockPadding ))
+    // } else blockHeight = Math.floor(blockWidth / 2)
+
+    // $: console.log({blockHeight, $height, tallestBin})
 
     let comboData;
     $: leastMissing = least(comboData, (a, b) => ascending(a.difference, b.difference) )
