@@ -39,6 +39,11 @@
         delay: 1000,
         easing: cubicOut
     })
+
+    $: naturalPositions = tweened(null, {
+        duration: 500, 
+        easing: cubicOut
+    })
       
     let flattenedData;
 
@@ -95,12 +100,13 @@
     
         }
 
-        blockPositions.set(onlyPositions);
+        if (step !== 'natural') blockPositions.set(onlyPositions);
+        else naturalPositions.set(onlyPositions)
     }
 
     $: if (step === 'distribution' || radioValue === 'histogram') blockOpacity.set(0)
  
-
+$: console.log({step})
 
     // build histogram in canvas
     $: {
@@ -108,72 +114,86 @@
             scaleCanvas($ctx, $width, $height);
             $ctx.clearRect(0, 0, $width, $height);
 
-           $blockPositions.forEach((swatch, i) => {
-               const x = swatch.x
-               const y = $height - margins.bottom - ((swatch.index + 1) * (blockHeight + blockPadding))
-               //const hex = flattenedData[i].hex
 
-               if (flattenedData[i]){
-                   const hex = flattenedData[i].hex
- 
-                    if (step === 'nudestix'){
-                        // if nudestix step then full opacity for nudestix and half for everything else
-                        $ctx.globalAlpha = flattenedData[i].brand === 'NUDESTIX' ? 1 : 0.5
+            if (step !== 'natural'){
 
-                        if (flattenedData[i].brand === 'NUDESTIX'){
-                            $ctx.lineWidth = 1
-                            $ctx.strokeRect(x, y, blockWidth, blockHeight)
+            $blockPositions.forEach((swatch, i) => {
+                const x = swatch.x
+                const y = $height - margins.bottom - ((swatch.index + 1) * (blockHeight + blockPadding))
+                //const hex = flattenedData[i].hex
+
+                if (flattenedData[i]){
+                    const hex = flattenedData[i].hex
+    
+                        if (step === 'nudestix'){
+                            // if nudestix step then full opacity for nudestix and half for everything else
+                            $ctx.globalAlpha = flattenedData[i].brand === 'NUDESTIX' ? 1 : 0.5
+
+                            if (flattenedData[i].brand === 'NUDESTIX'){
+                                $ctx.lineWidth = 1
+                                $ctx.strokeRect(x, y, blockWidth, blockHeight)
+                            }
                         }
-                    }
 
-                    if (step === 'highlight'){
-                        const name = flattenedData[i].name 
-                        const highlightedNames = ['nude mocha', 'nude vanilla', 'nude bisque'];
-                        const match = highlightedNames.includes(name)
+                        if (step === 'highlight'){
+                            const name = flattenedData[i].name 
+                            const highlightedNames = ['nude mocha', 'nude vanilla', 'nude bisque'];
+                            const match = highlightedNames.includes(name)
 
-                        $ctx.globalAlpha = match ? 1 : 0.5
+                            $ctx.globalAlpha = match ? 1 : 0.5
 
-                        if (match){
-                            $ctx.strokeStyle = "#000000"
-                            $ctx.lineWidth = 2
-                            $ctx.strokeRect(x, y, blockWidth, blockHeight)                      
+                            if (match){
+                                $ctx.strokeStyle = "#000000"
+                                $ctx.lineWidth = 2
+                                $ctx.strokeRect(x, y, blockWidth, blockHeight)                      
+                            }
                         }
-                    }
 
-                    if (step !== 'compare'){
-                        if (step === 'distribution' || radioValue === 'histogram'){
-                            $ctx.globalAlpha = $blockOpacity
+                        if (step !== 'compare'){
+                            if (step === 'distribution' || radioValue === 'histogram'){
+                                $ctx.globalAlpha = $blockOpacity
+                            }
+                            $ctx.fillStyle = hex;
+                        
+                            const name = flattenedData[i].name 
+                            $ctx.fillRect(x, y, blockWidth, blockHeight)
                         }
-                        $ctx.fillStyle = hex;
-                        // $ctx.strokeStyle = "#FFFFFF"
-                            // // $ctx.fillStyle = "#000000"
-                            // $ctx.font = '14px sans-serif'
-                            // $ctx.textAlign = 'center'
-                            // $ctx.textBaseline = 'middle'
-                            // // $ctx.strokeText(name, x, y + blockHeight + blockPadding) 
-                            // $ctx.fillText(name, x, y + blockHeight + blockPadding)
-                        const name = flattenedData[i].name 
-                        $ctx.fillRect(x, y, blockWidth, blockHeight)
-                    }
 
-                    if (step === 'highlight'){
-                        const name = flattenedData[i].name 
-                        const highlightedNames = ['nude mocha', 'nude vanilla', 'nude bisque'];
-                        const match = highlightedNames.includes(name)
+                        if (step === 'highlight'){
+                            const name = flattenedData[i].name 
+                            const highlightedNames = ['nude mocha', 'nude vanilla', 'nude bisque'];
+                            const match = highlightedNames.includes(name)
 
-                        if (match){
-                            $ctx.strokeStyle = "#FFFFFF"
-                            $ctx.fillStyle = "#000000"
-                            $ctx.font = 'bold 14px sans-serif'
-                            $ctx.textAlign = name === 'nude mocha' ?  'start' : 'center'
-                            $ctx.textBaseline = 'hanging'
-                            $ctx.strokeText(name, x, y + blockHeight + blockPadding) 
-                            $ctx.fillText(name, x, y + blockHeight + blockPadding)
+                            if (match){
+                                $ctx.strokeStyle = "#FFFFFF"
+                                $ctx.fillStyle = "#000000"
+                                $ctx.font = 'bold 14px sans-serif'
+                                $ctx.textAlign = name === 'nude mocha' ?  'start' : 'center'
+                                $ctx.textBaseline = 'hanging'
+                                $ctx.strokeText(name, x, y + blockHeight + blockPadding) 
+                                $ctx.fillText(name, x, y + blockHeight + blockPadding)
+                            }
                         }
-                    }
-               }
-           })
+                }
+            })
         }
+
+        else {
+            $naturalPositions.forEach((swatch, i) => {
+                const x = swatch.x
+                const y = $height - margins.bottom - ((swatch.index + 1) * (blockHeight + blockPadding))
+                
+
+                if (flattenedData[i]){
+                    const hex = flattenedData[i].hex
+                    $ctx.fillStyle = hex;
+                        
+                    const name = flattenedData[i].name 
+                    $ctx.fillRect(x, y, blockWidth, blockHeight)
+                }
+            })
+        }
+    }
     }
     
 

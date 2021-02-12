@@ -50,7 +50,6 @@
     $: binnedFiltered = lightBin($data)
     $: binnedAll = lightBin(allData)
 
-    $: console.log({bf: binnedFiltered.length})
 
     // $: tallestBin = max(binnedFiltered.map(d => d.length))
     // $: console.log({$height})

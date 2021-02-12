@@ -20,6 +20,7 @@
 
     $: filteredData = data.filter(d => d.namingScheme === filterValue)
 
+
 </script>
 
 <div class='container'>
