@@ -29,10 +29,19 @@
     }
 
     // set up tweening function
+
+
+
     $: blockPositions = tweened(null, {
             duration: 500,
             easing: cubicOut
         })
+
+    $: naturalPositions = tweened(null, {
+            duration: 500, 
+            easing: cubicOut
+        })
+ 
 
     $: blockOpacity = tweened(1, {
         duration: 1000,
@@ -40,10 +49,7 @@
         easing: cubicOut
     })
 
-    $: naturalPositions = tweened(null, {
-        duration: 500, 
-        easing: cubicOut
-    })
+
       
     let flattenedData;
 
