@@ -1,5 +1,28 @@
 <script>
     import { Canvas, Svg, Html } from "layercake";
+    import { getContext } from "svelte";
+    import SwatchHistogram from "./SwatchHistogram.svelte"
+
+    const { data, width, height, xScale } = getContext('LayerCake')
+    export let options = [];
+    export let blockDimensions;
+
+    console.log({options})
+</script>
+
+{#if options.includes('shuffled') || options.includes('histogram')}
+    <Canvas>
+        <SwatchHistogram {blockDimensions}/>
+    </Canvas>
+{/if}
+
+
+
+
+
+
+<!-- <script>
+    import { Canvas, Svg, Html } from "layercake";
     import { getContext } from 'svelte';
     import { range, bin, least, greatest, ascending, max } from 'd3-array'
     import SwatchHistogram from "./SwatchHistogram.svelte"
@@ -183,4 +206,4 @@
         position: relative;
         height: 3000px;
     } */
-</style>
+</style> -->
