@@ -9,6 +9,7 @@
     import NameHistogram from "./NameHistogram.svelte"
     import Table from "./Table.svelte"
     import Annotations from "./Annotations.svelte"
+    import Tooltip from "./Tooltip.svelte"
 
 
 
@@ -21,6 +22,9 @@
     export let blockHeight = blockWidth / 3;
     export let allData;
     export let radioValue;
+    let flat;
+
+    $: console.log({flat})
     // export let canvasHeight = 800;
 
     // dimensions
@@ -121,7 +125,7 @@
         <Gradient {step}/> 
     </Canvas>
     <Canvas class="hist">     
-        <SwatchHistogram blockWidth={blockWidth} {blockHeight} {step} {blockPadding} {colNum} binnedData = {binnedFiltered} />
+        <SwatchHistogram blockWidth={blockWidth} {blockHeight} {step} {blockPadding} {colNum} binnedData = {binnedFiltered} bind:flattenedData={flat} />
     </Canvas>
     <Svg zIndex={3}>
         {#if (step !== 'all' && step !== 'sort') }
@@ -136,6 +140,7 @@
             <Annotations {annotations} />
         </Html>
     {/if}
+
 {:else}
     {#if radioValue === 'swatches'}
         <Canvas id='test'>
@@ -164,6 +169,11 @@
         <Html zIndex={4}>
             <Table headers = {tableHeaders} rows = {tableData} perPage = {20} />
         </Html>        
+    {/if}
+    {#if flat}
+    <Html zIndex={5}>
+        <Tooltip positions={flat} {blockHeight} {blockPadding} {blockWidth} />
+    </Html>
     {/if}
 {/if}
 

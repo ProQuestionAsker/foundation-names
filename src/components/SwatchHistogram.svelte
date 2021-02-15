@@ -20,6 +20,7 @@
     export let blockPadding = 2;
     export let colNum;
     export let binnedData;
+    export let flattenedData;
 
     const margins = {
         top: 50,
@@ -51,7 +52,7 @@
 
 
       
-    let flattenedData;
+
 
    $: {
         // flatten the data with binning information
@@ -59,8 +60,10 @@
         let onlyPositions;
     
         binnedData.forEach((bin, i) => {
+
             const swatches =  bin.map((d, ind) => ({
                 ...d,
+                binStart: bin.x0,
                 x: $xScale(bin.x0),
                 index: ind
             }))
@@ -111,8 +114,7 @@
     }
 
     $: if (step === 'distribution' || radioValue === 'histogram') blockOpacity.set(0)
- 
-$: console.log({step})
+
 
     // build histogram in canvas
     $: {

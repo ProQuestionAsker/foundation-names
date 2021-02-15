@@ -27,8 +27,6 @@
     }
 
 
-
-
 </script>
 
 <section>
@@ -49,7 +47,7 @@
 {#if state === "on"}
     <div class='scroll'>
             <div class='step-container' bind:this={steps}>
-            {#each copy.steps as step, i}
+            {#each copy.steps as step, i (step)}
                 <div class='step' data-step={step.step}>
                     <p class='prose'>{step.text}</p>
                 </div>
@@ -63,7 +61,7 @@
 
 {:else}
     <div class='standard'>
-        {#each copy.steps as step, i}
+        {#each copy.steps as step, i (step)}
         <div class='standard-group'>
             <p class='prose'>{step.text}</p>
             <div class='element element-standard'>
