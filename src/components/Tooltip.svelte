@@ -6,7 +6,7 @@
 
     export let blockDimensions;
     let visible = false;
-    let found;
+    let found = {};
 
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
 
@@ -21,6 +21,13 @@
 
     function findItem(mousePos){
         found = finder.find(mousePos.x, mousePos.layerY)
+        visible = true;
+    }
+
+    $: console.log({visible})
+
+    function resetFound(){
+        found = {};
     }
 
     $: finder = quadtree()
@@ -32,16 +39,21 @@
         .addAll(formattedData)
 </script>
 
-<div class='bg' on:mousemove={findItem}></div>
+<div class='bg' on:mousemove|stopPropagation={findItem} on:mouseleave|self|preventDefault={() => visible = false}></div>
 
-{#if found}
+{#if Object.keys(found).length > 0}
+<p>{Object.keys(found).length > 0}</p>
     <TooltipDisplay selected={found} width={$width} {blockDimensions} height={$height} xScale={$xScale} />
 {/if}
 
 <style>
     .bg {
-        height: 100%;
-        background-color: transparent;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        pointer-events: all;
     }
 </style>
 

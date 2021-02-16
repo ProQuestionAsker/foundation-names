@@ -40,7 +40,7 @@
 
 </Svg>  
 
-<Html zIndex={3}>
+<Html zIndex={5}>
     <Tooltip {blockDimensions}/>
 </Html>
 

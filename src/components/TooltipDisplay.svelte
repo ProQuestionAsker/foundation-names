@@ -7,7 +7,14 @@
     export let xScale;
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
     let w = 250;
-    $: h = w / 2;
+    $: h = w * 2 ;
+
+    // if too far right, flip to other side
+    $: startXPos = xScale(selected.binStart) + blockWidth + (blockPadding * 2)
+    $: left = width - startXPos < w ? startXPos - blockWidth - w - (blockPadding * 2) : startXPos
+
+    $: startYPos = height - ((selected.index + 1) * (blockHeight + blockPadding)) - (blockPadding)
+    $: top = height - startYPos < w ? startYPos - 100: startYPos
 
 
 
@@ -15,11 +22,11 @@
 </script>
 
 <div class='tooltip' style="width:{w}px;
-    top: {height - ((selected.index + 1) * (blockHeight + blockPadding)) - (blockPadding)}px;
-    left: {Math.min(Math.max(h, selected.x), width - h)}px
+    top: {top}px;
+    left: {left}px
 ">  <p class='name'>"{selected.name}"</p>
     <p class='brand'>{selected.brand}</p>
-    <p>{selected.product}</p>
+    <p class='product'>{selected.product}</p>
 
 </div>
 
@@ -41,12 +48,16 @@
 
     .tooltip p {
         margin: 0.5rem 0;
+    }
+
+    .brand, .product{
         font-size: 14px;
     }
 
     .name {
         font-weight: bold;
-        font-size: 16px;
+        font-size: 18px;
+        text-align: center;
     }
     .highlight {
         border: 3px solid var(--accent-color);
