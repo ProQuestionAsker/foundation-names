@@ -12,14 +12,13 @@
     export let blockDimensions;
     export let lineData;
 
-    $: console.log({options})
-
 </script>
 
-{#if options.includes('shuffled') || options.includes('histogram') || options.includes('natural')}
-<p>Histogram</p>
+{#if (options.includes('shuffled') || options.includes('histogram') || options.includes('natural'))}
     <Canvas>
-        <SwatchHistogram {blockDimensions} {options}/>
+        {#key $data.length}
+            <SwatchHistogram {blockDimensions} {options}/>
+        {/key}
     </Canvas>
 {/if}
 
@@ -40,8 +39,10 @@
 
 </Svg>  
 
+{#if options.includes('tooltip')}
 <Html zIndex={5}>
     <Tooltip {blockDimensions}/>
 </Html>
+{/if}
 
 

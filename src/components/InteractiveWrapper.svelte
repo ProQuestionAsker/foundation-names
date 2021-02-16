@@ -1,11 +1,14 @@
 <script>
     import { onMount } from "svelte";
     import InteractiveParent from "./InteractiveParent.svelte"
+    import UI from "./UI.svelte"
 
     export let title;
     export let filteredData;
     export let allData;
     export let options;
+    export let UIOptions;
+    export let id;
 
     let width;
     let mounted = false;
@@ -15,6 +18,7 @@
 
 <div class='container' bind:clientWidth={width}>
     <p class='chart-title'>{title}</p>
+    <UI {UIOptions} {id}/>
     {#if mounted}
         <InteractiveParent {filteredData} data = {allData} {options} {width}/>
     {/if}

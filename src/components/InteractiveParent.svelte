@@ -17,7 +17,6 @@
     onMount(() => mounted = true)
 
     $: blockDimensions = {blockWidth, blockHeight, blockPadding}
-    $: console.log({blockDimensions})
     // dimensions 
     const margins = {
         top: 50,
@@ -126,6 +125,8 @@
 
         const largestBin = greatest(binnedFiltered.map(d => (d.length)))
         const newHeight = (width / largestBin) - blockPadding
+
+        console.log({flattenedData})
 
         blockHeight = Math.floor(Math.max(2, (totalHeight/largestBin) - blockPadding))
 

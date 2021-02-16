@@ -6,6 +6,7 @@
     export let options;
     export let legend;
     export let value = options[0].name;
+    export let id;
   
     const slugify = (str = "") =>
       str.toLowerCase().replace(/ /g, "-").replace(/\./g, "");
@@ -17,10 +18,10 @@
       <input
         class="sr-only"
         type="radio"
-        id={slugify(name)}
+        id={`${id}-${slugify(name)}`}
         bind:group={value}
         value={slugify(name)} />
-      <label class='option' for={slugify(name)}> {label} </label>
+      <label class='option' for={`${id}-${slugify(name)}`}> {label} </label>
     {/each}
   </fieldset>
   

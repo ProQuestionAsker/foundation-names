@@ -10,8 +10,7 @@
     import copy from "../data/copy.json";
     import SectionHed from "./SectionHed.svelte"
     import InteractiveWrapper from "./InteractiveWrapper.svelte"
-
-
+    import UI from "./UI.svelte"
 
     const xKey = 'lightness'
     const blockWidth = 20;
@@ -28,6 +27,7 @@
     }
 
     let options = ['histogram', 'gradient', 'majority', 'tooltip']
+    let UIOptions = ['radio']
 
     
 
@@ -43,8 +43,8 @@
 {/each}
 
 {#each sections as sectionLabel (sectionLabel)}
-    <InteractiveWrapper title={`${filterData(sectionLabel).length} shades with ${sectionLabel} items in the name`} filteredData={filterData(sectionLabel)} allData={data} {options} />
-
+    <InteractiveWrapper title={`${filterData(sectionLabel).length} shades with ${sectionLabel} items in the name`} filteredData={filterData(sectionLabel)} 
+    allData={data} {options} {UIOptions} id={sectionLabel}/>
     {#each copy[sectionLabel] as {type, value}}
     <p class='prose'>{value}</p>
     {/each}

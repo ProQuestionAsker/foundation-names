@@ -12,7 +12,7 @@
     export let options;
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
 
-   
+    $: console.log({natural: options.includes('natural')})
 
     $: onlyPositions = $data.map(d => ({
         x: $xScale(d.binStart) + (blockPadding),
@@ -23,15 +23,19 @@
                 duration: 500,
                 easing: cubicOut
     })
+
     $: naturalPositions = tweened(null, {
         duration: 500,
         easing: cubicOut
     })
 
-    $: {
-        if (options.includes('natural')) naturalPositions.set(onlyPositions) 
-        else  blockPositions.set(onlyPositions)
-    }
+    $: if (options.includes('natural')) naturalPositions.set(onlyPositions)
+    $: if (!options.includes('natural')) blockPositions.set(onlyPositions)
+
+    // $: {
+    //     if (options.includes('natural')) naturalPositions.set(onlyPositions) 
+    //     else  blockPositions.set(onlyPositions)
+    // }
 
     // build histogram in canvas
     $: {
