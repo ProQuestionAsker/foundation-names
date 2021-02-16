@@ -123,7 +123,7 @@
         const largestBin = greatest(binnedFiltered.map(d => (d.length)))
         const newHeight = (totalWidth / largestBin) - blockPadding
 
-        blockHeight = Math.max(2, (totalHeight/largestBin) - blockPadding)
+        blockHeight = Math.floor(Math.max(2, (totalHeight/largestBin) - blockPadding))
 
         lineData = options.includes('line') ? generateLineData(binnedFiltered, binnedAll) : [];
     }

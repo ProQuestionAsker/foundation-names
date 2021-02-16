@@ -11,7 +11,6 @@
     export let blockDimensions;
     export let lineData;
 
-    $: console.log({blockDimensions})
 </script>
 
 {#if options.includes('shuffled') || options.includes('histogram')}
@@ -24,17 +23,17 @@
         <Gradient /> 
     </Canvas>
 {/if}
-{#if options.includes('majority') || options.includes('line')}
-    <Svg zIndex={3}>
-        {#if options.includes('majority')}
-            <GradientAnnotation  />    
-        {/if}
 
-        {#if options.includes('line')}
-            <Line {options} {lineData} {blockDimensions} />
-        {/if}
-    </Svg>  
-{/if}
+<Svg zIndex={3}>
+    {#if options.includes('majority')}
+        <GradientAnnotation  />    
+    {/if}
+
+    {#if options.includes('line')}
+        <Line {options} {lineData} {blockDimensions} />
+    {/if}
+</Svg>  
+
 
 
 

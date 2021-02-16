@@ -7,7 +7,7 @@
     const { data, xScale, width, height } = getContext('LayerCake'); 
     const { ctx } = getContext('canvas')
 
-    const gradientHeight = 10
+    const gradientHeight = 0
     export let blockDimensions;
     export let options;
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
