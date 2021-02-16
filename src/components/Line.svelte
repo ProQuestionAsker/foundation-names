@@ -16,11 +16,11 @@
 
     // data as prop, not from layercake!
     // export let allData;
-    export let filteredData;
-    export let blockWidth = 10;
-    export let blockHeight = blockWidth / 2;
-    export let step;
-    const blockPadding = 2;
+    export let lineData;
+    export let blockDimensions;
+    export let options;
+    $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
+ 
 
     const margins = {
         top: 50,
@@ -39,12 +39,12 @@
         .y(d => $height - margins.bottom - (+d.allCount * (blockHeight + blockPadding)))
         .curve(curveStepBefore)
 
-    $: filteredData.push({count: 0, x1: 1, allCount: 0})
-    $: filteredData.unshift({count: 0, x1: 0.15, allCount: 0})
+    $: lineData.push({count: 0, x1: 1, allCount: 0})
+    $: lineData.unshift({count: 0, x1: 0.15, allCount: 0})
 
 
-    $: linePath = allLineGenerator(filteredData)
-    $: filteredLine = lineGenerator(filteredData)
+    $: linePath = allLineGenerator(lineData)
+    $: filteredLine = lineGenerator(lineData)
 
 
     
@@ -52,11 +52,9 @@
 
 {#if linePath}        
     <path class='path-line filtered' transition:fade d={filteredLine}></path>
-
-    {#if step === 'compare'}
+    {#if options.includes('allLine')}
         <path class='path-line full' transition:fade d={linePath}></path>
     {/if}
-
 {/if}
 
 <style>

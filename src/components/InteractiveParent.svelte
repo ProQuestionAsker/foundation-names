@@ -2,14 +2,15 @@
     import { flatten, LayerCake } from "layercake";
     import { onMount } from "svelte";
     import Interactive from "./Interactive.svelte";
-    import { bin, shuffle, range, ascending } from 'd3-array'
+    import { bin, shuffle, range, ascending, least, greatest } from 'd3-array'
 
     export let data;
     export let filteredData;
     let blockWidth = 20;
-    $: blockHeight = Math.ceil(blockWidth / 3);
+    let blockHeight = Math.ceil(blockWidth / 3);
     let blockPadding = 2;
     let totalWidth;
+    let totalHeight;
     export let options = [];
 
     $: blockDimensions = {blockWidth, blockHeight, blockPadding}
@@ -32,7 +33,6 @@
     function flattenBins(binnedData, colNum){
         let flatBins = []
         let onlyPositions;
-        console.log({binnedData})
 
         binnedData.forEach((bin, i) => {
             const swatches = bin.map((d, ind) => ({
@@ -71,13 +71,34 @@
             exportFlat = shuffledFlat.sort((a, b) => ascending(a.id, b.id))
 
         } 
-        console.log({options})
 
         return exportFlat;
 
     }
 
+    function generateLineData(binnedFiltered, binnedAll){
+        const filterLimited = binnedFiltered.map(d => ({
+            ...d,
+            x0: d.x0,
+            count: d.length,
+            percent: d.length / filteredData.length
+        }))
+
+        const allLimited = binnedAll.map(d => ({
+            x0: d.x0,
+            count: d.length,
+            percent: d.length / data.length
+        }))
+
+        return filterLimited.map((d, i) => ({
+            ...d, 
+            allCount: Math.round(allLimited[i].percent * (filteredData.length)),
+            difference: Math.round(allLimited[i].percent * (filteredData.length)) - d.count
+        }))
+    }
+
     let flattenedData;
+    let lineData;
     $: colNum = Math.round((totalWidth - margins.right - margins.left) / ((blockPadding * 2) + blockWidth))
 
     $: if (colNum) {
@@ -92,25 +113,31 @@
         let binnedFiltered = lightBin(filteredData);
         let binnedAll = lightBin(data);
 
-        console.log({colNum, filteredData, binnedFiltered})
         // data for annotations
         let annData = options.includes('annotations') ? findDifferences(binnedFiltered, binnedAll) : [];
 
 
         // flatten data
         flattenedData = flattenBins(binnedFiltered, colNum)
+
+        const largestBin = greatest(binnedFiltered.map(d => (d.length)))
+        const newHeight = (totalWidth / largestBin) - blockPadding
+
+        blockHeight = Math.max(2, (totalHeight/largestBin) - blockPadding)
+
+        lineData = options.includes('line') ? generateLineData(binnedFiltered, binnedAll) : [];
     }
    
     
     
 </script>
 
-<div class='lc-container' bind:clientWidth={totalWidth}>
+<div class='lc-container' bind:clientWidth={totalWidth} bind:clientHeight={totalHeight}>
     {#if flattenedData}
         <LayerCake data={flattenedData} x={d => d.lightness}
             xDomain={[0.15, 0.99]}> 
 
-            <Interactive {options} {blockDimensions}/>
+            <Interactive {options} {blockDimensions} {lineData}/>
         </LayerCake>
     {/if}
 

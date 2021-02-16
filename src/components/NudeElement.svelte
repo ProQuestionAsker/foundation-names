@@ -23,15 +23,19 @@
 
     $: {
         if (step === 'all') options = ['shuffled'];
-        if (step === 'sort') options = ['histogram']
+        if (step === 'sort') options = ['histogram', 'gradient']
+        if (step === 'majority') options = ['histogram', 'gradient', 'majority']
+        if (step === 'distribution') options = ['gradient', 'majority', 'line']
+        if (step === 'compare') options = ['gradient', 'majority', 'line', 'allLine']
+        if (step === 'nudestix') options = ['histogram', 'gradient', 'majority', 'nudestix']
+        if (step === 'highlight') options = ['histogram', 'gradient', 'majority', 'highlight']  
+        if (step === 'natural') options = ['histogram', 'gradient', 'majority', 'natural']
     }
 
 
 
     $: console.log({step, options})
-    // if (step === 'majority') options = ['histogram', 'gradient', 'majority']
-    // if (step === 'distribution') options = ['histogram', 'gradient', 'majority', 'line']
-    // if (step === 'compare') options = ['gradient', 'majority', 'line', 'allLine', 'annotations']
+
     // if (step === 'nudestix') options = ['histogram', 'gradient', 'majority', 'nudestix']
     // if (step === 'highlight') options = ['histogram', 'gradient', 'majority', 'highlight']  
 
