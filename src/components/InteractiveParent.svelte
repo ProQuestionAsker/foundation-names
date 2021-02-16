@@ -11,10 +11,13 @@
     let blockHeight = Math.ceil(blockWidth / 3);
     let blockPadding = 2;
     let totalHeight;
+    let mounted = false;
     export let options = [];
 
-    $: blockDimensions = {blockWidth, blockHeight, blockPadding}
+    onMount(() => mounted = true)
 
+    $: blockDimensions = {blockWidth, blockHeight, blockPadding}
+    $: console.log({blockDimensions})
     // dimensions 
     const margins = {
         top: 50,
@@ -104,6 +107,7 @@
     $: if (colNum) {
         // trigger update when options updates
         let _ = options;
+
         // bin filtered data
         let lightBin = bin()
             .thresholds((filteredData, min, max) => range(colNum).map(t => min + (t / colNum) * (max - min)))
@@ -133,7 +137,7 @@
 </script>
 
 <div class='lc-container' bind:clientHeight={totalHeight}>
-    {#if flattenedData}
+    {#if flattenedData && mounted}
         <LayerCake data={flattenedData} x={d => d.lightness}
             xDomain={[0.15, 0.99]}> 
 
@@ -145,6 +149,6 @@
 
 <style>
     .lc-container{
-        height: 40vh;
+        height: 90%;
     }
 </style>

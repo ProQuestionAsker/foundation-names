@@ -1,0 +1,71 @@
+<script>
+    export let selected;
+
+    export let blockDimensions;
+    export let width;
+    export let height;
+    export let xScale;
+    $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
+    let w = 250;
+    $: h = w / 2;
+
+
+
+
+</script>
+
+<div class='tooltip' style="width:{w}px;
+    top: {height - ((selected.index + 1) * (blockHeight + blockPadding)) - (blockPadding)}px;
+    left: {Math.min(Math.max(h, selected.x), width - h)}px
+">  <p class='name'>"{selected.name}"</p>
+    <p class='brand'>{selected.brand}</p>
+    <p>{selected.product}</p>
+
+</div>
+
+<div class='highlight' style="width:{blockWidth + (blockPadding * 2)}px; 
+    height: {blockHeight + (blockPadding * 2)}px; 
+    top:{height - ((selected.index + 1) * (blockHeight + blockPadding)) - (blockPadding)}px;
+    left: {xScale(selected.binStart)}px">
+
+</div>
+
+<style>
+    .tooltip {
+        position: absolute;
+        background-color: var(--white);
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--gray);
+        pointer-events: none;
+    }
+
+    .tooltip p {
+        margin: 0.5rem 0;
+        font-size: 14px;
+    }
+
+    .name {
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .highlight {
+        border: 3px solid var(--accent-color);
+        position: absolute;
+        box-shadow: 0 0px 8px var(--accent-color);
+    }
+</style>
+<!-- 
+<div class='tooltip'
+style="width:{w}px; display: {visible ? 'block' : 'none'};
+top: {found.index * (blockHeight * blockPadding)}px;
+left: {Math.min(Math.max(h, found.x), width - h)}px"
+>
+
+<p>{found.brand}</p>
+<p>{found.product}</p>
+<p>{found.name}</p>
+</div>
+
+<div class='highlight' style="width:{blockWidth + 4}px; height: {blockHeight + 4}px; left:{$xGet(found)}px; top: {$height - marginBottom * 2 - (found.index * (blockHeight + blockPadding)) - 2}px">
+
+</div> -->

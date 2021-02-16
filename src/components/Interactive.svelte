@@ -5,17 +5,19 @@
     import Gradient from "./Gradient.svelte"
     import GradientAnnotation from "./GradientAnnotation.svelte"
     import Line from "./Line.svelte"
+    import Tooltip from "./Tooltip.svelte"
 
     const { data, width, height, xScale } = getContext('LayerCake')
     export let options = [];
     export let blockDimensions;
     export let lineData;
 
-    $: console.log({lineData})
+    $: console.log({options})
 
 </script>
 
-{#if options.includes('shuffled') || options.includes('histogram')}
+{#if options.includes('shuffled') || options.includes('histogram') || options.includes('natural')}
+<p>Histogram</p>
     <Canvas>
         <SwatchHistogram {blockDimensions} {options}/>
     </Canvas>
@@ -37,5 +39,9 @@
     {/if}
 
 </Svg>  
+
+<Html zIndex={3}>
+    <Tooltip {blockDimensions}/>
+</Html>
 
 

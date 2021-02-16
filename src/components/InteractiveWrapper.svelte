@@ -10,8 +10,6 @@
     let width;
     let mounted = false;
 
-    $: console.log({width})
-
     onMount(() => mounted = true)
 </script>
 
@@ -28,5 +26,10 @@
         font-size: 24px;
         font-weight: bold;
         text-align: center;
+    }
+
+    .container {
+        margin-bottom: 4rem;
+        height: 40vh;
     }
 </style>

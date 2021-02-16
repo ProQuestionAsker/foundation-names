@@ -11,31 +11,27 @@
     export let blockDimensions;
     export let options;
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
-    
+
+   
 
     $: onlyPositions = $data.map(d => ({
         x: $xScale(d.binStart) + (blockPadding),
         y: $height - gradientHeight - ((d.index + 1) * (blockHeight + blockPadding))
     }))
-
-
-
+ 
     $: blockPositions = tweened(null, {
-            duration: 500,
-            easing: cubicOut
-        })
-
+                duration: 500,
+                easing: cubicOut
+    })
     $: naturalPositions = tweened(null, {
         duration: 500,
         easing: cubicOut
     })
 
     $: {
-        if (!options.includes('natural')) blockPositions.set(onlyPositions)
-        else naturalPositions.set(onlyPositions)
-}
-
-    $: console.log({blockWidth, blockHeight})
+        if (options.includes('natural')) naturalPositions.set(onlyPositions) 
+        else  blockPositions.set(onlyPositions)
+    }
 
     // build histogram in canvas
     $: {
@@ -43,7 +39,21 @@
             scaleCanvas($ctx, $width, $height);
             $ctx.clearRect(0, 0, $width, $height);
 
-            if (!options.includes('natural')){
+             if (options.includes('natural')) {
+                $naturalPositions.forEach((swatch, i) => {
+
+                    const x = swatch.x
+                        const y = swatch.y
+
+                        if ($data[i]){
+                            const hex = $data[i].hex;
+                            // generally, create a filled rectangle
+                            $ctx.fillStyle = hex;
+                            $ctx.fillRect(x, y, blockWidth, blockHeight)
+                        }
+                })
+            } else {
+        
                 $blockPositions.forEach((swatch, i) => {
                     const x = swatch.x
                     const y = swatch.y
@@ -82,19 +92,7 @@
 
                     }
                 })
-            } else $naturalPositions.forEach((swatch, i) => {
-
-                const x = swatch.x
-                    const y = swatch.y
-
-                    if ($data[i]){
-                        const hex = $data[i].hex;
-                        // generally, create a filled rectangle
-                        $ctx.fillStyle = hex;
-                        $ctx.fillRect(x, y, blockWidth, blockHeight)
-                    }
-            })
-
+            }
         
       
             

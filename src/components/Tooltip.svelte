@@ -1,13 +1,60 @@
 <script>
+    import {quadtree} from 'd3-quadtree';
+    import { getContext } from 'svelte';
+    import TooltipDisplay from './TooltipDisplay.svelte'
+
+
+    export let blockDimensions;
+    let visible = false;
+    let found;
+
+    $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
+
+    const { data, xGet, yGet, width, xScale, height} = getContext('LayerCake')
+
+    $: formattedData = $data.map(d => ({
+        ...d,
+        x: $xScale(d.binStart) + blockWidth,
+        y: $height - ((d.index + 1) * (blockHeight + blockPadding))
+    }))
+
+
+    function findItem(mousePos){
+        found = finder.find(mousePos.x, mousePos.layerY)
+    }
+
+    $: finder = quadtree()
+        .extent([[-1, -1], [$width + 1, $height + 1]])
+        .x(d => d.x)
+        .y(d => d.y)
+        // .x(d => ($xScale(d.binStart) + blockDimensions.blockWidth))
+        // .y(d =>  $height - ((d.index + 1) * (blockDimensions.blockHeight + blockDimensions.blockPadding)))
+        .addAll(formattedData)
+</script>
+
+<div class='bg' on:mousemove={findItem}></div>
+
+{#if found}
+    <TooltipDisplay selected={found} width={$width} {blockDimensions} height={$height} xScale={$xScale} />
+{/if}
+
+<style>
+    .bg {
+        height: 100%;
+        background-color: transparent;
+    }
+</style>
+
+
+<!-- <script>
     import { quadtree } from 'd3-quadtree';
     import { getContext } from 'svelte';
 
     const { data, xGet, yGet, width, xScale, height} = getContext('LayerCake');
 
-    export let positions;
-    export let blockHeight;
-    export let blockPadding;
-    export let blockWidth;
+
+    export let blockDimensions;
+
 
     let visible = false;
     let found;
@@ -74,4 +121,4 @@
         border: 2px solid black;
         position: absolute;
     }
-</style>
+</style> -->

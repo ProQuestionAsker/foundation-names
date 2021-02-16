@@ -19,7 +19,7 @@
         if (step === 'compare') options = ['gradient', 'majority', 'line', 'allLine']
         if (step === 'nudestix') options = ['histogram', 'gradient', 'majority', 'nudestix']
         if (step === 'highlight') options = ['histogram', 'gradient', 'majority', 'highlight']  
-        if (step === 'natural') options = ['histogram', 'gradient', 'majority', 'natural']
+        if (step === 'natural') options = ['gradient', 'majority', 'natural']
     }
 
     $: title = `${filteredData.length} shades with "${filterValue}" in the name`

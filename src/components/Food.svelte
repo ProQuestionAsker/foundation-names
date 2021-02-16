@@ -1,6 +1,6 @@
 <script>
     import data from "../data/shades_export.csv"
-    import SwatchHistogram from "./SwatchHistogram.svelte"
+    import SwatchHistogram from "./SwatchHistogram-old.svelte"
     import Gradient from "./Gradient.svelte"
     import Line from "./Line.svelte"
     import GradientAnnotation from "./GradientAnnotation.svelte"
@@ -9,6 +9,7 @@
     import Interactive from "./Interactive.svelte"
     import copy from "../data/copy.json";
     import SectionHed from "./SectionHed.svelte"
+    import InteractiveWrapper from "./InteractiveWrapper.svelte"
 
 
 
@@ -22,9 +23,11 @@
 
     function filterData(sectionName){
         const cat = data.filter(d => d.category === sectionName)
- 
+
         return cat
     }
+
+    let options = ['histogram', 'gradient', 'majority', 'tooltip']
 
     
 
@@ -40,38 +43,12 @@
 {/each}
 
 {#each sections as sectionLabel (sectionLabel)}
-    <div class='container'>
-        <p class='chart-title'>Shades with {sectionLabel} Items in the name</p>
-        <div class='chart-container container-hist {sectionLabel}'>
-            <LayerCake data={filterData(sectionLabel)} x = {d => d.lightness}
-                padding={ { top: 20, right: 20, bottom: 20, left: 20 } }
-                xDomain = {[0.15, 0.99]}>
-                        
-                <Interactive step = {'majority'} allData = {data} {blockWidth} {blockHeight}/>
-            </LayerCake>
-            <!-- <LayerCake data={filterData(sectionLabel)} x = {d => d.lightness}
-                padding={ { top: 20, right: 20, bottom: 20, left: 20 } }
-                xDomain = {[0.15, 0.99]}>
-                <Canvas>
-                    <Gradient /> 
-                </Canvas>
-                <Canvas class="hist">
-                    <SwatchHistogram blockWidth={20} />
-                </Canvas>
-                <Svg zIndex={3}>            
-                     <Line allData = {data} blockWidth = {20} step="compare"/> 
-                </Svg>
-            </LayerCake> -->
-        </div>
-
-    </div>
+    <InteractiveWrapper title={`${filterData(sectionLabel).length} shades with ${sectionLabel} items in the name`} filteredData={filterData(sectionLabel)} allData={data} {options} />
 
     {#each copy[sectionLabel] as {type, value}}
     <p class='prose'>{value}</p>
     {/each}
 {/each}
-
-
 </section>
 
 
