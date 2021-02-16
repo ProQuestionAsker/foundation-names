@@ -50,7 +50,7 @@
     
 </script>
 
-{#if linePath}        
+{#if linePath }        
     <path class='path-line filtered' transition:fade d={filteredLine}></path>
     {#if options.includes('allLine')}
         <path class='path-line full' transition:fade d={linePath}></path>
