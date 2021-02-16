@@ -65,18 +65,3 @@
         box-shadow: 0 0px 8px var(--accent-color);
     }
 </style>
-<!-- 
-<div class='tooltip'
-style="width:{w}px; display: {visible ? 'block' : 'none'};
-top: {found.index * (blockHeight * blockPadding)}px;
-left: {Math.min(Math.max(h, found.x), width - h)}px"
->
-
-<p>{found.brand}</p>
-<p>{found.product}</p>
-<p>{found.name}</p>
-</div>
-
-<div class='highlight' style="width:{blockWidth + 4}px; height: {blockHeight + 4}px; left:{$xGet(found)}px; top: {$height - marginBottom * 2 - (found.index * (blockHeight + blockPadding)) - 2}px">
-
-</div> -->
