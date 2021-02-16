@@ -11,6 +11,8 @@
     export let blockDimensions;
     export let lineData;
 
+    $: console.log({lineData})
+
 </script>
 
 {#if options.includes('shuffled') || options.includes('histogram')}
@@ -30,9 +32,10 @@
         <GradientAnnotation  />    
     {/if}
 
-    {#if options.includes('line')}
+    {#if lineData.length > 0}
         <Line {options} {lineData} {blockDimensions} />
     {/if}
+
 </Svg>  
 
 

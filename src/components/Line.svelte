@@ -16,10 +16,12 @@
 
     // data as prop, not from layercake!
     // export let allData;
-    export let lineData;
+    export let lineData = [];
     export let blockDimensions;
     export let options;
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
+
+    $: console.log({lineData})
  
 
     const margins = {
@@ -42,15 +44,16 @@
     $: lineData.push({count: 0, x1: 1, allCount: 0})
     $: lineData.unshift({count: 0, x1: 0.15, allCount: 0})
 
-
     $: linePath = allLineGenerator(lineData)
     $: filteredLine = lineGenerator(lineData)
+  
+   
 
 
     
 </script>
 
-{#if linePath }        
+{#if lineData.length > 0}        
     <path class='path-line filtered' transition:fade d={filteredLine}></path>
     {#if options.includes('allLine')}
         <path class='path-line full' transition:fade d={linePath}></path>

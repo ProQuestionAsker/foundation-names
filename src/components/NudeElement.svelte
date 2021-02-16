@@ -1,6 +1,7 @@
 <script>
     import data from "../data/nude_export.csv"
     import allData from "../data/shades_export.csv"
+    import InteractiveWrapper from "./InteractiveWrapper.svelte"
     import InteractiveParent from "./InteractiveParent.svelte"
 
     export let step;
@@ -21,19 +22,9 @@
         if (step === 'natural') options = ['histogram', 'gradient', 'majority', 'natural']
     }
 
+    $: title = `${filteredData.length} shades with "${filterValue}" in the name`
+
 </script>
 
-<div class='container'>
-    <p class='chart-title'>{filteredData.length} Shades with "{filterValue}" in the name</p>
+<InteractiveWrapper {title} {filteredData} {allData} {options} />
 
-    <InteractiveParent {filteredData} data = {allData} {options}/>
-</div>
-
-
-<style>
-    .chart-title {
-        font-size: 24px;
-        font-weight: bold;
-        text-align: center;
-    }
-</style>

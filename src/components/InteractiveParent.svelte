@@ -6,10 +6,10 @@
 
     export let data;
     export let filteredData;
+    export let width;
     let blockWidth = 20;
     let blockHeight = Math.ceil(blockWidth / 3);
     let blockPadding = 2;
-    let totalWidth;
     let totalHeight;
     export let options = [];
 
@@ -99,7 +99,7 @@
 
     let flattenedData;
     let lineData;
-    $: colNum = Math.round((totalWidth - margins.right - margins.left) / ((blockPadding * 2) + blockWidth))
+    $: colNum = Math.round((width - margins.right - margins.left) / ((blockPadding * 2) + blockWidth))
 
     $: if (colNum) {
         // trigger update when options updates
@@ -121,7 +121,7 @@
         flattenedData = flattenBins(binnedFiltered, colNum)
 
         const largestBin = greatest(binnedFiltered.map(d => (d.length)))
-        const newHeight = (totalWidth / largestBin) - blockPadding
+        const newHeight = (width / largestBin) - blockPadding
 
         blockHeight = Math.floor(Math.max(2, (totalHeight/largestBin) - blockPadding))
 
@@ -132,7 +132,7 @@
     
 </script>
 
-<div class='lc-container' bind:clientWidth={totalWidth} bind:clientHeight={totalHeight}>
+<div class='lc-container' bind:clientHeight={totalHeight}>
     {#if flattenedData}
         <LayerCake data={flattenedData} x={d => d.lightness}
             xDomain={[0.15, 0.99]}> 
