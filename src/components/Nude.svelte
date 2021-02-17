@@ -116,18 +116,15 @@
     .element-scroll {
         width: 50%;
         min-width: 50%;
-        margin-left: 4rem;
+        margin-left: 4rem;        
+        position: sticky;
+        height: 70vh;
+        top: 25vh;
     }
 
     .standard {
         max-width: 50rem;
         margin: 0 auto;
-    }
-
-    .element-scroll {
-        position: sticky;
-        height: 50vh;
-        top: 25vh;
     }
 
     .warning {

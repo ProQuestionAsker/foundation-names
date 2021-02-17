@@ -19,7 +19,7 @@
 
 
     function findItem(mousePos){
-        found = finder.find(mousePos.x, mousePos.layerY)
+        found = finder.find(mousePos.layerX, mousePos.layerY)
     }
 
 

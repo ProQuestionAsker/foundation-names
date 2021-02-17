@@ -43,8 +43,11 @@
 {/each}
 
 {#each sections as sectionLabel (sectionLabel)}
+    <div class='container'>
     <InteractiveWrapper title={`${filterData(sectionLabel).length} shades with ${sectionLabel} items in the name`} filteredData={filterData(sectionLabel)} 
     allData={data} {options} {UIOptions} id={sectionLabel}/>
+    </div>
+
     {#each copy[sectionLabel] as {type, value}}
     <p class='prose'>{value}</p>
     {/each}
@@ -55,8 +58,8 @@
 
 
 <style>
-    .chart-container{
-        height: 600px;
+    .container{
+        height: 90vh;
         max-width: 50rem;
         margin: 0 auto 5rem auto;
     }

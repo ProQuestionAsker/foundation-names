@@ -43,7 +43,7 @@
 
     .container {
         margin-bottom: 4rem;
-        height: 40vh;
+        height: 100%;
         pointer-events: none;
     }
 </style>

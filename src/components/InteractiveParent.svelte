@@ -150,6 +150,6 @@
 
 <style>
     .lc-container{
-        height: 90%;
+        height: 70%;
     }
 </style>
