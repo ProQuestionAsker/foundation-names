@@ -19,6 +19,7 @@
 
     let key;
     let keyCode;
+    let controllerContainer;
 
     function roundNumber(num){
         return Math.round(num * 100) / 100
@@ -89,8 +90,10 @@
 
 <Html zIndex={5}>
     <!-- add to tab order in page order -->
-    <div class='controller' tabindex=0 on:keydown={handleKeyDown}>
-        <Controller {blockDimensions} {options} {currentGroup} {groupedData}/>
+    <div class='controller' tabindex=0 on:keydown={handleKeyDown} bind:this={controllerContainer}>
+        {#if controllerContainer}
+            <Controller {blockDimensions} {options} {currentGroup} {groupedData} {controllerContainer}/>
+        {/if}
     </div>
 
     {#if options.includes('tooltip')}
@@ -113,6 +116,6 @@
 
     }
     .controller:focus{
-        border: 4px solid var(--accent-color)
+        outline: 4px solid var(--accent-color)
     }
 </style>
