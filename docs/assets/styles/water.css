@@ -261,7 +261,8 @@ table {
   border-collapse: collapse;
   margin-bottom: 10px;
   width: 100%;
-  table-layout: auto;
+  table-layout: fixed;
+  text-overflow: ellipsis;
 }
 table caption,
 td,
