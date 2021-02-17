@@ -13,6 +13,11 @@
     export let containerHeight;
 
     let exHeight;
+    let ogHeight = 0;
+
+    $: if (ogHeight === 0 && containerHeight) ogHeight = containerHeight;
+
+
 
     let radioValue;
     $: if (radioValue){
@@ -25,6 +30,15 @@
     let mounted = false;
 
     extendedHeight.subscribe((value) => exHeight = value)
+
+    // $: exHeight[id].button = exHeight[id].height > containerHeight * 0.7
+
+    // $: console.log({exHeight})
+    // $: if(exHeight[id]){
+    //     exHeight[id].button = exHeight[id].height > containerHeight * 0.7
+
+    //     extendedHeight.set(exHeight)
+    // }
 
     function expandGraphic(){
         exHeight[id].expanded = !exHeight[id].expanded
@@ -41,13 +55,16 @@
         <UI {UIOptions} {id} bind:radioValue/>
     {/if}
     {#if mounted}
+        {#key containerHeight}
         <InteractiveParent {filteredData} data = {allData} {options} {width} {id}/>
 
-        {#if exHeight[id] && exHeight[id].height > (containerHeight * 0.7) && radioValue === 'names'}
+        {#if exHeight[id] && exHeight[id].height > (ogHeight * 0.7) && radioValue === 'names'}
             <div class='more-container'>
                 <button on:click = {() => expandGraphic()}>Show All</button>
             </div>
         {/if}
+
+        {/key}
     {/if}
 </div>
 

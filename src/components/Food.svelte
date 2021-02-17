@@ -21,12 +21,11 @@
     //$: filteredData = data.filter(d => d.category === 'food').filter(d => switchValue === 'varied' ? d.namingScheme === 'variety' : d.namingScheme === 'NA' )
 
     let exHeight;
-    let containerHeight = 90;
+    let containerHeight = 500;
     let heightMeasure = 'vh'
 
     $: extendedHeight.subscribe(val => exHeight = val)
 
-    $: console.log({exHeight})
 
     const sections = ['drink', 'food']
 
@@ -39,12 +38,9 @@
     let options = ['histogram', 'gradient', 'majority', 'tooltip']
     let UIOptions = ['radio']
 
-    function determineHeight(sectionLabel){
-        const check = exHeight[sectionLabel].expanded
-
-        console.log({check, exHeight})
-        if (exHeight[sectionLabel].expanded === true) return `${exHeight[sectionLabel].height}px`
-        return `${containerHeight}vh`
+    function determineHeight(sectionLabel, exHeight){
+        if (exHeight[sectionLabel].expanded === true) return `${exHeight[sectionLabel].height + containerHeight + 4}px`
+        return `${containerHeight}px`
     }
 
 </script>
@@ -57,12 +53,10 @@
 {/each}
 
 {#each sections as sectionLabel (sectionLabel)}
-    {#key exHeight}
-        <div class='container' style="height:{determineHeight(sectionLabel)}">
-            <InteractiveWrapper title={`${filterData(sectionLabel).length} shades with ${sectionLabel} items in the name`} filteredData={filterData(sectionLabel)} 
-            allData={data} {options} {UIOptions} id={sectionLabel}/>
-        </div>
-    {/key}
+    <div class='container' style="height:{determineHeight(sectionLabel, exHeight)}">
+        <InteractiveWrapper title={`${filterData(sectionLabel).length} shades with ${sectionLabel} items in the name`} filteredData={filterData(sectionLabel)} 
+        allData={data} {options} {UIOptions} id={sectionLabel}/>
+    </div>
 
     {#each copy[sectionLabel] as {type, value}}
     <p class='prose'>{value}</p>

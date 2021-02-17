@@ -38,6 +38,7 @@
 
     $: {
         if ($ctx) {
+            scaleCanvas($ctx, $width, $height);
             $ctx.clearRect(0, 0, $width, $height);
             $ctx.font = `${wordHeight - 4}px sans-serif`
             const flatWords = flattenedData.map(d => ({
