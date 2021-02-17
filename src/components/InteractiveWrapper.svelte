@@ -12,7 +12,7 @@
 
     let radioValue;
     $: if (radioValue){
-        if (radioValue === 'swatches') options = ['histogram', 'gradient', 'majority']
+        if (radioValue === 'swatches') options = ['histogram', 'gradient', 'majority', 'tooltip']
         if (radioValue === 'names') options = ['wordwall']
         if (radioValue === 'table') options = ['table']
     }

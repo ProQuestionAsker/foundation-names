@@ -7,6 +7,7 @@
     import Line from "./Line.svelte"
     import Tooltip from "./Tooltip.svelte"
     import Table from "./Table.svelte"
+    import Wordwall from "./WordWall.svelte"
 
     const { data, width, height, xScale } = getContext('LayerCake')
     export let options = [];
@@ -25,13 +26,19 @@
 
 </script>
 
-{#if (options.includes('shuffled') || options.includes('histogram') || options.includes('natural'))}
-    <Canvas>
-        {#key $data.length}
-            <SwatchHistogram {blockDimensions} {options}/>
-        {/key}
-    </Canvas>
-{/if}
+    {#if (options.includes('shuffled') || options.includes('histogram') || options.includes('natural'))}
+        <Canvas>
+            {#key $data.length}
+                <SwatchHistogram {blockDimensions} {options}/>
+            {/key}
+        </Canvas>
+    {/if}
+    {#if (options.includes('wordwall'))}
+        <Canvas>
+            <Wordwall {blockDimensions}/>
+        </Canvas>
+    {/if}
+
 
 {#if options.includes('gradient')}
     <Canvas>

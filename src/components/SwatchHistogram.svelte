@@ -94,6 +94,12 @@
                         $ctx.fillStyle = hex;
                         $ctx.fillRect(x, y, blockWidth, blockHeight)
 
+                        // if too light, add border
+                        if ( +$data[i].lightness > 0.95){
+                            $ctx.strokeStyle = '#F7D5B7'
+                            $ctx.strokeRect(x, y, blockWidth, blockHeight)
+                        }
+
                     }
                 })
             }
