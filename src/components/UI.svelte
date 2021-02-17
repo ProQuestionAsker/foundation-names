@@ -8,7 +8,7 @@
 
     let brandSel;
     let categorySel;
-    let radioValue = 'swatches'
+    export let radioValue = 'swatches';
 
 </script>
 

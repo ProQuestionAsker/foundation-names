@@ -10,6 +10,13 @@
     export let UIOptions;
     export let id;
 
+    let radioValue;
+    $: if (radioValue){
+        if (radioValue === 'swatches') options = ['histogram', 'gradient', 'majority']
+        if (radioValue === 'names') options = ['wordwall']
+        if (radioValue === 'table') options = ['table']
+    }
+
     let width;
     let mounted = false;
 
@@ -18,7 +25,7 @@
 
 <div class='container' bind:clientWidth={width}>
     <p class='chart-title'>{title}</p>
-    <UI {UIOptions} {id}/>
+    <UI {UIOptions} {id} bind:radioValue/>
     {#if mounted}
         <InteractiveParent {filteredData} data = {allData} {options} {width}/>
     {/if}

@@ -6,11 +6,22 @@
     import GradientAnnotation from "./GradientAnnotation.svelte"
     import Line from "./Line.svelte"
     import Tooltip from "./Tooltip.svelte"
+    import Table from "./Table.svelte"
 
     const { data, width, height, xScale } = getContext('LayerCake')
     export let options = [];
     export let blockDimensions;
     export let lineData;
+
+    function roundNumber(num){
+        return Math.round(num * 100) / 100
+    }
+
+    let tableData;
+    let tableHeaders = ['brand', 'product', 'name', 'hex', 'lightness']
+    $: if (options.includes('table')){
+        tableData = $data.map(d => ([d.brand, d.product, d.name, d.hex, roundNumber(d.lightness)]))
+    }
 
 </script>
 
@@ -39,10 +50,16 @@
 
 </Svg>  
 
-{#if options.includes('tooltip')}
+
 <Html zIndex={5}>
-    <Tooltip {blockDimensions}/>
+    {#if options.includes('tooltip')}
+        <Tooltip {blockDimensions}/>
+    {/if}
+
+    {#if options.includes('table')}
+        <Table headers={tableHeaders} rows={tableData} perPage={10} />
+    {/if}
 </Html>
-{/if}
+
 
 

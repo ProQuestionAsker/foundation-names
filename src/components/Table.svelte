@@ -131,6 +131,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        pointer-events: all;
     }
 
     .pagination p {
@@ -140,6 +141,10 @@
     td {
         white-space: nowrap;
         overflow: hidden;
+    }
+
+    table {
+        pointer-events: all;
     }
 
     .selected {
