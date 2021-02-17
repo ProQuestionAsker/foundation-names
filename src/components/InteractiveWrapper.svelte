@@ -51,7 +51,7 @@
         extendedHeight.set(exHeight)
     }
 
-    // $: if (radioValue !== 'names' && exHeight[id]) collapseGraphic()
+    // $: if (radioValue !== 'names' && exHeight && exHeight[id]) collapseGraphic()
 
     onMount(() => {
         mounted = true    
