@@ -29,7 +29,6 @@
     let width;
     let mounted = false;
 
-    extendedHeight.subscribe((value) => exHeight = value)
 
     // $: exHeight[id].button = exHeight[id].height > containerHeight * 0.7
 
@@ -52,9 +51,12 @@
         extendedHeight.set(exHeight)
     }
 
-    $: if (radioValue !== 'names') collapseGraphic()
+    // $: if (radioValue !== 'names' && exHeight[id]) collapseGraphic()
 
-    onMount(() => mounted = true)
+    onMount(() => {
+        mounted = true    
+        extendedHeight.subscribe((value) => exHeight = value)
+    })
 </script>
 
 <div class='container' bind:clientWidth={width} bind:clientHeight={containerHeight}>
@@ -66,7 +68,10 @@
         {#key containerHeight}
         <InteractiveParent {filteredData} data = {allData} {options} {width} {id}/>
 
-        {#if exHeight[id] && exHeight[id].height > (ogHeight * 0.7) && radioValue === 'names'}
+        {#if exHeight[id] && exHeight[id].height > (ogHeight * 0.7) && radioValue === 'names'}              
+           {#if exHeight[id].expanded === false}
+                <div class='gradient'></div>
+            {/if}
             <div class='more-container'>
                 <button on:click = {() => expandGraphic()}>{exHeight[id].expanded ? 'Show Fewer' : 'Show All'}</button>
             </div>
@@ -92,5 +97,22 @@
 
     .more-container {
         pointer-events: all;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        z-index: 10;
+        background-color: var(--bg);
+        width: 100%;
+    }
+
+    .gradient {
+        pointer-events: none;
+        height: 20%;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(0deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
     }
 </style>

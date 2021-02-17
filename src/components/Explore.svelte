@@ -1,6 +1,6 @@
 <script>
     import data from "../data/shades_export.csv"
-    import SwatchHistogram from "./SwatchHistogram.svelte"
+    import SwatchHistogram from "./SwatchHistogram-old.svelte"
     import { group, ascending} from 'd3-array'
     import Gradient from "./Gradient.svelte"
     import Line from "./Line.svelte"
