@@ -27,11 +27,11 @@
 </script>
 
     {#if (options.includes('shuffled') || options.includes('histogram') || options.includes('natural'))}
-        <Canvas>
-            {#key $data.length}
+        {#key $data.length} 
+            <Canvas>
                 <SwatchHistogram {blockDimensions} {options}/>
-            {/key}
-        </Canvas>
+            </Canvas> 
+        {/key}
     {/if}
     {#if (options.includes('wordwall'))}
         <Canvas>

@@ -25,7 +25,9 @@
 
 <div class='container' bind:clientWidth={width}>
     <p class='chart-title'>{title}</p>
-    <UI {UIOptions} {id} bind:radioValue/>
+    {#if UIOptions}
+        <UI {UIOptions} {id} bind:radioValue/>
+    {/if}
     {#if mounted}
         <InteractiveParent {filteredData} data = {allData} {options} {width}/>
     {/if}

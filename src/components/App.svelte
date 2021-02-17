@@ -35,7 +35,7 @@ import GradientHistogram from "./GradientHistogram.svelte";
 {/each} -->
 
 <!-- <Numbers /> -->
-<!-- <Nude /> -->
+<Nude />
 <Food />
 <!-- <Explore /> -->
 
