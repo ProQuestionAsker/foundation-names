@@ -46,6 +46,14 @@
         extendedHeight.set(exHeight)
     }
 
+    function collapseGraphic(){
+        exHeight[id].expanded = false
+
+        extendedHeight.set(exHeight)
+    }
+
+    $: if (radioValue !== 'names') collapseGraphic()
+
     onMount(() => mounted = true)
 </script>
 
@@ -60,7 +68,7 @@
 
         {#if exHeight[id] && exHeight[id].height > (ogHeight * 0.7) && radioValue === 'names'}
             <div class='more-container'>
-                <button on:click = {() => expandGraphic()}>Show All</button>
+                <button on:click = {() => expandGraphic()}>{exHeight[id].expanded ? 'Show Fewer' : 'Show All'}</button>
             </div>
         {/if}
 
