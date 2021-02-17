@@ -12,8 +12,6 @@
     export let options;
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
 
-    $: console.log({natural: options.includes('natural')})
-
     $: onlyPositions = $data.map(d => ({
         x: $xScale(d.binStart) + (blockPadding),
         y: $height - gradientHeight - ((d.index + 1) * (blockHeight + blockPadding))

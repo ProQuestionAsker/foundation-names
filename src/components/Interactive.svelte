@@ -13,6 +13,7 @@
     export let options = [];
     export let blockDimensions;
     export let lineData;
+    export let id;
 
     function roundNumber(num){
         return Math.round(num * 100) / 100
@@ -35,7 +36,7 @@
     {/if}
     {#if (options.includes('wordwall'))}
         <Canvas>
-            <Wordwall {blockDimensions}/>
+            <Wordwall {blockDimensions} {id}/>
         </Canvas>
     {/if}
 

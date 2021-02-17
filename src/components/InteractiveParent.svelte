@@ -7,6 +7,7 @@
     export let data;
     export let filteredData;
     export let width;
+    export let id;
     let blockWidth = 20;
     let blockHeight = Math.ceil(blockWidth / 3);
     let blockPadding = 2;
@@ -126,8 +127,6 @@
         const largestBin = greatest(binnedFiltered.map(d => (d.length)))
         const newHeight = (width / largestBin) - blockPadding
 
-        console.log({flattenedData})
-
         blockHeight = Math.floor(Math.max(2, (totalHeight/largestBin) - blockPadding))
 
         lineData = options.includes('line') ? generateLineData(binnedFiltered, binnedAll) : [];
@@ -142,7 +141,7 @@
         <LayerCake data={flattenedData} x={d => d.lightness}
             xDomain={[0.15, 0.99]}> 
 
-            <Interactive {options} {blockDimensions} {lineData}/>
+            <Interactive {options} {blockDimensions} {lineData} {id}/>
         </LayerCake>
     {/if}
 

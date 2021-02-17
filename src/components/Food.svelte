@@ -11,12 +11,22 @@
     import SectionHed from "./SectionHed.svelte"
     import InteractiveWrapper from "./InteractiveWrapper.svelte"
     import UI from "./UI.svelte"
+    import extendedHeight from './../stores/stores.js';
+
 
     const xKey = 'lightness'
     const blockWidth = 20;
     $: blockHeight = blockWidth / 4;
 
     //$: filteredData = data.filter(d => d.category === 'food').filter(d => switchValue === 'varied' ? d.namingScheme === 'variety' : d.namingScheme === 'NA' )
+
+    let exHeight;
+    let containerHeight = 90;
+    let heightMeasure = 'vh'
+
+    $: extendedHeight.subscribe(val => exHeight = val)
+
+    $: console.log({exHeight})
 
     const sections = ['drink', 'food']
 
@@ -29,10 +39,14 @@
     let options = ['histogram', 'gradient', 'majority', 'tooltip']
     let UIOptions = ['radio']
 
-    
+    function determineHeight(sectionLabel){
+        const check = exHeight[sectionLabel].expanded
 
+        console.log({check, exHeight})
+        if (exHeight[sectionLabel].expanded === true) return `${exHeight[sectionLabel].height}px`
+        return `${containerHeight}vh`
+    }
 
-   
 </script>
 
 <section>
@@ -43,10 +57,12 @@
 {/each}
 
 {#each sections as sectionLabel (sectionLabel)}
-    <div class='container'>
-    <InteractiveWrapper title={`${filterData(sectionLabel).length} shades with ${sectionLabel} items in the name`} filteredData={filterData(sectionLabel)} 
-    allData={data} {options} {UIOptions} id={sectionLabel}/>
-    </div>
+    {#key exHeight}
+        <div class='container' style="height:{determineHeight(sectionLabel)}">
+            <InteractiveWrapper title={`${filterData(sectionLabel).length} shades with ${sectionLabel} items in the name`} filteredData={filterData(sectionLabel)} 
+            allData={data} {options} {UIOptions} id={sectionLabel}/>
+        </div>
+    {/key}
 
     {#each copy[sectionLabel] as {type, value}}
     <p class='prose'>{value}</p>
@@ -59,7 +75,7 @@
 
 <style>
     .container{
-        height: 90vh;
+        /* height: 90vh; */
         max-width: 50rem;
         margin: 0 auto 5rem auto;
     }
