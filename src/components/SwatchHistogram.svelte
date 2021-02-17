@@ -22,13 +22,7 @@
                 easing: cubicOut
     })
 
-    $: naturalPositions = tweened(null, {
-        duration: 500,
-        easing: cubicOut
-    })
-
-    $: if (options.includes('natural')) naturalPositions.set(onlyPositions)
-    $: if (!options.includes('natural')) blockPositions.set(onlyPositions)
+    $: blockPositions.set(onlyPositions)
 
     // $: {
     //     if (options.includes('natural')) naturalPositions.set(onlyPositions) 
@@ -41,21 +35,7 @@
             scaleCanvas($ctx, $width, $height);
             $ctx.clearRect(0, 0, $width, $height);
 
-             if (options.includes('natural')) {
-                $naturalPositions.forEach((swatch, i) => {
-
-                    const x = swatch.x
-                        const y = swatch.y
-
-                        if ($data[i]){
-                            const hex = $data[i].hex;
-                            // generally, create a filled rectangle
-                            $ctx.fillStyle = hex;
-                            $ctx.fillRect(x, y, blockWidth, blockHeight)
-                        }
-                })
-            } else {
-        
+ 
                 $blockPositions.forEach((swatch, i) => {
                     const x = swatch.x
                     const y = swatch.y
@@ -100,7 +80,7 @@
 
                     }
                 })
-            }
+            
         
       
             
