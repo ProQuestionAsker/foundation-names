@@ -16,6 +16,8 @@ import Explore from "./Explore.svelte";
     let found;
     let exploreSwatches = false;
     let ind = 0
+    let groupCount = groupedData.length
+    let groupLabel = 'Group of swatches'
 
     // onMount(() => {
     //     console.log({groupSelOutline})
@@ -26,6 +28,10 @@ import Explore from "./Explore.svelte";
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
 
     const { data, xGet, yGet, width, xScale, height} = getContext('LayerCake')
+
+    function roundNumber(num){
+        return Math.round(num * 100) / 100
+    }
     
     //$: groupedData = groups($data, d => d.binStart)
 
@@ -33,7 +39,10 @@ import Explore from "./Explore.svelte";
         if (groupSelOutline) {
             groupSelOutline.focus();
             ind = 0;
-            console.log({groupSelOutline})
+            if (currentGroup === 0) groupLabel = `Darkest shades. Group 1 of ${groupCount}. Lightness ${roundNumber(groupedData[0][0])} - ${roundNumber(groupedData[1][0])}`
+            else if (currentGroup === groupCount - 1)  groupLabel = `Lightest shades. Group ${groupCount} of ${groupCount}. Lightness ${roundNumber(groupedData[currentGroup][0])} - 0.99`
+            else groupLabel = `Group ${currentGroup + 1} of ${groupCount}. Lightness ${roundNumber(groupedData[currentGroup][0])} - ${roundNumber(groupedData[currentGroup + 1][0])}`
+            console.log({groupLabel})
         }
     }
 
@@ -70,12 +79,14 @@ import Explore from "./Explore.svelte";
 </script>
 
 {#if options.includes('histogram')}
-    <div bind:this={groupSelOutline}
-        on:keydown|preventDefault={handleKeyPress}
-        tabindex=-1
-        class='group-select'    
-        style="width:{blockWidth + (blockPadding * 2)}px; height:{groupedData[currentGroup][1].length * (blockHeight + blockPadding) + blockPadding}px; left:{$xScale(groupedData[currentGroup][0])}px"
-    ></div>
+        <div bind:this={groupSelOutline}
+            tabindex=-1
+            on:keydown|preventDefault={handleKeyPress}
+            aria-label={groupLabel}
+            class='group-select'    
+            style="width:{blockWidth + (blockPadding * 2)}px; height:{groupedData[currentGroup][1].length * (blockHeight + blockPadding) + blockPadding}px; left:{$xScale(groupedData[currentGroup][0])}px"
+        >
+    </div>
     {#if exploreSwatches === true}
         <TooltipDisplay selected={found} width={$width} {blockDimensions} height={$height} xScale={$xScale} />
     {/if}
@@ -85,11 +96,8 @@ import Explore from "./Explore.svelte";
 <style>
     .group-select{
         bottom: 0;
-        position: absolute;
-    }
-    .group-select:focus{
+        position: absolute;       
         outline: 3px solid var(--accent-color);
-        position: absolute;
         box-shadow: 0 0px 8px var(--accent-color);
     }
 </style>
