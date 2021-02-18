@@ -12,10 +12,11 @@
     let groupSelOutline;
     let mount = false
 
-    onMount(() => {
-        console.log({groupSelOutline})
-        groupSelOutline.focus()
-    })
+    // onMount(() => {
+    //     console.log({groupSelOutline})
+    //     controllerContainer.blur();
+    //     groupSelOutline.focus();
+    // })
 
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
 
@@ -23,18 +24,26 @@
     
     //$: groupedData = groups($data, d => d.binStart)
 
-    // function moveFocusGroup(currentGroup){
-    //     if (groupSelOutline) {
-    //         groupSelOutline.focus();
-    //     }
-    // }
+    function moveFocusGroup(currentGroup){
+        if (groupSelOutline) {
+            groupSelOutline.focus();
+            console.log({groupSelOutline})
+        }
+    }
 
-    // $: moveFocusGroup(currentGroup)
+    $: moveFocusGroup(currentGroup)
+
+    function handleKeyPress(event){
+        console.log({shift: event.shiftKey, tab: event.key === 'Tab'})
+        if (event.key === 'Shift' && event.key === 'Tab' || event.key === 'Escape') controllerContainer.focus();
+    }
 
 
 </script>
 
-<div bind:this={groupSelOutline} 
+<div bind:this={groupSelOutline}
+    on:keydown|preventDefault={handleKeyPress}
+    tabindex=-1
     class='group-select'    
     style="width:{blockWidth + (blockPadding * 2)}px; height:{groupedData[currentGroup][1].length * (blockHeight + blockPadding) + blockPadding}px; left:{$xScale(groupedData[currentGroup][0])}px"
 ></div>
@@ -44,10 +53,11 @@
     .group-select{
         bottom: 0;
         position: absolute;
-        border: 1px solid red;
     }
     .group-select:focus{
-        border: 5px solid var(--accent-color)
+        outline: 3px solid var(--accent-color);
+        position: absolute;
+        box-shadow: 0 0px 8px var(--accent-color);
     }
 </style>
 

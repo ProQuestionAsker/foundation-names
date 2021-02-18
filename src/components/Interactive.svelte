@@ -39,14 +39,17 @@
     function handleKeyDown(event){
         const key = event.key;
         const keyCode = event.keyCode
+        const arrows = ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown']
+
+        // if (arrows.includes(key)) controllerContainer.blur();
+        if (key === 'Escape' || key === 'Tab') controllerContainer.focus();
 
         if (key === 'ArrowRight') {
-            let newGroup = currentGroup < totalGroups ? currentGroup + 1 :  0;
-            console.log({newGroup})
+            let newGroup = currentGroup < totalGroups - 1 ? currentGroup + 1 :  0;
             currentGroup = newGroup
         }
         if (key === 'ArrowLeft') {
-            let newGroup = currentGroup === 0 ? totalGroups : currentGroup - 1 
+            let newGroup = currentGroup === 0 ? totalGroups - 1 : currentGroup - 1 
             currentGroup = newGroup
         }
     }
