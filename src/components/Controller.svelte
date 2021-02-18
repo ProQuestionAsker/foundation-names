@@ -32,6 +32,7 @@ import Explore from "./Explore.svelte";
     function moveFocusGroup(currentGroup){
         if (groupSelOutline) {
             groupSelOutline.focus();
+            ind = 0;
             console.log({groupSelOutline})
         }
     }
@@ -49,7 +50,6 @@ import Explore from "./Explore.svelte";
             exploreSwatches = true;
             const swatches = groupedData[currentGroup][1]
             const total = swatches.length - 1
-            ind = ind > total ? total : ind
             console.log({swatches, total})
             if (key === 'ArrowUp'){
                 const newIndex = ind === total ? 0 : ind + 1
