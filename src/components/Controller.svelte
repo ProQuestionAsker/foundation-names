@@ -41,12 +41,14 @@
 
 </script>
 
+{#if options.includes('histogram')}
 <div bind:this={groupSelOutline}
     on:keydown|preventDefault={handleKeyPress}
     tabindex=-1
     class='group-select'    
     style="width:{blockWidth + (blockPadding * 2)}px; height:{groupedData[currentGroup][1].length * (blockHeight + blockPadding) + blockPadding}px; left:{$xScale(groupedData[currentGroup][0])}px"
 ></div>
+{/if}
 
 
 <style>
