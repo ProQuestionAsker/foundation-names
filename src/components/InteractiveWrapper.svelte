@@ -26,6 +26,7 @@
         if (radioValue === 'table') options = ['table']
     }
 
+    $: console.log({radioValue})
     let width;
     let mounted = false;
 
@@ -61,6 +62,8 @@
 
 <div class='container' bind:clientWidth={width} bind:clientHeight={containerHeight}>
     <p class='chart-title'>{title}</p>
+
+
     {#if UIOptions}
         <UI {UIOptions} {id} bind:radioValue/>
     {/if}

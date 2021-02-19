@@ -12,9 +12,10 @@
       str.toLowerCase().replace(/ /g, "-").replace(/\./g, "");
   </script>
   
-  <fieldset>
+  <form>
+  <fieldset id={`field-${id}`}>
     <legend>{legend}</legend>
-    {#each options as { name, label }}
+    {#each options as { name, label } (name)}
       <input
         class="sr-only"
         type="radio"
@@ -24,6 +25,7 @@
       <label class='option' for={`${id}-${slugify(name)}`}> {label} </label>
     {/each}
   </fieldset>
+</form>
   
   <style>
     fieldset {

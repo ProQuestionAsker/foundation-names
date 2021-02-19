@@ -18,6 +18,7 @@ import Explore from "./Explore.svelte";
     let ind = 0
     let groupCount = groupedData.length
     let groupLabel = 'Group of swatches'
+    let ariaContent;
 
     // onMount(() => {
     //     console.log({groupSelOutline})
@@ -34,14 +35,17 @@ import Explore from "./Explore.svelte";
     }
     
     //$: groupedData = groups($data, d => d.binStart)
+    function writeLabel(groupData){
+
+    }
 
     function moveFocusGroup(currentGroup){
         if (groupSelOutline) {
             groupSelOutline.focus();
             ind = 0;
-            if (currentGroup === 0) groupLabel = `Darkest shades. Group 1 of ${groupCount}. Lightness ${roundNumber(groupedData[0][0])} - ${roundNumber(groupedData[1][0])}`
-            else if (currentGroup === groupCount - 1)  groupLabel = `Lightest shades. Group ${groupCount} of ${groupCount}. Lightness ${roundNumber(groupedData[currentGroup][0])} - 0.99`
-            else groupLabel = `Group ${currentGroup + 1} of ${groupCount}. Lightness ${roundNumber(groupedData[currentGroup][0])} - ${roundNumber(groupedData[currentGroup + 1][0])}`
+            if (currentGroup === 0) groupLabel = `Darkest shades. Group 1 of ${groupCount}. ${groupedData[currentGroup][1].length} Swatches. Lightness ${roundNumber(groupedData[0][0])} - ${roundNumber(groupedData[1][0])}`
+            else if (currentGroup === groupCount - 1)  groupLabel = `Lightest shades. Group ${groupCount} of ${groupCount}. ${groupedData[currentGroup][1].length} Swatches. Lightness ${roundNumber(groupedData[currentGroup][0])} - 0.99`
+            else groupLabel = `Group ${currentGroup + 1} of ${groupCount}. ${groupedData[currentGroup][1].length} Swatches. Lightness ${roundNumber(groupedData[currentGroup][0])} - ${roundNumber(groupedData[currentGroup + 1][0])}`
             console.log({groupLabel})
         }
     }
@@ -75,18 +79,28 @@ import Explore from "./Explore.svelte";
         else exploreSwatches = false
     }
 
+    $: {
+        let startIndex = currentGroup === 0 ? groupCount - 1 : currentGroup - 1;
+        let endIndex = currentGroup === groupCount - 1 ? 1 : currentGroup + 2;
+        ariaContent = groupedData.slice(startIndex, endIndex)
+    }
 
 </script>
 
 {#if options.includes('histogram')}
-        <div bind:this={groupSelOutline}
-            tabindex=-1
+        <div aria-hidden=true bind:this={groupSelOutline}
             on:keydown|preventDefault={handleKeyPress}
-            aria-label={groupLabel}
             class='group-select'    
             style="width:{blockWidth + (blockPadding * 2)}px; height:{groupedData[currentGroup][1].length * (blockHeight + blockPadding) + blockPadding}px; left:{$xScale(groupedData[currentGroup][0])}px"
         >
     </div>
+    <!-- {#key currentGroup}
+        {#each ariaContent as node}
+            <div class='hidden'>
+                <p aria-hidden=false tabindex="0">{groupLabel}</p>
+            </div>
+        {/each}
+    {/key} -->
     {#if exploreSwatches === true}
         <TooltipDisplay selected={found} width={$width} {blockDimensions} height={$height} xScale={$xScale} />
     {/if}
@@ -97,8 +111,8 @@ import Explore from "./Explore.svelte";
     .group-select{
         bottom: 0;
         position: absolute;       
-        outline: 3px solid var(--accent-color);
-        box-shadow: 0 0px 8px var(--accent-color);
+        /* outline: 3px solid var(--accent-color);
+        box-shadow: 0 0px 8px var(--accent-color); */
     }
 </style>
 
