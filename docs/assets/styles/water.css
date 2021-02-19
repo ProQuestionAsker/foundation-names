@@ -1,4 +1,5 @@
 /* adapted from https://github.com/kognise/water.css */
+/* CHANGE THIS ONE */
 :root {
   --body-font: serif;
   --background-body: #fff;
@@ -262,7 +263,6 @@ table {
   margin-bottom: 10px;
   width: 100%;
   table-layout: fixed;
-  text-overflow: ellipsis;
 }
 table caption,
 td,
@@ -274,6 +274,11 @@ th {
   padding: 6px;
   vertical-align: top;
   word-wrap: break-word;
+}
+td {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 thead {
   border-bottom: 1px solid var(--border);
