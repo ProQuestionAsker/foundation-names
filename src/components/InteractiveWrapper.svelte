@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import {group, ascending} from 'd3-array';
     import InteractiveParent from "./InteractiveParent.svelte"
     import UI from "./UI.svelte"
     import extendedHeight from './../stores/stores.js';
@@ -18,9 +19,23 @@
     $: if (ogHeight === 0 && containerHeight) ogHeight = containerHeight;
 
 
+    // setting up dropdown menu data
+    let allBrands = Array.from(group(allData, d => d.brand)
+        .keys())
+        .sort((a, b) => ascending(a.toLowerCase(), b.toLowerCase()))
+    allBrands.unshift('All')
+
+    let allCategories = Array.from(group(allData, d => d.category)
+        .keys())
+        .sort((a, b) => ascending(a.toLowerCase(), b.toLowerCase()))
+    allCategories.unshift('all')
+
+
 
     let radioValue;
     let checkValue;
+    let brandSel = 'All'
+    let categorySel = 'all'
     $: if (radioValue){
         if (radioValue === 'swatches') options = ['histogram', 'gradient', 'majority', 'tooltip']
         if (radioValue === 'names') options = ['wordwall']
@@ -31,9 +46,41 @@
         options = ['gradient', 'majority', 'line', 'allLine']
     } else { options = ['histogram', 'gradient', 'majority', 'tooltip']}
 
+    // $: if (brand || category){
+
+    // }
+
+    function filterData(categorySel, brandSel){
+        let filtered;
+        if (categorySel === 'all' && brandSel === 'All') filtered = allData;
+        else if (categorySel === 'all' && brandSel !== 'All') filtered = allData.filter(d => d.brand === brandSel);
+        else if (categorySel !== 'all' && brandSel === 'All') filtered = allData.filter(d => d.category === categorySel);
+        else filtered = allData.filter(d => d.category === categorySel && d.brand === brandSel)
+
+        // filteredLength = filtered.length
+
+        // finding all categories for selected brand
+
+        if (brandSel === 'All'){
+            allCategories = Array.from(group(allData, d => d.category).keys()).sort((a, b) => ascending(a, b)).filter(d => d !== 'NA')
+            allCategories.unshift('all')
+        } 
+        else {
+            const selBrand = allData.filter(d => d.brand === brandSel)
+            allCategories = Array.from(group(selBrand, d => d.category).keys()).sort((a, b) => ascending(a, b)).filter(d => d !== 'NA')
+            allCategories.unshift('all')
+        }
+
+        filteredData = filtered
+    }
+
     $: console.log({radioValue})
     let width;
     let mounted = false;
+
+    $: filterData(categorySel, brandSel)
+
+
 
 
     // $: exHeight[id].button = exHeight[id].height > containerHeight * 0.7
@@ -70,7 +117,7 @@
 
 
     {#if UIOptions}
-        <UI {UIOptions} {id} bind:radioValue bind:checkValue/>
+        <UI {UIOptions} {id} bind:radioValue bind:checkValue bind:brandSel bind:categorySel {allBrands} {allCategories}/>
     {/if}
     {#if mounted}
         {#key containerHeight}

@@ -11,54 +11,73 @@
     import Interactive from "./Interactive.svelte"
     import Checkbox from "./Checkbox.svelte"
     import SectionHed from "./SectionHed.svelte"
+    import InteractiveWrapper from "./InteractiveWrapper.svelte"
+    import extendedHeight from './../stores/stores.js';
 
-    let categorySel = 'all'
-    let brandSel = 'All'
-    let radioValue = 'swatches'
+    // let categorySel = 'all'
+    // let brandSel = 'All'
+    // let radioValue = 'swatches'
 
-    const sections = ['drink', 'food']
+    // const sections = ['drink', 'food']
 
-    let filteredLength = 6000
+    // let filteredLength = 6000
 
-    $: blockWidth = filteredLength > 1000 ? 5 : 10 
-    $: blockHeight = filteredLength > 1000 ? 2 : blockWidth / 2
+    // $: blockWidth = filteredLength > 1000 ? 5 : 10 
+    // $: blockHeight = filteredLength > 1000 ? 2 : blockWidth / 2
 
-    let allBrands = Array.from(group(data, d => d.brand).keys()).sort((a, b) => ascending(a.toLowerCase(), b.toLowerCase()))
-    allBrands.unshift('All')
+    // let allBrands = Array.from(group(data, d => d.brand).keys()).sort((a, b) => ascending(a.toLowerCase(), b.toLowerCase()))
+    // allBrands.unshift('All')
 
-    let allCategories = [];
+    // let allCategories = [];
 
-    let filteredData;
+    // let filteredData;
 
-    function filterData(){
-        let filtered;
-        if (categorySel === 'all' && brandSel === 'All') filtered = data;
-        else if (categorySel === 'all' && brandSel !== 'All') filtered = data.filter(d => d.brand === brandSel);
-        else if (categorySel !== 'all' && brandSel === 'All') filtered = data.filter(d => d.category === categorySel);
-        else filtered = data.filter(d => d.category === categorySel && d.brand === brandSel)
+    // function filterData(){
+    //     let filtered;
+    //     if (categorySel === 'all' && brandSel === 'All') filtered = data;
+    //     else if (categorySel === 'all' && brandSel !== 'All') filtered = data.filter(d => d.brand === brandSel);
+    //     else if (categorySel !== 'all' && brandSel === 'All') filtered = data.filter(d => d.category === categorySel);
+    //     else filtered = data.filter(d => d.category === categorySel && d.brand === brandSel)
 
-        filteredLength = filtered.length
+    //     filteredLength = filtered.length
         
-        filteredData = filtered
+    //     filteredData = filtered
 
-        // finding all categories for selected brand
+    //     // finding all categories for selected brand
 
-        if (brandSel === 'All'){
-            allCategories = Array.from(group(data, d => d.category).keys()).sort((a, b) => ascending(a, b)).filter(d => d !== 'NA')
-            allCategories.unshift('all')
-        } 
-        else {
-            const selBrand = data.filter(d => d.brand === brandSel)
-            allCategories = Array.from(group(selBrand, d => d.category).keys()).sort((a, b) => ascending(a, b)).filter(d => d !== 'NA')
-            allCategories.unshift('all')
-        }
+    //     if (brandSel === 'All'){
+    //         allCategories = Array.from(group(data, d => d.category).keys()).sort((a, b) => ascending(a, b)).filter(d => d !== 'NA')
+    //         allCategories.unshift('all')
+    //     } 
+    //     else {
+    //         const selBrand = data.filter(d => d.brand === brandSel)
+    //         allCategories = Array.from(group(selBrand, d => d.category).keys()).sort((a, b) => ascending(a, b)).filter(d => d !== 'NA')
+    //         allCategories.unshift('all')
+    //     }
 
+    // }
+
+    // $: categorySel, brandSel, filterData()
+    // $: filteredData, blockWidth, blockHeight
+
+    let options = ['histogram', 'gradient', 'majority', 'tooltip']
+    let UIOptions = ['radio', 'dropdown']
+
+    let exHeight;
+    let containerHeight = 500;
+    let heightMeasure = 'vh'
+
+
+
+    $: extendedHeight.subscribe(val => exHeight = val)
+
+
+    function determineHeight(exHeight){
+        if (exHeight['explore'].expanded === true) return `${exHeight['explore'].height + containerHeight + 4}px`
+        return `${containerHeight}px`
     }
 
-    $: categorySel, brandSel, filterData()
-    $: filteredData, blockWidth, blockHeight
-
-
+    let filterData = data
    
 </script>
 
@@ -66,7 +85,14 @@
 
 <SectionHed text={'Explore'} />
 
-    <div class='container'>
+
+<div class='container' style="height:{determineHeight(exHeight)}">
+    <InteractiveWrapper title={`${filterData.length} shades`} filteredData={filterData} 
+    allData={data} {options} {UIOptions} id={'explore'}/>
+</div>
+
+
+    <!-- <div class='container'>
         <h3>Explore the shades</h3>
         <div class='ui-elements'>
             <div class='select-group'>
@@ -114,7 +140,7 @@
             </figure>
         </div>
 
-    </div>
+    </div> -->
 
 
 </section>

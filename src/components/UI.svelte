@@ -5,39 +5,47 @@
     export let UIOptions = [];
     export let id;
 
-    let brandSel;
-    let categorySel;
+    export let brandSel;
+    export let categorySel;
     export let radioValue = 'swatches';
     export let checkValue;
+    export let allBrands;
+    export let allCategories;
+
+    function filterData(){
+        console.log('something selected')
+    }
 
 
 </script>
 
 <div class='ui-elements'>
-    <!-- {#if UIOptions.includes('dropdown')}
-        <div class='select-group'>
-            <div>
-                <label for="brandSelect">Filter data by brand</label>
-                <select id="brandSelect" 
-                    bind:value={brandSel} on:blur="{() => filterData()}">
-                    {#each allBrands as brand}
-                        <option>{brand}</option>
-                    {/each}
-                </select>
-            </div>
-            <div>
-                <label for="categorySelect">Filter by name category</label>
-                <select id="categorySelect" bind:value={categorySel} on:blur="{() => filterData()}">
-                    {#each allCategories as category}
-                        <option>{category}</option>
-                    {/each}
-                </select>
-            </div>
-        </div>
-    {/if}     -->
+
 
     <form>
 
+        {#if UIOptions.includes('dropdown')}
+            <div class='select-group'>
+                <div>
+                    <label for="brandSelect">Filter data by brand</label>
+                    <select id="brandSelect" 
+                        bind:value={brandSel} on:blur="{() => filterData()}">
+                        {#each allBrands as brand}
+                            <option>{brand}</option>
+                        {/each}
+                    </select>
+                </div>
+                <div>
+                    <label for="categorySelect">Filter by name category</label>
+                    <select id="categorySelect" bind:value={categorySel} on:blur="{() => filterData()}">
+                        {#each allCategories as category}
+                            <option>{category}</option>
+                        {/each}
+                    </select>
+                </div>
+            </div>
+        {/if}    
+ 
 
         {#if UIOptions.includes('radio')}
                 <Radio bind:value={radioValue}
