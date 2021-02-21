@@ -17,7 +17,9 @@
         {/each}
     </div>
 
-    <p class='prose'>{copy.darkToLight[0].value}</p>
+    {#each copy.darkToLight as {value}}
+    <p class='prose'>{value}</p>
+    {/each}
 
     <div class='container'>
         {#each darkToLight as product}

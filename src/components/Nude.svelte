@@ -46,6 +46,9 @@
 
 {#if state === "on"}
     <div class='scroll'>
+        <div class='element element-scroll'>
+            <NudeElement step = {activeStep} />
+        </div>
             <div class='step-container' bind:this={steps}>
             {#each copy.steps as step, i (step)}
                 <div class='step' data-step={step.step}>
@@ -53,9 +56,7 @@
                 </div>
             {/each}
         </div>
-        <div class='element element-scroll'>
-            <NudeElement step = {activeStep} />
-        </div>
+
 
     </div>
 
@@ -83,6 +84,7 @@
 <style>
     .scroll, .standard-group {
         display: flex;
+        flex-direction: row-reverse;
     }
 
     .scroll {
@@ -120,6 +122,33 @@
         position: sticky;
         height: 70vh;
         top: 25vh;
+    }
+
+    @media screen and (max-width: 500px) {
+        .scroll {
+            display: block;
+            position: relative;
+            padding: 1rem;
+        }
+        .step-container {
+            width: 95%;
+            margin: 0 auto;
+            position: relative;
+        }
+        .step p {
+            background-color: var(--bg);
+        }
+        .element-scroll {
+            width: 100%;
+            position: -webkit-sticky;
+            position: sticky;
+            left: 0;
+            margin: 0;
+            -webkit-transform: translate3d(0, 0, 0);
+            -moz-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            z-index: 0;
+        }
     }
 
     .standard {
