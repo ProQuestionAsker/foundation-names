@@ -5,12 +5,10 @@
 
     export let checks;
     export let legend;
-    export let value = 'false'
-    export let checked = 'false'
+    export let value = false
+    export let checked = false
     export let id;
 
-    $: console.log({checked, value})
-    
 
     export const slugify = (str = "") =>
         str.toLowerCase().replace(/ /g, "-").replace(/\./g, "");

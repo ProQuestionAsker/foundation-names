@@ -4,14 +4,12 @@
 
     export let UIOptions = [];
     export let id;
-    $: console.log({UIOptions, id})
 
     let brandSel;
     let categorySel;
     export let radioValue = 'swatches';
     export let checkValue;
 
-    $: console.log({checkValue, radioValue})
 
 </script>
 

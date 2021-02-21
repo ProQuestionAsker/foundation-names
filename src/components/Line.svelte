@@ -20,8 +20,6 @@
     export let blockDimensions;
     export let options;
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
-
-    $: console.log({lineData})
  
 
     const margins = {
