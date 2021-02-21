@@ -9,6 +9,9 @@
     let brandSel;
     let categorySel;
     export let radioValue = 'swatches';
+    export let checkValue;
+
+    $: console.log({checkValue, radioValue})
 
 </script>
 
@@ -34,20 +37,25 @@
             </div>
         </div>
     {/if}     -->
-           
-        {#if radioValue === 'swatches'}
-            <Checkbox checks = {[{name: 'all', label: 'Compare to all shades', selected: 'false'}]} />
-        {/if}
 
-    {#if UIOptions.includes('radio')}
-            <Radio bind:value={radioValue}
-                options={[
-                {name: 'swatches', label: 'swatches'},
-                {name: 'names', label: 'names'},
-                {name: 'table', label: 'table'}
-                ]}
-            legend="Show Me" {id} />
-    {/if}
+    <form>
+
+
+        {#if UIOptions.includes('radio')}
+                <Radio bind:value={radioValue}
+                    options={[
+                    {name: 'swatches', label: 'swatches'},
+                    {name: 'names', label: 'names'},
+                    {name: 'table', label: 'table'}
+                    ]}
+                legend="Show Me" {id} />
+        {/if}        
+        {#if radioValue === 'swatches'}
+            <Checkbox bind:value={checkValue} {id} checks = {[{name: 'all', label: 'Compare to all shades', selected: 'false'}]} />
+        {/if}
+    </form>
+           
+
 </div>
 
 

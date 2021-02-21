@@ -12,7 +12,7 @@
       str.toLowerCase().replace(/ /g, "-").replace(/\./g, "");
   </script>
   
-  <form>
+
   <fieldset id={`field-${id}`}>
     <legend>{legend}</legend>
     {#each options as { name, label } (name)}
@@ -25,7 +25,7 @@
       <label class='option' for={`${id}-${slugify(name)}`}> {label} </label>
     {/each}
   </fieldset>
-</form>
+
   
   <style>
     fieldset {

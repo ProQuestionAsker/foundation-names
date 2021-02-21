@@ -20,11 +20,16 @@
 
 
     let radioValue;
+    let checkValue;
     $: if (radioValue){
         if (radioValue === 'swatches') options = ['histogram', 'gradient', 'majority', 'tooltip']
         if (radioValue === 'names') options = ['wordwall']
         if (radioValue === 'table') options = ['table']
     }
+
+    $: if (checkValue === true) {
+        options = ['gradient', 'majority', 'line', 'allLine']
+    } else { options = ['histogram', 'gradient', 'majority', 'tooltip']}
 
     $: console.log({radioValue})
     let width;
@@ -65,7 +70,7 @@
 
 
     {#if UIOptions}
-        <UI {UIOptions} {id} bind:radioValue/>
+        <UI {UIOptions} {id} bind:radioValue bind:checkValue/>
     {/if}
     {#if mounted}
         {#key containerHeight}

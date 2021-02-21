@@ -6,7 +6,10 @@
     export let checks;
     export let legend;
     export let value = 'false'
+    export let checked = 'false'
+    export let id;
 
+    $: console.log({checked, value})
     
 
     export const slugify = (str = "") =>
@@ -21,16 +24,16 @@
     <fieldset>
         <legend>{legend}</legend>
         {#each checks as {name, label, selected}}
-        <input class="sr-only" type="checkbox" id={slugify(name)} name={name} value={label} bind:group={value} bind:checked={selected}>
-        <label for={slugify(name)}>
+        <input class="sr-only" type="checkbox" id={`${slugify(name)}-${id}`} name={name} value={label} bind:group={value} bind:checked>
+        <label for={`${slugify(name)}-${id}`}>
             {label}
         </label>
     {/each}
     </fieldset>
 {:else}
     {#each checks as {name, label, selected}}
-        <input class="sr-only" type="checkbox" id={slugify(name)} name={name} bind:group={value} bind:checked={selected}>
-        <label for={slugify(name)}>
+        <input class="sr-only" type="checkbox" id={`${slugify(name)}-${id}`} name={name} bind:checked={value}>
+        <label for={`${slugify(name)}-${id}`}>
             {label}
         </label>
     {/each}
