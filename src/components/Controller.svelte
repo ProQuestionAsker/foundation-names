@@ -13,12 +13,14 @@ import Explore from "./Explore.svelte";
     let groupSelOutline;
     let currentIndex;
     let mount = false
-    let found;
-    let exploreSwatches = false;
+    export let found;
+    export let exploreSwatches = false;
     let ind = 0
     let groupCount = groupedData.length
     let groupLabel = 'Group of swatches'
     let ariaContent;
+
+    $: console.log({currentGroup})
 
     // onMount(() => {
     //     console.log({groupSelOutline})
@@ -94,13 +96,13 @@ import Explore from "./Explore.svelte";
             style="width:{blockWidth + (blockPadding * 2)}px; height:{groupedData[currentGroup][1].length * (blockHeight + blockPadding) + blockPadding}px; left:{$xScale(groupedData[currentGroup][0])}px"
         >
     </div>
-    <!-- {#key currentGroup}
+    {#key currentGroup}
         {#each ariaContent as node}
             <div class='hidden'>
-                <p aria-hidden=false tabindex="0">{groupLabel}</p>
+                <p aria-hidden=false tabindex="-1">{groupLabel}</p>
             </div>
         {/each}
-    {/key} -->
+    {/key}
     {#if exploreSwatches === true}
         <TooltipDisplay selected={found} width={$width} {blockDimensions} height={$height} xScale={$xScale} />
     {/if}
@@ -111,8 +113,8 @@ import Explore from "./Explore.svelte";
     .group-select{
         bottom: 0;
         position: absolute;       
-        /* outline: 3px solid var(--accent-color);
-        box-shadow: 0 0px 8px var(--accent-color); */
+        outline: 3px solid var(--accent-color);
+        box-shadow: 0 0px 8px var(--accent-color);
     }
 </style>
 

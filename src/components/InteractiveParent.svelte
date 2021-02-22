@@ -149,6 +149,7 @@
 
 <style>
     .lc-container{
+        position: relative;
         height: 70%;
     }
 </style>

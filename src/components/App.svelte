@@ -34,10 +34,10 @@ import GradientHistogram from "./GradientHistogram.svelte";
   </section>
 {/each} -->
 
-<Numbers />
-<Nude />
+<!-- <Numbers />
+<Nude /> -->
 <Food />
-<Explore />
+<!-- <Explore /> -->
 
 
 </article>
