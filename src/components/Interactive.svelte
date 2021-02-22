@@ -9,7 +9,7 @@
     import Tooltip from "./Tooltip.svelte"
     import Table from "./Table.svelte"
     import Wordwall from "./WordWall.svelte"
-    import Controller from "./Controller.svelte"
+    import ControllerWrapper from "./ControllerWrapper.svelte"
 
     const { data, width, height, xScale } = getContext('LayerCake')
     export let options = [];
@@ -20,10 +20,7 @@
     let key;
     let keyCode;
     let controllerContainer;
-    let exploreSwatches = false;
-    let found = ''
-    let groupActive = false;
-    let takeoverKeys = true;
+
 
     function roundNumber(num){
         return Math.round(num * 100) / 100
@@ -35,72 +32,6 @@
         tableData = $data.map(d => ([d.brand, d.product, d.name, d.hex, roundNumber(d.lightness)]))
     }
 
-    // for keyboard/sr controller 
-    $: groupedData = groups($data, d => d.binStart)
-    $: totalGroups = groupedData.length
-    let currentGroup = 0
-    let ind = 0
-
-    function handleKeyDown(event){
-        const key = event.key;
-        const keyCode = event.keyCode
-        const arrows = ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown']
-
-
-
-        if (key === 'ArrowRight') {
-            let newGroup = currentGroup < totalGroups - 1 ? currentGroup + 1 :  0;
-            currentGroup = newGroup
-            found = ''
-            groupActive = true;
-            takeoverKeys = true;
-        }
-        if (key === 'ArrowLeft') {
-            let newGroup = currentGroup === 0 ? totalGroups - 1 : currentGroup - 1 
-            currentGroup = newGroup
-            found = ''
-            groupActive = true;
-            takeoverKeys = true;
-        }
-        if (key === 'Shift' && key === 'Tab' || key === 'Escape' || key === 'Tab') {
-            exploreSwatches = false;
-            controllerContainer.focus();
-            groupActive = false;
-            takeoverKeys = false;
-        }
-        if (key === 'ArrowUp' || key === 'ArrowDown'){
-            exploreSwatches = true;
-            const swatches = groupedData[currentGroup][1]
-            const total = swatches.length - 1
-            groupActive = false;
-            takeoverKeys = true;
-            if (key === 'ArrowUp'){
-                // if index is greater than total, start at the total
-                // if the index is equal to the total, go back to 0 otherwise, add one
-                // otherwise, add one
-                let newIndex;
-                if (ind > total) newIndex = total;
-                else if (ind === total) newIndex = 0;
-                else newIndex = ind + 1
-                ind = newIndex 
-                found = swatches[newIndex]
-            } else {
-                // if index is greater than total, start at the total
-                // if it's equal to 0, go to the total
-                // otherwise, subtract one
-                let newIndex;
-                if (ind > total || ind === 0) newIndex = total
-                else newIndex = ind - 1
-                ind = newIndex
-                found = swatches[newIndex]
-            }
-        }
-        else {
-            exploreSwatches = false
-            takeoverKeys = false
-        }       
-        if (takeoverKeys === true) event.preventDefault();
-    }
 
 </script>
 
@@ -140,12 +71,7 @@
 
 
 <Html zIndex={5}>
-    <!-- add to tab order in page order -->
-    <div class='controller' tabindex=0 on:keydown={handleKeyDown} bind:this={controllerContainer}>
-        {#if controllerContainer}
-            <Controller {blockDimensions} {options} {currentGroup} {groupedData} {controllerContainer} {found} {exploreSwatches} {groupActive}/>
-        {/if}
-    </div>
+    <ControllerWrapper {blockDimensions} {options}/>
 
     {#if options.includes('tooltip')}
         <Tooltip {blockDimensions}/>
@@ -157,16 +83,4 @@
 </Html>
 
 
-<style>
-    .controller{
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
 
-    }
-    .controller:focus{
-        outline: 4px solid var(--accent-color)
-    }
-</style>
