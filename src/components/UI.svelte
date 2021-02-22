@@ -27,7 +27,7 @@
         {#if UIOptions.includes('dropdown')}
             <fieldset class='select-group'>
                 <div>
-                    <label for="brandSelect">Filter data by brand</label>
+                    <label for="brandSelect">Filter by brand</label>
                     <select id="brandSelect" 
                         bind:value={brandSel} on:blur="{() => filterData()}">
                         {#each allBrands as brand}
@@ -36,7 +36,7 @@
                     </select>
                 </div>
                 <div>
-                    <label for="categorySelect">Filter by name category</label>
+                    <label for="categorySelect">Filter by category</label>
                     <select id="categorySelect" bind:value={categorySel} on:blur="{() => filterData()}">
                         {#each allCategories as category}
                             <option>{category}</option>
@@ -75,7 +75,12 @@
     }
 
     .select-group div {
-        margin-right: 2rem;
+        flex: 1 1 0;
+        width: 50%;
+    }
+
+    .select-group div select {
+        width: 90%;
     }
 
     .select-group label {
