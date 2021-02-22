@@ -87,61 +87,9 @@
 
 
 <div class='container' style="height:{determineHeight(exHeight)}">
-    <InteractiveWrapper title={`${filterData.length} shades`} filteredData={filterData} 
+    <InteractiveWrapper title={`Explore all ${filterData.length} shades`} filteredData={filterData} 
     allData={data} {options} {UIOptions} id={'explore'}/>
 </div>
-
-
-    <!-- <div class='container'>
-        <h3>Explore the shades</h3>
-        <div class='ui-elements'>
-            <div class='select-group'>
-                <div>
-                    <label for="brandSelect">Filter data by brand</label>
-                    <select id="brandSelect" 
-                        bind:value={brandSel} on:blur="{() => filterData()}">
-                        {#each allBrands as brand}
-                            <option>{brand}</option>
-                        {/each}
-                    </select>
-                </div>
-                <div>
-                    <label for="categorySelect">Filter by name category</label>
-                    <select id="categorySelect" bind:value={categorySel} on:blur="{() => filterData()}">
-                        {#each allCategories as category}
-                            <option>{category}</option>
-                        {/each}
-                    </select>
-                </div>
-
-                {#if radioValue === 'swatches'}
-                    <Checkbox checks = {[{name: 'all', label: 'Compare to all shades', selected: 'false'}]} />
-                {/if}
-             </div>
-            
-
-            <Radio bind:value={radioValue}
-            options={[
-              {name: 'swatches', label: 'swatches'},
-              {name: 'names', label: 'names'},
-              {name: 'table', label: 'table'}
-            ]}
-            legend="Show Me" />
-        </div>
-
-        <div class='container'>
-            <figure class='chart-container container-hist' >
-                <LayerCake data={filteredData} x = {d => d.lightness}
-                    padding={ { top: 20, right: 20, bottom: 20, left: 20 } }
-                    xDomain = {[0.15, 0.99]}>
-                            
-                    <Interactive allData = {data} {blockWidth} {blockHeight} {radioValue}  />
-                </LayerCake>
-            </figure>
-        </div>
-
-    </div> -->
-
 
 </section>
 
@@ -153,26 +101,8 @@
     section {
         padding: 0 1rem;
     }
-    .chart-container{
-        height: 600px;
+    .container{
+        margin-bottom: 4rem;
     }
 
-    label {
-        color: var(--gray)
-    }
-
-    .select-group {
-        display: flex;
-    }
-
-    .select-group div:first-of-type{
-        margin-right: 1rem;
-    }
-
-    .select-group label {
-        font-size: 0.9em;
-        /* font-weight: 600; */
-        color: var(--gray);
-        text-transform: uppercase;
-    }
 </style>

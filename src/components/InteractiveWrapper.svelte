@@ -34,8 +34,8 @@
 
     let radioValue;
     let checkValue;
-    let brandSel = 'All'
-    let categorySel = 'all'
+    let brandSel;
+    let categorySel;
     $: if (radioValue){
         if (radioValue === 'swatches') options = ['histogram', 'gradient', 'majority', 'tooltip']
         if (radioValue === 'names') options = ['wordwall']
@@ -46,11 +46,8 @@
         options = ['gradient', 'majority', 'line', 'allLine']
     } else { options = ['histogram', 'gradient', 'majority', 'tooltip']}
 
-    // $: if (brand || category){
-
-    // }
-
     function filterData(categorySel, brandSel){
+
         let filtered;
         if (categorySel === 'all' && brandSel === 'All') filtered = allData;
         else if (categorySel === 'all' && brandSel !== 'All') filtered = allData.filter(d => d.brand === brandSel);
@@ -74,23 +71,11 @@
         filteredData = filtered
     }
 
-    $: console.log({radioValue})
     let width;
     let mounted = false;
 
-    $: filterData(categorySel, brandSel)
+    $: if (brandSel || categorySel) filterData(categorySel, brandSel)
 
-
-
-
-    // $: exHeight[id].button = exHeight[id].height > containerHeight * 0.7
-
-    // $: console.log({exHeight})
-    // $: if(exHeight[id]){
-    //     exHeight[id].button = exHeight[id].height > containerHeight * 0.7
-
-    //     extendedHeight.set(exHeight)
-    // }
 
     function expandGraphic(){
         exHeight[id].expanded = !exHeight[id].expanded
