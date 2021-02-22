@@ -52,7 +52,7 @@
             const theseWords = flatWords.map((d, i) => {
                 let thisRow;
                 let thisX;
-                if (currentRowWidth + d.textWidth + (blockPadding * 2) > $width){
+                if (currentRowWidth + d.textWidth + (blockPadding * 4) > $width){
                     row += 1
                     currentRowWidth = d.textWidth
                     thisRow = row;
