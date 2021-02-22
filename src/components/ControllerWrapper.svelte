@@ -76,6 +76,8 @@ import Explore from './Explore.svelte';
                 exploreSwatches = false
                 takeoverKeys = false
             }       
+
+            console.log({found, exploreSwatches})
         }
 
         // key bindings for word wall
@@ -101,11 +103,19 @@ import Explore from './Explore.svelte';
         exploreSwatches = false;
     }
 
+    // let ariaLabel;
+
+    // $: {
+    //     if (options.includes('histogram')) ariaLabel = 'This is a histogram showing foundation swatches sorted by lightness level. Use the arrow keys to move between groups and swatches'
+    //     if (options.includes('line')) ariaLabel = 'This is a histogram showing the foundation swatches sorted by lightness level, compared to the number of swatches expected at each lightness level. Use the arrow keys to move between groups and swatches.'
+    //     if (options.includes('wordwall')) ariaLabel = 'This is a list of the names of foundation shades. Use your arrow keys to move between names.'
+    // }
+
 </script>
 
 <svelte:window on:mousemove={clearKeyboard} on:click={clearKeyboard} />
 
-<div class='controller' tabindex=0 on:keydown={handleKeyDown} bind:this={controllerContainer}>
+<div class='controller' tabindex=0 on:keydown={handleKeyDown} bind:this={controllerContainer} >
     {#if controllerContainer}
         <Controller {blockDimensions} {options} {currentGroup} {groupedData} {controllerContainer} {found} {exploreSwatches} {groupActive} flatData={$data} {wordIndex} {lineData}/>
     {/if}

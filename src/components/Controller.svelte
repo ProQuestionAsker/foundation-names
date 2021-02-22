@@ -15,7 +15,7 @@
 
     let groupSelOutline;
     export let found;
-    export let exploreSwatches = false;
+    export let exploreSwatches;
     let ind = 0
     let groupCount = groupedData.length
     let groupLabel = 'Group of swatches'
@@ -28,6 +28,8 @@
 
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
 
+    $: console.log({exploreSwatches, found, groupActive})
+
     const { data, xGet, yGet, width, xScale, height} = getContext('LayerCake')
 
     function roundNumber(num){
@@ -39,18 +41,19 @@
     }
     
 
-    function updateGroupLabel(currentGroup, found, selLineData){
-        if (groupActive) {
+    function updateGroupLabel(currentGroup, found, exploreSwatches){
+  
+            console.log({len: found.length, lineData, currentGroup, exploreSwatches})
             ind = 0;
             if (found !== '') groupLabel = `Name: ${found.name}. Brand: ${found.brand}. Product: ${found.product}.`
             else if (lineData.length > 0) groupLabel = `${selLineData.count} shades at lightness level. ${selLineData.allCount} shades expected.`
             else if (currentGroup === 0) groupLabel = `Darkest shades. Group 1 of ${groupCount}. ${selGroupData[1].length} Swatches. Lightness ${roundNumber(groupedData[0][0])} - ${roundNumber(groupedData[1][0])}`
             else if (currentGroup === groupCount - 1)  groupLabel = `Lightest shades. Group ${groupCount} of ${groupCount}. ${selGroupData[1].length} Swatches. Lightness ${roundNumber(selGroupData[0])} - 0.99`
             else groupLabel = `Group ${currentGroup + 1} of ${groupCount}. ${selGroupData[1].length} Swatches. Lightness ${roundNumber(selGroupData[0])} - ${roundNumber(groupedData[currentGroup + 1][0])}`
-        }
+    
     }
 
-    $: updateGroupLabel(currentGroup, found, selLineData)
+    $: updateGroupLabel(currentGroup, found, exploreSwatches)
 
 </script>
 
