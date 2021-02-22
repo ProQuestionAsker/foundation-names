@@ -23,7 +23,7 @@ import Explore from './Explore.svelte';
         const key = event.key;
 
         // key bindings for histograms
-        if (options.includes('histogram')){
+        if (options.includes('histogram') || options.includes('natural')){
             if (key === 'ArrowRight') {
                 let newGroup = currentGroup < totalGroups - 1 ? currentGroup + 1 :  0;
                 currentGroup = newGroup

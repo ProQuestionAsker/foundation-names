@@ -49,7 +49,7 @@
 
 </script>
 
-{#if options.includes('histogram')}
+{#if options.includes('histogram') || options.includes('natural')}
         <div aria-hidden=true
             class={groupActive ? 'group-select active' : 'group-select'}
             style="width:{blockWidth + (blockPadding * 2)}px; height:{selGroupData[1].length * (blockHeight + blockPadding) + blockPadding}px; left:{$xScale(selGroupData[0])}px"
