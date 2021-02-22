@@ -21,7 +21,7 @@
     let keyCode;
     let controllerContainer;
     let exploreSwatches = false;
-    let found;
+    let found = ''
 
     function roundNumber(num){
         return Math.round(num * 100) / 100
@@ -50,10 +50,12 @@
         if (key === 'ArrowRight') {
             let newGroup = currentGroup < totalGroups - 1 ? currentGroup + 1 :  0;
             currentGroup = newGroup
+            found = ''
         }
         if (key === 'ArrowLeft') {
             let newGroup = currentGroup === 0 ? totalGroups - 1 : currentGroup - 1 
             currentGroup = newGroup
+            found = ''
         }
         if (key === 'Shift' && key === 'Tab' || key === 'Escape') {
             exploreSwatches = false;
