@@ -11,6 +11,7 @@
     export let groupActive = false;
     export let flatData;
     export let wordIndex;
+    export let lineData;
 
     let groupSelOutline;
     export let found;
@@ -20,6 +21,12 @@
     let groupLabel = 'Group of swatches'
     let srValue;
     $: selGroupData = groupedData[currentGroup]
+    $: selLineData = lineData.length > 0 ? lineData.filter(d => {
+        const x0 = d.x0
+        return x0 === selGroupData[0]
+    })[0] : ''
+
+    $: console.log({groupLabel})
 
 
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
@@ -35,21 +42,22 @@
     }
     
 
-    function updateGroupLabel(currentGroup, found){
+    function updateGroupLabel(currentGroup, found, selLineData){
         if (groupActive) {
             ind = 0;
             if (found !== '') groupLabel = `Name: ${found.name}. Brand: ${found.brand}. Product: ${found.product}.`
+            else if (lineData.length > 0) groupLabel = `${selLineData.count} shades at lightness level. ${selLineData.allCount} shades expected.`
             else if (currentGroup === 0) groupLabel = `Darkest shades. Group 1 of ${groupCount}. ${selGroupData[1].length} Swatches. Lightness ${roundNumber(groupedData[0][0])} - ${roundNumber(groupedData[1][0])}`
             else if (currentGroup === groupCount - 1)  groupLabel = `Lightest shades. Group ${groupCount} of ${groupCount}. ${selGroupData[1].length} Swatches. Lightness ${roundNumber(selGroupData[0])} - 0.99`
             else groupLabel = `Group ${currentGroup + 1} of ${groupCount}. ${selGroupData[1].length} Swatches. Lightness ${roundNumber(selGroupData[0])} - ${roundNumber(groupedData[currentGroup + 1][0])}`
         }
     }
 
-    $: updateGroupLabel(currentGroup, found)
+    $: updateGroupLabel(currentGroup, found, selLineData)
 
 </script>
 
-{#if options.includes('histogram') || options.includes('natural')}
+{#if options.includes('histogram') || options.includes('natural') || options.includes('line')}
         <div aria-hidden=true
             class={groupActive ? 'group-select active' : 'group-select'}
             style="width:{blockWidth + (blockPadding * 2)}px; height:{selGroupData[1].length * (blockHeight + blockPadding) + blockPadding}px; left:{$xScale(selGroupData[0])}px"

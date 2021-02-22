@@ -71,7 +71,7 @@
 
 
 <Html zIndex={5}>
-    <ControllerWrapper {blockDimensions} {options}/>
+    <ControllerWrapper {blockDimensions} {options} {lineData}/>
 
     {#if options.includes('tooltip')}
         <Tooltip {blockDimensions}/>

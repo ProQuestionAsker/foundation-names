@@ -7,6 +7,7 @@ import Explore from './Explore.svelte';
     const { data, width, height, xScale } = getContext('LayerCake')
     export let blockDimensions;
     export let options;
+    export let lineData;
 
     let controllerContainer;
     let exploreSwatches = false;
@@ -23,7 +24,7 @@ import Explore from './Explore.svelte';
         const key = event.key;
 
         // key bindings for histograms
-        if (options.includes('histogram') || options.includes('natural')){
+        if (options.includes('histogram') || options.includes('natural') || options.includes('line')){
             if (key === 'ArrowRight') {
                 let newGroup = currentGroup < totalGroups - 1 ? currentGroup + 1 :  0;
                 currentGroup = newGroup
@@ -106,7 +107,7 @@ import Explore from './Explore.svelte';
 
 <div class='controller' tabindex=0 on:keydown={handleKeyDown} bind:this={controllerContainer}>
     {#if controllerContainer}
-        <Controller {blockDimensions} {options} {currentGroup} {groupedData} {controllerContainer} {found} {exploreSwatches} {groupActive} flatData={$data} {wordIndex}/>
+        <Controller {blockDimensions} {options} {currentGroup} {groupedData} {controllerContainer} {found} {exploreSwatches} {groupActive} flatData={$data} {wordIndex} {lineData}/>
     {/if}
 </div>
 
