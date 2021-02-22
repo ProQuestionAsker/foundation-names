@@ -9,6 +9,8 @@
     export let groupedData;
     export let controllerContainer;
     export let groupActive = false;
+    export let flatData;
+    export let wordIndex;
 
     let groupSelOutline;
     export let found;
@@ -18,6 +20,8 @@
     let groupLabel = 'Group of swatches'
     let srValue;
     $: selGroupData = groupedData[currentGroup]
+
+    $: console.log({groupedData, currentGroup})
 
 
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
@@ -54,12 +58,6 @@
             style="width:{blockWidth + (blockPadding * 2)}px; height:{selGroupData[1].length * (blockHeight + blockPadding) + blockPadding}px; left:{$xScale(selGroupData[0])}px"
         >
     </div>
-
-    {#if exploreSwatches === true}
-        <TooltipDisplay selected={found} width={$width} {blockDimensions} height={$height} xScale={$xScale} />
-    {/if}
-{/if}
-
     {#key groupLabel}
         <figure>
             <div class='sr-only' role='img' tabindex="-1"  bind:this={srValue} use:moveFocus aria-label={groupLabel}>
@@ -67,6 +65,20 @@
             </div>
         </figure>
     {/key}
+    {#if exploreSwatches === true}
+        <TooltipDisplay selected={found} width={$width} {blockDimensions} height={$height} xScale={$xScale} />
+    {/if}
+{/if}
+
+{#if options.includes('wordwall') && wordIndex}
+        <ol class='sr-only' aria-label={`List of ${flatData.length} shade names, ordered darkest to lightest`}>
+            {#key wordIndex}
+                <li role="listitem" aria-label={`${flatData[wordIndex].name}. Shade ${wordIndex} of ${flatData.length}`} tabindex="-1" use:moveFocus>{`${flatData[wordIndex].name}. Shade ${wordIndex} of ${flatData.length}`}</li>
+            {/key}
+        </ol>
+{/if}
+
+
 
 <style>
     .group-select{
