@@ -23,6 +23,7 @@
     let exploreSwatches = false;
     let found = ''
     let groupActive = false;
+    let takeoverKeys = true;
 
     function roundNumber(num){
         return Math.round(num * 100) / 100
@@ -45,28 +46,34 @@
         const keyCode = event.keyCode
         const arrows = ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown']
 
+        if (takeoverKeys === true) event.preventDefault();
+
         if (key === 'ArrowRight') {
             let newGroup = currentGroup < totalGroups - 1 ? currentGroup + 1 :  0;
             currentGroup = newGroup
             found = ''
             groupActive = true;
+            takeoverKeys = true;
         }
         if (key === 'ArrowLeft') {
             let newGroup = currentGroup === 0 ? totalGroups - 1 : currentGroup - 1 
             currentGroup = newGroup
             found = ''
             groupActive = true;
+            takeoverKeys = true;
         }
         if (key === 'Shift' && key === 'Tab' || key === 'Escape' || key === 'Tab') {
             exploreSwatches = false;
             controllerContainer.focus();
             groupActive = false;
+            takeoverKeys = false;
         }
         if (key === 'ArrowUp' || key === 'ArrowDown'){
             exploreSwatches = true;
             const swatches = groupedData[currentGroup][1]
             const total = swatches.length - 1
             groupActive = false;
+            takeoverKeys = true;
             if (key === 'ArrowUp'){
                 // if index is greater than total, start at the total
                 // if the index is equal to the total, go back to 0 otherwise, add one
@@ -88,7 +95,10 @@
                 found = swatches[newIndex]
             }
         }
-        else exploreSwatches = false
+        else {
+            exploreSwatches = false
+            takeoverKeys = false
+        }
     }
 
 </script>
@@ -130,7 +140,7 @@
 
 <Html zIndex={5}>
     <!-- add to tab order in page order -->
-    <div class='controller' tabindex=0 on:keydown|preventDefault={handleKeyDown} bind:this={controllerContainer}>
+    <div class='controller' tabindex=0 on:keydown={handleKeyDown} bind:this={controllerContainer}>
         {#if controllerContainer}
             <Controller {blockDimensions} {options} {currentGroup} {groupedData} {controllerContainer} {found} {exploreSwatches} {groupActive}/>
         {/if}
