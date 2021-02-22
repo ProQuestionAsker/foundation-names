@@ -8,13 +8,12 @@
     export let filteredData;
     export let width;
     export let id;
-    let blockWidth = 20;
-    let blockHeight = Math.ceil(blockWidth / 3);
-    let blockPadding = 2;
+    $: blockWidth = filteredData.length < 1000 ? 20 : 10;
+    $: blockHeight = Math.ceil(blockWidth / 3);
+    $: blockPadding = filteredData.length < 1000 ? 2 : 1;
     let totalHeight;
     let mounted = false;
     export let options = [];
-
     onMount(() => mounted = true)
 
     $: blockDimensions = {blockWidth, blockHeight, blockPadding}

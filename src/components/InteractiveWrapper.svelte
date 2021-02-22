@@ -31,8 +31,6 @@
         .sort((a, b) => ascending(a.toLowerCase(), b.toLowerCase()))
     allCategories.unshift('all')
 
-    $: console.log({options})
-
 
     let radioValue;
     let checkValue;
