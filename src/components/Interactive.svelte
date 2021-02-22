@@ -46,7 +46,7 @@
         const keyCode = event.keyCode
         const arrows = ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown']
 
-        if (takeoverKeys === true) event.preventDefault();
+
 
         if (key === 'ArrowRight') {
             let newGroup = currentGroup < totalGroups - 1 ? currentGroup + 1 :  0;
@@ -98,7 +98,8 @@
         else {
             exploreSwatches = false
             takeoverKeys = false
-        }
+        }       
+        if (takeoverKeys === true) event.preventDefault();
     }
 
 </script>

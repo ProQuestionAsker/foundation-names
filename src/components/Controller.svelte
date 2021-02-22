@@ -34,7 +34,6 @@
 
     function moveFocusGroup(currentGroup, found){
         if (groupSelOutline) {
-            groupSelOutline.focus();
             ind = 0;
             if (found !== '') groupLabel = `Name: ${found.name}. Brand: ${found.brand}. Product: ${found.product}.`
             else if (currentGroup === 0) groupLabel = `Darkest shades. Group 1 of ${groupCount}. ${groupedData[currentGroup][1].length} Swatches. Lightness ${roundNumber(groupedData[0][0])} - ${roundNumber(groupedData[1][0])}`
