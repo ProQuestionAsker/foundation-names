@@ -102,7 +102,8 @@
         padding: 0 1rem;
     }
     .container{
-        margin-bottom: 4rem;
+        margin: 0 auto 4rem;
+        max-width: 1200px;
     }
 
 </style>
