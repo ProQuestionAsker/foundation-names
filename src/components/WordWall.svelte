@@ -40,7 +40,7 @@
         if ($ctx) {
             scaleCanvas($ctx, $width, $height);
             $ctx.clearRect(0, 0, $width, $height);
-            $ctx.font = `${wordHeight - 4}px sans-serif`
+            $ctx.font = `${wordHeight - 5}px "National 2 Web"`
             const flatWords = flattenedData.map(d => ({
                 ...d,
                 textWidth: $ctx.measureText(d.name).width
