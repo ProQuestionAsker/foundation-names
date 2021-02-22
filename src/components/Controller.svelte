@@ -26,9 +26,6 @@
         return x0 === selGroupData[0]
     })[0] : ''
 
-    $: console.log({groupLabel})
-
-
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
 
     const { data, xGet, yGet, width, xScale, height} = getContext('LayerCake')
@@ -58,11 +55,21 @@
 </script>
 
 {#if options.includes('histogram') || options.includes('natural') || options.includes('line')}
+
+    {#if options.includes('histogram' || options.includes('natural'))}
         <div aria-hidden=true
             class={groupActive ? 'group-select active' : 'group-select'}
             style="width:{blockWidth + (blockPadding * 2)}px; height:{selGroupData[1].length * (blockHeight + blockPadding) + blockPadding}px; left:{$xScale(selGroupData[0])}px"
         >
     </div>
+    {/if}
+    {#if options.includes('line')}
+    <div aria-hidden=true
+        class={'group-select'}
+        style="width:{blockWidth + (blockPadding * 2)}px; height:100%; left:{$xScale(selGroupData[0])}px"
+    >
+    </div>
+    {/if}
     {#key groupLabel}
         <figure>
             <div class='sr-only' role='img' tabindex="-1"  bind:this={srValue} use:moveFocus aria-label={groupLabel}>

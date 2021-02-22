@@ -118,7 +118,7 @@ import Explore from './Explore.svelte';
         position: absolute;
         top: 0;
         left: 0;
-
+        display: flex;
     }
     .controller:focus{
         outline: 4px solid var(--accent-color)
