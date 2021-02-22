@@ -16,6 +16,7 @@
     let exHeight;
     let ogHeight = 0;
 
+
     $: if (ogHeight === 0 && containerHeight) ogHeight = containerHeight;
 
 
@@ -30,6 +31,7 @@
         .sort((a, b) => ascending(a.toLowerCase(), b.toLowerCase()))
     allCategories.unshift('all')
 
+    $: console.log({options})
 
 
     let radioValue;
@@ -44,7 +46,7 @@
 
     $: if (checkValue === true) {
         options = ['gradient', 'majority', 'line', 'allLine']
-    } else { options = ['histogram', 'gradient', 'majority', 'tooltip']}
+    } else if (checkValue == false) { options = ['histogram', 'gradient', 'majority', 'tooltip']}
 
     function filterData(categorySel, brandSel){
 
@@ -99,7 +101,6 @@
 
 <div class='container' bind:clientWidth={width} bind:clientHeight={containerHeight}>
     <p class='chart-title'>{title}</p>
-
 
     {#if UIOptions}
         <UI {UIOptions} {id} bind:radioValue bind:checkValue bind:brandSel bind:categorySel {allBrands} {allCategories}/>

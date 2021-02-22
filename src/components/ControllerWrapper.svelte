@@ -2,6 +2,7 @@
     import { getContext } from 'svelte';
     import { groups } from 'd3-array';
     import Controller from './Controller.svelte'
+import Explore from './Explore.svelte';
     
     const { data, width, height, xScale } = getContext('LayerCake')
     export let blockDimensions;
@@ -17,8 +18,6 @@
     let currentGroup = 0
     let ind = 0
     let wordIndex = 0;
-
-    $: console.log({options})
 
     function handleKeyDown(event){
         const key = event.key;
@@ -95,7 +94,15 @@
         if (takeoverKeys === true) event.preventDefault();
     }
 
+    function clearKeyboard(){
+        takeoverKeys = false;
+        groupActive = false;
+        exploreSwatches = false;
+    }
+
 </script>
+
+<svelte:window on:mousemove={clearKeyboard} on:click={clearKeyboard} />
 
 <div class='controller' tabindex=0 on:keydown={handleKeyDown} bind:this={controllerContainer}>
     {#if controllerContainer}

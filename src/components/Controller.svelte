@@ -21,8 +21,6 @@
     let srValue;
     $: selGroupData = groupedData[currentGroup]
 
-    $: console.log({groupedData, currentGroup})
-
 
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
 
@@ -44,7 +42,6 @@
             else if (currentGroup === 0) groupLabel = `Darkest shades. Group 1 of ${groupCount}. ${selGroupData[1].length} Swatches. Lightness ${roundNumber(groupedData[0][0])} - ${roundNumber(groupedData[1][0])}`
             else if (currentGroup === groupCount - 1)  groupLabel = `Lightest shades. Group ${groupCount} of ${groupCount}. ${selGroupData[1].length} Swatches. Lightness ${roundNumber(selGroupData[0])} - 0.99`
             else groupLabel = `Group ${currentGroup + 1} of ${groupCount}. ${selGroupData[1].length} Swatches. Lightness ${roundNumber(selGroupData[0])} - ${roundNumber(groupedData[currentGroup + 1][0])}`
-            console.log({groupLabel})
         }
     }
 

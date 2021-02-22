@@ -124,6 +124,10 @@
         top: 25vh;
     }
 
+    .element-standard {
+        height: 40vh;
+    }
+
     @media screen and (max-width: 500px) {
         .scroll {
             display: block;

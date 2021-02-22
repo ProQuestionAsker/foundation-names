@@ -22,9 +22,8 @@
         if (step === 'natural') options = ['natural', 'gradient', 'majority']
     }
 
-    $: title = `${filteredData.length} shades with "${filterValue}" in the name`
+    $: title = `${filteredData.length - 1} shades with "${filterValue}" in the name`
 
 </script>
-
 <InteractiveWrapper {title} {filteredData} {allData} {options} />
 
