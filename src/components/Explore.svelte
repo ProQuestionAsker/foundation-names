@@ -64,7 +64,7 @@
     let UIOptions = ['radio', 'dropdown']
 
     let exHeight;
-    let containerHeight = 500;
+    let containerHeight = 800;
     let heightMeasure = 'vh'
 
 

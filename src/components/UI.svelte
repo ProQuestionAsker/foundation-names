@@ -25,7 +25,7 @@
     <form>
 
         {#if UIOptions.includes('dropdown')}
-            <div class='select-group'>
+            <fieldset class='select-group'>
                 <div>
                     <label for="brandSelect">Filter data by brand</label>
                     <select id="brandSelect" 
@@ -43,7 +43,7 @@
                         {/each}
                     </select>
                 </div>
-            </div>
+            </fieldset>
         {/if}    
  
 
@@ -68,5 +68,22 @@
 <style>
     .ui-elements {
         pointer-events: all;
+    }
+
+    .select-group {
+        display: flex;
+    }
+
+    .select-group div {
+        margin-right: 2rem;
+    }
+
+    .select-group label {
+        text-transform: uppercase;
+        color: var(--gray);
+    }
+
+    fieldset {
+        border: none;
     }
 </style>

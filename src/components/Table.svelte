@@ -6,11 +6,12 @@
     export let rows;
     export let perPage;
 
-    $: totalRows = rows.length
+    $: totalRows = rows.length - 1
     $: currentPage = 0
-    $: start =  currentPage * perPage + 1
-    $: end = start + perPage - 1;
     $: totalPages = Math.ceil(totalRows / perPage)
+    $: start =  currentPage * perPage + 1
+    $: end = currentPage === totalPages - 1 ? totalRows : start + perPage - 1;
+    $: console.log({start, end})
 
     $: sortStatus = [];
     $: sortDirection = 'ascending'
@@ -54,7 +55,7 @@
         else sortedRows = rows.sort((a, b) => descending(a[sortBy], b[sortBy]) ) 
     }
 
-    $: trimmedRows = sortedRows.slice(start, end)
+    $: trimmedRows = sortedRows.slice(start, end + 1)
 
     $: console.log({trimmedRows, sortedRows})
 
@@ -105,7 +106,7 @@
             <span id='prev' class='sr-only'>Load previous {perPage} rows</span>
             <p>{start} - {end} of {totalRows}</p>
             <button on:click={() => currentPage += 1} 
-                disabled={currentPage === totalPages ? true : false} 
+                disabled={currentPage === totalPages - 1 ? true : false} 
                 aria-label="right arrow icon" 
                 aria-describedby="next">
                 <Icon name = 'chevron-right' />
