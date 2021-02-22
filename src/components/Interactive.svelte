@@ -22,6 +22,7 @@
     let controllerContainer;
     let exploreSwatches = false;
     let found = ''
+    let groupActive = false;
 
     function roundNumber(num){
         return Math.round(num * 100) / 100
@@ -44,27 +45,28 @@
         const keyCode = event.keyCode
         const arrows = ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown']
 
-        // if (arrows.includes(key)) controllerContainer.blur();
-        if (key === 'Escape' || key === 'Tab') controllerContainer.focus();
-
         if (key === 'ArrowRight') {
             let newGroup = currentGroup < totalGroups - 1 ? currentGroup + 1 :  0;
             currentGroup = newGroup
             found = ''
+            groupActive = true;
         }
         if (key === 'ArrowLeft') {
             let newGroup = currentGroup === 0 ? totalGroups - 1 : currentGroup - 1 
             currentGroup = newGroup
             found = ''
+            groupActive = true;
         }
-        if (key === 'Shift' && key === 'Tab' || key === 'Escape') {
+        if (key === 'Shift' && key === 'Tab' || key === 'Escape' || key === 'Tab') {
             exploreSwatches = false;
             controllerContainer.focus();
+            groupActive = false;
         }
         if (key === 'ArrowUp' || key === 'ArrowDown'){
             exploreSwatches = true;
             const swatches = groupedData[currentGroup][1]
             const total = swatches.length - 1
+            groupActive = false;
             if (key === 'ArrowUp'){
                 // if index is greater than total, start at the total
                 // if the index is equal to the total, go back to 0 otherwise, add one
@@ -130,7 +132,7 @@
     <!-- add to tab order in page order -->
     <div class='controller' tabindex=0 on:keydown|preventDefault={handleKeyDown} bind:this={controllerContainer}>
         {#if controllerContainer}
-            <Controller {blockDimensions} {options} {currentGroup} {groupedData} {controllerContainer} {found} {exploreSwatches}/>
+            <Controller {blockDimensions} {options} {currentGroup} {groupedData} {controllerContainer} {found} {exploreSwatches} {groupActive}/>
         {/if}
     </div>
 

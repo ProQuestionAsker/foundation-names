@@ -1,7 +1,6 @@
 <script>
     import TooltipDisplay from "./TooltipDisplay.svelte"
     import { getContext, onMount } from 'svelte';
-import Explore from "./Explore.svelte";
 
 
     export let blockDimensions;
@@ -9,10 +8,9 @@ import Explore from "./Explore.svelte";
     export let currentGroup;
     export let groupedData;
     export let controllerContainer;
+    export let groupActive = false;
 
     let groupSelOutline;
-    let currentIndex;
-    let mount = false
     export let found;
     export let exploreSwatches = false;
     let ind = 0
@@ -33,10 +31,6 @@ import Explore from "./Explore.svelte";
         el.focus();
     }
     
-    //$: groupedData = groups($data, d => d.binStart)
-    function writeLabel(groupData){
-
-    }
 
     function moveFocusGroup(currentGroup, found){
         if (groupSelOutline) {
@@ -52,38 +46,11 @@ import Explore from "./Explore.svelte";
 
     $: moveFocusGroup(currentGroup, found)
 
-    function handleKeyPress(event){
-        const key = event.key
-        console.log({key})
-        if (key === 'Shift' && key === 'Tab' || key === 'Escape') {
-            exploreSwatches = false;
-            controllerContainer.focus();
-        }
-        if (key === 'ArrowUp' || key === 'ArrowDown'){
-            exploreSwatches = true;
-            const swatches = groupedData[currentGroup][1]
-            const total = swatches.length - 1
-            console.log({swatches, total})
-            if (key === 'ArrowUp'){
-                const newIndex = ind === total ? 0 : ind + 1
-                ind = newIndex 
-                found = swatches[newIndex]
-            } else {
-                const newIndex = ind === 0 ? total : ind - 1
-                ind = newIndex
-
-                found = swatches[newIndex]
-            }
-        }
-        else exploreSwatches = false
-    }
-
-
 </script>
 
 {#if options.includes('histogram')}
         <div aria-hidden=true bind:this={groupSelOutline}
-            class='group-select'    
+            class={groupActive ? 'group-select active' : 'group-select'}
             style="width:{blockWidth + (blockPadding * 2)}px; height:{groupedData[currentGroup][1].length * (blockHeight + blockPadding) + blockPadding}px; left:{$xScale(groupedData[currentGroup][0])}px"
         >
     </div>
@@ -104,6 +71,11 @@ import Explore from "./Explore.svelte";
     .group-select{
         bottom: 0;
         position: absolute;       
+        outline: none;
+        box-shadow: none;
+    }
+
+    .group-select.active {
         outline: 3px solid var(--accent-color);
         box-shadow: 0 0px 8px var(--accent-color);
     }
