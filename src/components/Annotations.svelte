@@ -45,6 +45,7 @@
         font-size: 14px;
         position: absolute;
         max-width: 200px;
+        transform: translate(-50%, -5px)
     }
 
     .annotation-bg{

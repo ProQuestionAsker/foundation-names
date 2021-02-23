@@ -1,7 +1,7 @@
 <script>
     import { Canvas, Svg, Html } from "layercake";
     import { getContext } from "svelte";
-    import { groups } from 'd3-array';
+    import { groups, least, greatest } from 'd3-array';
     import SwatchHistogram from "./SwatchHistogram.svelte"
     import Gradient from "./Gradient.svelte"
     import GradientAnnotation from "./GradientAnnotation.svelte"
@@ -24,6 +24,9 @@
     let controllerContainer;
     let annotations = [];
 
+    $: biggestUnder = greatest(lineData, d => d.difference)
+    $: biggestOver = least(lineData, d => d.difference)
+
 
     function roundNumber(num){
         return Math.round(num * 100) / 100
@@ -36,6 +39,18 @@
                 x: $xScale(d.binStart) - blockDimensions.blockWidth, 
                 y: $height - ((d.index + 1) * (blockDimensions.blockHeight + blockDimensions.blockPadding))
             }))
+    }
+
+    function findLineCoordinates(bin, dimension){
+        console.log({bin})
+        return [{
+            x: $xScale(bin.x0) - blockDimensions.blockWidth,
+            y: $height - ((bin[dimension] + 1) * (blockDimensions.blockHeight + blockDimensions.blockPadding))
+        }]
+        // return bin.map(d => ({
+        //     x: $xScale(d.binStart) - blockDimensions.blockWidth, 
+        //     y: $height - ((d[dimension] + 1) * (blockDimensions.blockHeight + blockDimensions.blockPadding))
+        // }))
     }
 
     let tableData;
@@ -93,7 +108,7 @@
                 dy: 60,
                 arrowOffset: 15,
                 arrow:[{
-                    clockwise: true,
+                    clockwise: false,
                     source: {
                         anchor: 'left-bottom',
                         dx: -2,
@@ -104,11 +119,11 @@
         } else if (options.includes('allLine')){
             annotations = [{
                 text: 'When the <span class=anno-all>all shades</span> line appears above the <span class=anno-nude>“nude” shades</span> line, there are fewer shades named “nude” than we’d expect in this color range',
-                coordinates: findCoordinates('nude mocha'),
-                dy: 150,
-                arrowOffset: 75,
+                coordinates: findLineCoordinates(biggestUnder, 'allCount'),
+                dy: 200,
+                arrowOffset: 100,
                 arrow:[{
-                    clockwise: true,
+                    clockwise: false,
                     source: {
                         anchor: 'left-bottom',
                         dx: -2,
@@ -117,8 +132,9 @@
                 }]
             }, {
                 text: 'Areas where the <span class=anno-nude>“nude” shades</span> line is higher indicate more shades in this color range than we would expect',
-                coordinates: findCoordinates('nude vanilla'),
+                coordinates: findLineCoordinates(biggestOver, 'count'),
                 dy: 150,
+                dx: blockDimensions.blockWidth,
                 arrowOffset: 75,
                 arrow:[{
                     clockwise: true,
