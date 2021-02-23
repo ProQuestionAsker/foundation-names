@@ -29,7 +29,7 @@
         return Math.round(num * 100) / 100
     }
 
-    function findCoordinates(name){
+    function findCoordinates(name, offset){
         return $data
             .filter(d => d.name === name)
             .map(d => ({
@@ -49,34 +49,40 @@
             annotations = [{
                 text: 'Nude Mocha',
                 coordinates: findCoordinates('nude mocha'),
+                dy: 40,
+                arrowOffset: 15,
                 arrow:[{
                     clockwise: false,
                     source: {
                         anchor: 'left-bottom',
                         dx: -2,
-                        dy: -7
+                        dy: 40
                     }
                 }]
             }, {
                 text: 'Nude Vanilla',
                 coordinates: findCoordinates('nude vanilla'),
+                dy: 60,
+                arrowOffset: 15,
                 arrow:[{
                     clockwise: false,
                     source: {
                         anchor: 'left-bottom',
                         dx: -2,
-                        dy: -7
+                        dy: 40
                     }
                 }]
             }, {
                 text: 'Nude Bisque',
                 coordinates: findCoordinates('nude bisque'),
+                dy: 70,
+                arrowOffset: 15,
                 arrow:[{
                     clockwise: false,
                     source: {
                         anchor: 'left-bottom',
                         dx: -2,
-                        dy: -7
+                        dy: 60
                     }
                 }]
             }]
@@ -84,36 +90,42 @@
             annotations = [{
                 text: 'Natural Toffee',
                 coordinates: findCoordinates('natural toffee'),
+                dy: 60,
+                arrowOffset: 15,
                 arrow:[{
                     clockwise: true,
                     source: {
                         anchor: 'left-bottom',
                         dx: -2,
-                        dy: -7
+                        dy: 40
                     }
                 }]
             }]
         } else if (options.includes('allLine')){
             annotations = [{
-                text: 'Nude Mocha',
+                text: 'When the <span class=anno-all>all shades</span> line appears above the <span class=anno-nude>“nude” shades</span> line, there are fewer shades named “nude” than we’d expect in this color range',
                 coordinates: findCoordinates('nude mocha'),
+                dy: 150,
+                arrowOffset: 75,
                 arrow:[{
                     clockwise: true,
                     source: {
                         anchor: 'left-bottom',
                         dx: -2,
-                        dy: -7
+                        dy: 150
                     }
                 }]
             }, {
-                text: 'Nude Vanilla',
+                text: 'Areas where the "nude" shades line is higher indicate more shades in this color range than we would expect',
                 coordinates: findCoordinates('nude vanilla'),
+                dy: 150,
+                arrowOffset: 75,
                 arrow:[{
-                    clockwise: false,
+                    clockwise: true,
                     source: {
                         anchor: 'left-bottom',
                         dx: -2,
-                        dy: -7
+                        dy: 150
                     }
                 }]
             }]

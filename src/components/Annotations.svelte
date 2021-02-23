@@ -18,9 +18,9 @@
 <div class='layercake-annotations' bind:this={container}>
     {#each annotations as d, i}
         <div class='annotation annotation-bg'
-        style="top:{d.coordinates[0].y - 50}px; left:{d.coordinates[0].x}px">{d.text}</div>
+        style="top:{d.coordinates[0].y - d.dy}px; left:{d.coordinates[0].x}px">{@html d.text}</div>
         <div class='annotation layercake-annotation'
-        style="top:{d.coordinates[0].y - 50}px; left:{d.coordinates[0].x}px">{d.text}</div>
+        style="top:{d.coordinates[0].y - d.dy}px; left:{d.coordinates[0].x}px">{@html d.text}</div>
     {/each}
 </div>
 
@@ -44,10 +44,21 @@
         text-align: center;
         font-size: 14px;
         position: absolute;
+        max-width: 200px;
     }
 
     .annotation-bg{
         font-weight: bold;
         color: var(--bg)
+    }
+
+    :global(.anno-all){
+        font-weight: bold;
+        color: var(--gray);
+    }
+
+    :global(.anno-nude){
+        font-weight: bold;
+        color: var(--accent-color)
     }
 </style>

@@ -34,7 +34,7 @@
     //   return (anno, i, arrow) => {
         console.log('set path running')
         //const arrowSource = getElPosition(el);
-        const sourceCoords =  [anno.coordinates[0].x - 2, anno.coordinates[0].y - 35]
+        const sourceCoords =  [anno.coordinates[0].x - 4, anno.coordinates[0].y - (anno.dy - anno.arrowOffset)]
   
         /* --------------------------------------------
          * Default to clockwise
@@ -44,7 +44,7 @@
         /* --------------------------------------------
          * Parse where we're drawing to
          */
-        const targetCoords = [anno.coordinates[0].x + (blockDimensions.blockWidth / 2), anno.coordinates[0].y]
+        const targetCoords = [anno.coordinates[0].x + (blockDimensions.blockWidth  - blockDimensions.blockPadding), anno.coordinates[0].y + (blockDimensions.blockHeight / 2)]
         
 
         console.log({sourceCoords, targetCoords, clockwise, arrow, anno})
