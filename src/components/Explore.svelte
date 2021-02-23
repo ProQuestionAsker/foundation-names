@@ -35,7 +35,7 @@
    
 </script>
 
-<section>
+<section id='explore'>
 
 <SectionHed text={'Explore'} />
 

@@ -45,7 +45,7 @@
 
 </script>
 
-<section>
+<section id='food'>
 <SectionHed text={'Food and Drinks'} />
 
 {#each copy.foodIntro as {type, value}}

@@ -10,7 +10,7 @@
     $: darkToLight = groups(data.filter(d => d.lightToDark === 'FALSE'), d => d.id)
 </script>
 
-<section>   
+<section id='numbers'>   
      <div class='container'>
         {#each baseline as product}
             <NumberDistribution data={product} />
