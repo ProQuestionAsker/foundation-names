@@ -18,7 +18,7 @@
     let UIOptions = ['radio', 'dropdown']
 
     let exHeight;
-    let containerHeight = 800;
+    let containerHeight = 100;
     let heightMeasure = 'vh'
 
 
@@ -28,7 +28,7 @@
 
     function determineHeight(exHeight){
         if (exHeight['explore'].expanded === true) return `${exHeight['explore'].height + containerHeight + 4}px`
-        return `${containerHeight}px`
+        return `${containerHeight}${heightMeasure}`
     }
 
     let filterData = data
