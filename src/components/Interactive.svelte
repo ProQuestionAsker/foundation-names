@@ -60,6 +60,8 @@
     }
 
     $: {
+        // force a recalculation on width change
+        let _ = $width;
         if (options.includes('highlight')){
             annotations = [{
                 text: 'Nude Mocha',
@@ -78,9 +80,10 @@
                 text: 'Nude Vanilla',
                 coordinates: findCoordinates('nude vanilla'),
                 dy: 60,
+                dx: blockDimensions.blockWidth + (blockDimensions.blockPadding * 2),
                 arrowOffset: 15,
                 arrow:[{
-                    clockwise: false,
+                    clockwise: true,
                     source: {
                         anchor: 'left-bottom',
                         dx: -2,
@@ -120,7 +123,7 @@
             annotations = [{
                 text: 'When the <span class=anno-all>all shades</span> line appears above the <span class=anno-nude>“nude” shades</span> line, there are fewer shades named “nude” than we’d expect in this color range',
                 coordinates: findLineCoordinates(biggestUnder, 'allCount'),
-                dy: 200,
+                dy: $height * 0.7,
                 arrowOffset: 100,
                 arrow:[{
                     clockwise: false,
@@ -133,7 +136,7 @@
             }, {
                 text: 'Areas where the <span class=anno-nude>“nude” shades</span> line is higher indicate more shades in this color range than we would expect',
                 coordinates: findLineCoordinates(biggestOver, 'count'),
-                dy: 150,
+                dy: $height * 0.5,
                 dx: blockDimensions.blockWidth,
                 arrowOffset: 75,
                 arrow:[{

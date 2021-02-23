@@ -125,7 +125,7 @@
     }
 
     .element-standard {
-        height: 40vh;
+        height: 50vh;
     }
 
     @media screen and (max-width: 500px) {
