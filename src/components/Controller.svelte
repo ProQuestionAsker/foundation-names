@@ -28,8 +28,6 @@
 
     $: ({blockWidth, blockHeight, blockPadding} = blockDimensions);
 
-    $: console.log({exploreSwatches, found, groupActive})
-
     const { data, xGet, yGet, width, xScale, height} = getContext('LayerCake')
 
     function roundNumber(num){
@@ -42,8 +40,6 @@
     
 
     function updateGroupLabel(currentGroup, found, exploreSwatches){
-  
-            console.log({len: found.length, lineData, currentGroup, exploreSwatches})
             ind = 0;
             if (found !== '') groupLabel = `Name: ${found.name}. Brand: ${found.brand}. Product: ${found.product}.`
             else if (lineData.length > 0) groupLabel = `${selLineData.count} shades at lightness level. ${selLineData.allCount} shades expected.`

@@ -77,7 +77,6 @@ import Explore from './Explore.svelte';
                 takeoverKeys = false
             }       
 
-            console.log({found, exploreSwatches})
         }
 
         // key bindings for word wall
