@@ -116,7 +116,7 @@
                     }
                 }]
             }, {
-                text: 'Areas where the "nude" shades line is higher indicate more shades in this color range than we would expect',
+                text: 'Areas where the <span class=anno-nude>“nude” shades</span> line is higher indicate more shades in this color range than we would expect',
                 coordinates: findCoordinates('nude vanilla'),
                 dy: 150,
                 arrowOffset: 75,

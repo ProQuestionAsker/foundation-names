@@ -61,4 +61,7 @@
         font-weight: bold;
         color: var(--accent-color)
     }
+    :global(.annotation-bg span) {
+        color: var(--bg)
+    }
 </style>
