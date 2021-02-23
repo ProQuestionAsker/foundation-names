@@ -119,7 +119,7 @@
                     }
                 }]
             }]
-        } else if (options.includes('allLine')){
+        } else if (options.includes('allLine') && !options.includes('explore')){
             annotations = [{
                 text: 'When the <span class=anno-all>all shades</span> line appears above the <span class=anno-nude>“nude” shades</span> line, there are fewer shades named “nude” than we’d expect in this color range',
                 coordinates: findLineCoordinates(biggestUnder, 'allCount'),
@@ -139,6 +139,35 @@
                 dy: $height * 0.5,
                 dx: blockDimensions.blockWidth,
                 arrowOffset: 75,
+                arrow:[{
+                    clockwise: true,
+                    source: {
+                        anchor: 'left-bottom',
+                        dx: -2,
+                        dy: 150
+                    }
+                }]
+            }]
+        } else if (options.includes('explore')){
+            annotations = [{
+                text: '<span class=anno-all>Expected Distribution</span>',
+                coordinates: findLineCoordinates(biggestUnder, 'allCount'),
+                dy: 60,
+                arrowOffset: 15,
+                arrow:[{
+                    clockwise: false,
+                    source: {
+                        anchor: 'left-bottom',
+                        dx: -2,
+                        dy: 150
+                    }
+                }]
+            }, {
+                text: '<span class=anno-nude>Actual Distribution</span>',
+                coordinates: findLineCoordinates(biggestOver, 'count'),
+                dy: 60,
+                dx: blockDimensions.blockWidth,
+                arrowOffset: 15,
                 arrow:[{
                     clockwise: true,
                     source: {

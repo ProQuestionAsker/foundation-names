@@ -14,52 +14,6 @@
     import InteractiveWrapper from "./InteractiveWrapper.svelte"
     import extendedHeight from './../stores/stores.js';
 
-    // let categorySel = 'all'
-    // let brandSel = 'All'
-    // let radioValue = 'swatches'
-
-    // const sections = ['drink', 'food']
-
-    // let filteredLength = 6000
-
-    // $: blockWidth = filteredLength > 1000 ? 5 : 10 
-    // $: blockHeight = filteredLength > 1000 ? 2 : blockWidth / 2
-
-    // let allBrands = Array.from(group(data, d => d.brand).keys()).sort((a, b) => ascending(a.toLowerCase(), b.toLowerCase()))
-    // allBrands.unshift('All')
-
-    // let allCategories = [];
-
-    // let filteredData;
-
-    // function filterData(){
-    //     let filtered;
-    //     if (categorySel === 'all' && brandSel === 'All') filtered = data;
-    //     else if (categorySel === 'all' && brandSel !== 'All') filtered = data.filter(d => d.brand === brandSel);
-    //     else if (categorySel !== 'all' && brandSel === 'All') filtered = data.filter(d => d.category === categorySel);
-    //     else filtered = data.filter(d => d.category === categorySel && d.brand === brandSel)
-
-    //     filteredLength = filtered.length
-        
-    //     filteredData = filtered
-
-    //     // finding all categories for selected brand
-
-    //     if (brandSel === 'All'){
-    //         allCategories = Array.from(group(data, d => d.category).keys()).sort((a, b) => ascending(a, b)).filter(d => d !== 'NA')
-    //         allCategories.unshift('all')
-    //     } 
-    //     else {
-    //         const selBrand = data.filter(d => d.brand === brandSel)
-    //         allCategories = Array.from(group(selBrand, d => d.category).keys()).sort((a, b) => ascending(a, b)).filter(d => d !== 'NA')
-    //         allCategories.unshift('all')
-    //     }
-
-    // }
-
-    // $: categorySel, brandSel, filterData()
-    // $: filteredData, blockWidth, blockHeight
-
     let options = ['histogram', 'gradient', 'majority', 'tooltip']
     let UIOptions = ['radio', 'dropdown']
 
@@ -103,7 +57,7 @@
     }
     .container{
         margin: 0 auto 4rem;
-        max-width: 1200px;
+        max-width: 1000px;
     }
 
 </style>

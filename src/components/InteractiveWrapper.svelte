@@ -43,7 +43,7 @@
     }
 
     $: if (checkValue === true) {
-        options = ['gradient', 'majority', 'line', 'allLine']
+        options = ['gradient', 'majority', 'line', 'allLine', 'annotations', 'explore']
     } else if (checkValue == false) { options = ['histogram', 'gradient', 'majority', 'tooltip']}
 
     function filterData(categorySel, brandSel){
