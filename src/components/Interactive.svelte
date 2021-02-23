@@ -10,6 +10,7 @@
     import Table from "./Table.svelte"
     import Wordwall from "./WordWall.svelte"
     import ControllerWrapper from "./ControllerWrapper.svelte"
+    import Annotations from "./Annotations.svelte"
 
     const { data, width, height, xScale } = getContext('LayerCake')
     export let options = [];
@@ -20,10 +21,22 @@
     let key;
     let keyCode;
     let controllerContainer;
+    let annotations = [];
+
+    $: console.log({$data})
 
 
     function roundNumber(num){
         return Math.round(num * 100) / 100
+    }
+
+    function findCoordinates(name){
+        return $data
+            .filter(d => d.name === name)
+            .map(d => ({
+                x: $xScale(d.binStart) - blockDimensions.blockWidth, 
+                y: $height - ((d.index + 1) * (blockDimensions.blockHeight + blockDimensions.blockPadding))
+            }))
     }
 
     let tableData;
@@ -31,6 +44,83 @@
     $: if (options.includes('table')){
         tableData = $data.map(d => ([d.brand, d.product, d.name, d.hex, roundNumber(d.lightness)]))
     }
+
+    $: {
+        if (options.includes('highlight')){
+            annotations = [{
+                text: 'Nude Mocha',
+                coordinates: findCoordinates('nude mocha'),
+                arrow:[{
+                    clockwise: true,
+                    source: {
+                        anchor: 'left-bottom',
+                        dx: -2,
+                        dy: -7
+                    }
+                }]
+            }, {
+                text: 'Nude Vanilla',
+                coordinates: findCoordinates('nude vanilla'),
+                arrow:[{
+                    clockwise: true,
+                    source: {
+                        anchor: 'left-bottom',
+                        dx: -2,
+                        dy: -7
+                    }
+                }]
+            }, {
+                text: 'Nude Bisque',
+                coordinates: findCoordinates('nude bisque'),
+                arrow:[{
+                    clockwise: true,
+                    source: {
+                        anchor: 'left-bottom',
+                        dx: -2,
+                        dy: -7
+                    }
+                }]
+            }]
+        } else if (options.includes('natural')){
+            annotations = [{
+                text: 'Natural Toffee',
+                coordinates: findCoordinates('natural toffee'),
+                arrow:[{
+                    clockwise: true,
+                    source: {
+                        anchor: 'left-bottom',
+                        dx: -2,
+                        dy: -7
+                    }
+                }]
+            }]
+        } else if (options.includes('allLine')){
+            annotations = [{
+                text: 'Nude Mocha',
+                coordinates: findCoordinates('nude mocha'),
+                arrow:[{
+                    clockwise: true,
+                    source: {
+                        anchor: 'left-bottom',
+                        dx: -2,
+                        dy: -7
+                    }
+                }]
+            }, {
+                text: 'Nude Vanilla',
+                coordinates: findCoordinates('nude vanilla'),
+                arrow:[{
+                    clockwise: true,
+                    source: {
+                        anchor: 'left-bottom',
+                        dx: -2,
+                        dy: -7
+                    }
+                }]
+            }]
+        }
+    }
+    $: console.log({annotations})
 
 
 </script>
@@ -79,6 +169,10 @@
 
     {#if options.includes('table')}
         <Table headers={tableHeaders} rows={tableData} perPage={10} />
+    {/if}
+
+    {#if options.includes('annotations')}
+        <Annotations {annotations} /> 
     {/if}
 </Html>
 

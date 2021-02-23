@@ -116,10 +116,6 @@
         let binnedFiltered = lightBin(filteredData);
         let binnedAll = lightBin(data);
 
-        // data for annotations
-        let annData = options.includes('annotations') ? findDifferences(binnedFiltered, binnedAll) : [];
-
-
         // flatten data
         flattenedData = flattenBins(binnedFiltered, colNum)
 
@@ -127,7 +123,6 @@
         const newHeight = (width / largestBin) - blockPadding
         const testHeight = (totalHeight/largestBin) - blockPadding
         const preferredHeight = blockWidth / 3
-        console.log({testHeight, preferredHeight})
 
         blockHeight = Math.floor(Math.max(2, Math.min(testHeight, preferredHeight)))
 

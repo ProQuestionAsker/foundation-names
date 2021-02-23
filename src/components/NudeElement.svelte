@@ -10,16 +10,17 @@
     $: filteredData = data.filter(d => d.namingScheme === filterValue)
 
     let options;
+    let annotations = [];
 
     $: {
         if (step === 'all') options = ['shuffled'];
         if (step === 'sort') options = ['histogram', 'gradient', 'tooltip']
         if (step === 'majority') options = ['histogram', 'gradient', 'majority']
         if (step === 'distribution') options = ['gradient', 'majority', 'line']
-        if (step === 'compare') options = ['gradient', 'majority', 'line', 'allLine']
+        if (step === 'compare') options = ['gradient', 'majority', 'line', 'allLine', 'annotations']
         if (step === 'nudestix') options = ['histogram', 'gradient', 'majority', 'nudestix']
-        if (step === 'highlight') options = ['histogram', 'gradient', 'majority', 'highlight']  
-        if (step === 'natural') options = ['natural', 'gradient', 'majority', 'tooltip']
+        if (step === 'highlight') options = ['histogram', 'gradient', 'majority', 'highlight', 'annotations']  
+        if (step === 'natural') options = ['natural', 'gradient', 'majority', 'tooltip', 'annotations']
     }
 
     $: title = `${filteredData.length - 1} shades with "${filterValue}" in the name`
