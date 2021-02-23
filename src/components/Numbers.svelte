@@ -27,6 +27,10 @@
         {/each}
     </div>
 
+    {#each copy.wrapNumbers as {value}}
+    <p class='prose'>{@html value}</p>
+    {/each}
+
 </section>
 
 <style>

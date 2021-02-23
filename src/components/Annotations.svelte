@@ -1,10 +1,17 @@
 <script>
-    import { setContext, onMount } from 'svelte';
+  import { setContext, onMount, getContext } from 'svelte';
 
     const vals = ['top', 'right', 'bottom', 'left'];
 
     export let container = undefined;
     export let annotations = [];
+    let mounted = false;
+
+    $: if (mounted) setContext('annotation-els', Array.from(container.querySelectorAll('.layercake-annotation')));
+
+    onMount(() => {
+        mounted = true;
+    });
 
 </script>
 
@@ -12,9 +19,8 @@
     {#each annotations as d, i}
         <div class='annotation annotation-bg'
         style="top:{d.coordinates[0].y - 50}px; left:{d.coordinates[0].x}px">{d.text}</div>
-        <div class='annotation'
+        <div class='annotation layercake-annotation'
         style="top:{d.coordinates[0].y - 50}px; left:{d.coordinates[0].x}px">{d.text}</div>
-
     {/each}
 </div>
 

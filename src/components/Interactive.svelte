@@ -11,6 +11,7 @@
     import Wordwall from "./WordWall.svelte"
     import ControllerWrapper from "./ControllerWrapper.svelte"
     import Annotations from "./Annotations.svelte"
+    import Arrows from "./Arrows.svelte"
 
     const { data, width, height, xScale } = getContext('LayerCake')
     export let options = [];
@@ -22,8 +23,6 @@
     let keyCode;
     let controllerContainer;
     let annotations = [];
-
-    $: console.log({$data})
 
 
     function roundNumber(num){
@@ -51,7 +50,7 @@
                 text: 'Nude Mocha',
                 coordinates: findCoordinates('nude mocha'),
                 arrow:[{
-                    clockwise: true,
+                    clockwise: false,
                     source: {
                         anchor: 'left-bottom',
                         dx: -2,
@@ -62,7 +61,7 @@
                 text: 'Nude Vanilla',
                 coordinates: findCoordinates('nude vanilla'),
                 arrow:[{
-                    clockwise: true,
+                    clockwise: false,
                     source: {
                         anchor: 'left-bottom',
                         dx: -2,
@@ -73,7 +72,7 @@
                 text: 'Nude Bisque',
                 coordinates: findCoordinates('nude bisque'),
                 arrow:[{
-                    clockwise: true,
+                    clockwise: false,
                     source: {
                         anchor: 'left-bottom',
                         dx: -2,
@@ -110,7 +109,7 @@
                 text: 'Nude Vanilla',
                 coordinates: findCoordinates('nude vanilla'),
                 arrow:[{
-                    clockwise: true,
+                    clockwise: false,
                     source: {
                         anchor: 'left-bottom',
                         dx: -2,
@@ -120,7 +119,7 @@
             }]
         }
     }
-    $: console.log({annotations})
+
 
 
 </script>
@@ -175,6 +174,12 @@
         <Annotations {annotations} /> 
     {/if}
 </Html>
+
+<Svg zIndex={4}>
+    {#if options.includes('annotations')}
+        <Arrows {annotations} {blockDimensions} />
+    {/if}
+</Svg>
 
 
 
