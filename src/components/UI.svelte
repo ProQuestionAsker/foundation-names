@@ -22,8 +22,7 @@
 <div class='ui-elements'>
 
 
-    <form>
-
+    <form >
         {#if UIOptions.includes('dropdown')}
             <fieldset class='select-group'>
                 <div>

@@ -19,10 +19,15 @@ import Explore from './Explore.svelte';
     let currentGroup = 0
     let ind = 0
     let wordIndex = 0;
+    let explore = false;
+    let focused = false;
+
+    $: console.log({focused})
 
     function handleKeyDown(event){
         const key = event.key;
-
+        explore = true;
+  
         // key bindings for histograms
         if (options.includes('histogram') || options.includes('natural') || options.includes('line')){
             if (key === 'ArrowRight') {
@@ -100,6 +105,7 @@ import Explore from './Explore.svelte';
         takeoverKeys = false;
         groupActive = false;
         exploreSwatches = false;
+        explore = false;
     }
 
     // let ariaLabel;
@@ -114,9 +120,9 @@ import Explore from './Explore.svelte';
 
 <svelte:window on:mousemove={clearKeyboard} on:click={clearKeyboard} />
 
-<div class='controller' tabindex=0 on:keydown={handleKeyDown} bind:this={controllerContainer} >
-    {#if controllerContainer}
-        <Controller {blockDimensions} {options} {currentGroup} {groupedData} {controllerContainer} {found} {exploreSwatches} {groupActive} flatData={$data} {wordIndex} {lineData}/>
+<div class='controller' tabindex="0" on:keydown={handleKeyDown} bind:this={controllerContainer} >
+    {#if controllerContainer && explore}
+        <Controller {blockDimensions} {options} {currentGroup} {groupedData} {controllerContainer} {found} {exploreSwatches} {groupActive} flatData={$data} {wordIndex} {lineData} />
     {/if}
 </div>
 

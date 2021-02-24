@@ -12,6 +12,7 @@
     export let flatData;
     export let wordIndex;
     export let lineData;
+ 
 
     let groupSelOutline;
     export let found;
@@ -69,13 +70,15 @@
     >
     </div>
     {/if}
-    {#key groupLabel}
-        <figure>
-            <div class='sr-only' role='img' tabindex="-1"  bind:this={srValue} use:moveFocus aria-label={groupLabel}>
-                {groupLabel}
-            </div>
-        </figure>
-    {/key}
+ 
+        {#key groupLabel}
+            <figure>
+                <div class='sr-only' role='img' tabindex="-1"  bind:this={srValue} use:moveFocus aria-label={groupLabel}>
+                    {groupLabel}
+                </div>
+            </figure>
+        {/key}
+
     {#if exploreSwatches === true}
         <TooltipDisplay selected={found} width={$width} {blockDimensions} height={$height} xScale={$xScale} />
     {/if}
