@@ -34,7 +34,7 @@
 
 
         {#each copy.nude as {type, value}}
-            <p class='prose'>{value}</p>
+            <p class='prose'>{@html value}</p>
         {/each}
 
         <div class='warning'>
@@ -52,7 +52,7 @@
             <div class='step-container' bind:this={steps}>
             {#each copy.steps as step, i (step)}
                 <div class='step' data-step={step.step}>
-                    <p class='prose'>{step.text}</p>
+                    <p class='prose'>{@html step.text}</p>
                 </div>
             {/each}
         </div>
@@ -64,7 +64,7 @@
     <div class='standard'>
         {#each copy.steps as step, i (step)}
         <div class='standard-group'>
-            <p class='prose'>{step.text}</p>
+            <p class='prose'>{@html step.text}</p>
             <div class='element element-standard'>
                 <NudeElement step = {step.step} />
             </div>
@@ -76,7 +76,7 @@
 
 
 {#each copy.postNude as {type, value}}
-    <p class='prose'>{value}</p>
+    <p class='prose'>{@html value}</p>
 {/each}
 
 </section>

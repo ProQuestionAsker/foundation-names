@@ -49,7 +49,7 @@
 <SectionHed text={'Food and Drinks'} />
 
 {#each copy.foodIntro as {type, value}}
-    <p class='prose'>{value}</p>
+    <p class='prose'>{@html value}</p>
 {/each}
 
 {#each sections as sectionLabel (sectionLabel)}
@@ -59,7 +59,7 @@
     </div>
 
     {#each copy[sectionLabel] as {type, value}}
-    <p class='prose'>{value}</p>
+    <p class='prose'>{@html value}</p>
     {/each}
 {/each}
 </section>
