@@ -149,8 +149,6 @@
         position: relative;
     }
 
-
-
     .more-container {
         pointer-events: all;
         display: flex;
@@ -164,10 +162,10 @@
 
     .gradient {
         pointer-events: none;
-        height: 20%;
+        height: 50px;
         width: 100%;
         position: absolute;
-        bottom: 0;
+        bottom: 95px;
         left: 0;
         background: linear-gradient(0deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
     }
