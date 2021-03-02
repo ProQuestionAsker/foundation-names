@@ -16,10 +16,11 @@
   header {
     background-color: var(--off-black);
     top: 0;
+    padding: 0.25em 0;
   }
   .wordmark {
     max-width: 10em;
-    margin: 1em auto;
+    margin: 0 auto;
   }
 
   .wordmark a {

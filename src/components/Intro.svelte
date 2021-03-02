@@ -4,8 +4,8 @@ import copy from "../data/copy.json";
 
 <section class='intro'>
     <div class='header'>
-        <h1>{copy.title}</h1>
-        <h2>{copy.dek}</h2>
+        <h1 class='hed'>{copy.title}</h1>
+        <h2 class='dek'>{copy.dek}</h2>
     </div>
 
 
@@ -25,18 +25,18 @@ section {
     max-width: 50rem;
     margin: 0 auto;
 } */
-h1 {
-    font-family: 'Tiempos Headline';
+.hed {
+    font-family: 'Tiempos Headline Web';
     font-size: 100px;
     text-align: center;
     line-height: 1.2;
     margin-bottom: 0;
 }
-h2 {
+.dek {
     font-size: 32px;
     text-transform: uppercase;
     color: var(--gray);
-    font-family: 'National 2 Narrow';
+    font-family: 'National 2 Narrow Web';
     font-weight: 200;
     text-align: center;
     margin-top: 0.25em;
