@@ -139,11 +139,17 @@
             margin: 0 auto;
             position: relative;
         }
+
+        .step {
+            height: 110vh;
+        }
         .step p {
             background-color: var(--bg);
         }
         .element-scroll {
             width: 100%;
+            height: 90vh;
+            top: 5vh;
             position: -webkit-sticky;
             position: sticky;
             left: 0;

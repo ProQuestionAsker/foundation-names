@@ -39,6 +39,7 @@
         right: 0;
         bottom: 0;
         left: 0;
+        padding: 0.25rem;
     }
     .annotation {
         text-align: center;
@@ -46,6 +47,14 @@
         position: absolute;
         max-width: 200px;
         transform: translate(-50%, -5px)
+    }
+
+    @media screen and (max-width: 500px) {
+        .annotation {
+            font-size: 12px;
+            text-align: center;
+            max-width: 150px;
+        }
     }
 
     .annotation-bg{

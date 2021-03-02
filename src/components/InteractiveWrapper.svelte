@@ -98,26 +98,33 @@
 </script>
 
 <div class='container' bind:clientWidth={width} bind:clientHeight={containerHeight}>
-    <p class='chart-title'>{title}</p>
 
-    {#if UIOptions}
-        <UI {UIOptions} {id} bind:radioValue bind:checkValue bind:brandSel bind:categorySel {allBrands} {allCategories}/>
-    {/if}
-    {#if mounted}
-        {#key containerHeight}
-        <InteractiveParent {filteredData} data = {allData} {options} {width} {id}/>
+    <div class='container--top'>
+        <p class='chart-title'>{title}</p>
 
-        {#if exHeight[id] && exHeight[id].height > (ogHeight * 0.7) && radioValue === 'names'}              
-           {#if exHeight[id].expanded === false}
-                <div class='gradient'></div>
-            {/if}
-            <div class='more-container'>
-                <button on:click = {() => expandGraphic()}>{exHeight[id].expanded ? 'Show Fewer' : 'Show All'}</button>
-            </div>
+        {#if UIOptions}
+            <UI {UIOptions} {id} bind:radioValue bind:checkValue bind:brandSel bind:categorySel {allBrands} {allCategories}/>
         {/if}
+    </div>
 
-        {/key}
-    {/if}
+    <div class='container--bottom'>
+        {#if mounted}
+            {#key containerHeight}
+            <InteractiveParent {filteredData} data = {allData} {options} {width} {id}/>
+
+            {#if exHeight[id] && exHeight[id].height > (ogHeight * 0.7) && radioValue === 'names'}              
+            {#if exHeight[id].expanded === false}
+                    <div class='gradient'></div>
+                {/if}
+                <div class='more-container'>
+                    <button on:click = {() => expandGraphic()}>{exHeight[id].expanded ? 'Show Fewer' : 'Show All'}</button>
+                </div>
+            {/if}
+
+            {/key}
+        {/if}
+    </div>
+
 </div>
 
 
@@ -126,13 +133,23 @@
         font-size: 24px;
         font-weight: bold;
         text-align: center;
+        margin: 0 auto;
     }
 
     .container {
-        margin-bottom: 4rem;
         height: 100%;
         pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        margin-top: 3rem;
     }
+
+    .container--bottom {
+        flex-grow: 1;
+        position: relative;
+    }
+
+
 
     .more-container {
         pointer-events: all;

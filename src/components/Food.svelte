@@ -21,7 +21,7 @@
     //$: filteredData = data.filter(d => d.category === 'food').filter(d => switchValue === 'varied' ? d.namingScheme === 'variety' : d.namingScheme === 'NA' )
 
     let exHeight;
-    let containerHeight = 500;
+    let containerHeight = 600;
     let heightMeasure = 'vh'
 
     $: extendedHeight.subscribe(val => exHeight = val)
@@ -71,7 +71,7 @@
     .container{
         /* height: 90vh; */
         max-width: 50rem;
-        margin: 0 auto 5rem auto;
+        margin: 0 auto;
     }
 
     .chart-container.drink{
