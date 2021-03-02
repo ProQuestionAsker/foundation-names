@@ -111,7 +111,7 @@
         {#if mounted}
             {#key containerHeight}
             <InteractiveParent {filteredData} data = {allData} {options} {width} {id}/>
-
+        <p>{containerHeight}</p>
             {#if exHeight[id] && exHeight[id].height > (ogHeight * 0.7) && radioValue === 'names'}              
             {#if exHeight[id].expanded === false}
                     <div class='gradient'></div>
