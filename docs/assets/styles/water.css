@@ -7,7 +7,7 @@
   --background-alt: #f7f7f7;
   --selection: #9e9e9e;
   --text-main: #363636;
-  --links: #0076d1;
+  --links: red;
   --focus: rgba(0, 150, 191, 0.67);
   --border: #dbdbdb;
   --animation-duration: 0.1s;
@@ -246,6 +246,9 @@ input[type="range"]:focus::-ms-fill-upper {
 }
 a {
   color: var(--links);
+}
+a:visited {
+  color: var(--fg);
 }
 a:hover {
 }
