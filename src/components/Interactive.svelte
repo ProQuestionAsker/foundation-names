@@ -18,6 +18,7 @@
     export let blockDimensions;
     export let lineData;
     export let id;
+    let widthCheck;
 
     let key;
     let keyCode;
@@ -188,7 +189,7 @@
 </script>
 
 <!-- aria hidden because custom aria controller will be introduced -->
-<div aria-hidden="true">
+<div aria-hidden="true" bind:clientWidth={widthCheck}>
     {#if (options.includes('shuffled') || options.includes('histogram') || options.includes('natural'))}
         {#key $data.length} 
             <Canvas>
@@ -225,7 +226,8 @@
 <Html zIndex={5}>
     <ControllerWrapper {blockDimensions} {options} {lineData}/>
 
-    {#if options.includes('tooltip')}
+    {#if options.includes('tooltip') && widthCheck > 500}
+    <!-- tooltips only when necessary and not on mobile -->
         <Tooltip {blockDimensions}/>
     {/if}
 
