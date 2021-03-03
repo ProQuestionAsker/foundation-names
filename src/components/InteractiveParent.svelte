@@ -131,23 +131,26 @@
    
     
     
-</script>
+</script>    
+{#if flattenedData && mounted}
     <p>totalHeight: {totalHeight}</p>
+    <p>mounted: {mounted}</p>
 <div class='lc-container' bind:clientHeight={totalHeight}>
-    {#if flattenedData && mounted}
+
         <LayerCake data={flattenedData} x={d => d.lightness}
             xDomain={[0.15, 0.99]}> 
 
             <Interactive {options} {blockDimensions} {lineData} {id}/>
         </LayerCake>
-    {/if}
+
 
 </div>
-
+    {/if}
 <style>
     .lc-container{
         position: relative;
         height: 90%;
+        min-height: 200px;
         border: 1px solid blue;
     }
 

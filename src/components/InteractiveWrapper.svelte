@@ -141,12 +141,11 @@
         pointer-events: none;
         display: flex;
         flex-direction: column;
-        margin-top: 3rem;
     }
 
     .container--bottom {
-        flex-grow: 1;
-        min-height: 50%;
+        /* flex-grow: 1; */
+        height: 80%;
         position: relative;
         border: 1px solid red;
     }
