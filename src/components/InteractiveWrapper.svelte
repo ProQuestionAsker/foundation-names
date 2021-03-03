@@ -12,6 +12,7 @@
     export let UIOptions;
     export let id;
     export let containerHeight;
+    let bottomHeight;
 
     let exHeight;
     let ogHeight = 0;
@@ -107,11 +108,10 @@
         {/if}
     </div>
 
-    <div class='container--bottom'>
+    <div class='container--bottom' bind:clientHeight={bottomHeight}>
         {#if mounted}
             {#key containerHeight}
             <InteractiveParent {filteredData} data = {allData} {options} {width} {id}/>
-        <p>{containerHeight}</p>
             {#if exHeight[id] && exHeight[id].height > (ogHeight * 0.7) && radioValue === 'names'}              
             {#if exHeight[id].expanded === false}
                     <div class='gradient'></div>
@@ -146,7 +146,9 @@
 
     .container--bottom {
         flex-grow: 1;
+        min-height: 50%;
         position: relative;
+        border: 1px solid red;
     }
 
     .more-container {
