@@ -143,11 +143,14 @@
         flex-direction: column;
     }
 
+    .container--top {
+        max-height: 30%;
+    }
+
     .container--bottom {
-        /* flex-grow: 1; */
-        height: 80%;
+        flex-grow: 1;
+        height: 70%;
         position: relative;
-        border: 1px solid red;
     }
 
     .more-container {
@@ -159,6 +162,8 @@
         z-index: 10;
         background-color: var(--bg);
         width: 100%;
+        position: absolute;
+        bottom: 0;
     }
 
     .gradient {
@@ -166,7 +171,7 @@
         height: 50px;
         width: 100%;
         position: absolute;
-        bottom: 95px;
+        bottom: 4rem;
         left: 0;
         background: linear-gradient(0deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
     }

@@ -133,8 +133,6 @@
     
 </script>    
 {#if flattenedData && mounted}
-    <p>totalHeight: {totalHeight}</p>
-    <p>mounted: {mounted}</p>
 <div class='lc-container' bind:clientHeight={totalHeight}>
 
         <LayerCake data={flattenedData} x={d => d.lightness}
@@ -151,7 +149,6 @@
         position: relative;
         height: 90%;
         min-height: 200px;
-        border: 1px solid blue;
     }
 
 
