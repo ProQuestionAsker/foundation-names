@@ -13,14 +13,19 @@
         mounted = true;
     });
 
+    function findLeft(d){
+        const dx = d.textDx ? d.textDx : 0
+        return d.coordinates[0].x + dx
+    }
+
 </script>
 
 <div class='layercake-annotations' bind:this={container}>
     {#each annotations as d, i}
         <div class='annotation annotation-bg'
-        style="top:{d.coordinates[0].y - d.dy}px; left:{d.coordinates[0].x}px">{@html d.text}</div>
+        style="top:{d.coordinates[0].y - d.dy}px; left:{findLeft(d)}px; text-align:{d.mobile ? d.mobile : 'center'}">{@html d.text}</div>
         <div class='annotation layercake-annotation'
-        style="top:{d.coordinates[0].y - d.dy}px; left:{d.coordinates[0].x}px">{@html d.text}</div>
+        style="top:{d.coordinates[0].y - d.dy}px; left:{findLeft(d)}px; text-align:{d.mobile ? d.mobile : 'center'}">{@html d.text}</div>
     {/each}
 </div>
 
@@ -42,7 +47,6 @@
         padding: 0.25rem;
     }
     .annotation {
-        text-align: center;
         font-size: 14px;
         position: absolute;
         max-width: 200px;
@@ -52,7 +56,6 @@
     @media screen and (max-width: 500px) {
         .annotation {
             font-size: 12px;
-            text-align: center;
             max-width: 150px;
         }
     }

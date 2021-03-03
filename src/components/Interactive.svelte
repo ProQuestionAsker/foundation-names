@@ -67,6 +67,8 @@
                 text: 'Nude Mocha',
                 coordinates: findCoordinates('nude mocha'),
                 dy: 40,
+                textDx: 20,
+                mobile: 'left',
                 arrowOffset: 15,
                 arrow:[{
                     clockwise: false,
@@ -121,22 +123,23 @@
             }]
         } else if (options.includes('allLine') && !options.includes('explore')){
             annotations = [{
-                text: 'When the <span class=anno-all>all shades</span> line appears above the <span class=anno-nude>“nude” shades</span> line, there are fewer shades named “nude” than we’d expect in this color range',
+                text: 'When the <span class=anno-all>all shades</span> line is higher, there are fewer shades named “nude” than we’d expect',
                 coordinates: findLineCoordinates(biggestUnder, 'allCount'),
-                dy: $height * 0.7,
-                arrowOffset: 100,
+                dy: $height * 0.2,
+                mobile: 'left',
+                arrowOffset: 70,
                 arrow:[{
                     clockwise: false,
                     source: {
                         anchor: 'left-bottom',
                         dx: -2,
-                        dy: 150
+                        dy: 100
                     }
                 }]
             }, {
-                text: 'Areas where the <span class=anno-nude>“nude” shades</span> line is higher indicate more shades in this color range than we would expect',
+                text: 'When the <span class=anno-nude>“nude” shades</span> line is higher, there are more shades in this color range than we expect',
                 coordinates: findLineCoordinates(biggestOver, 'count'),
-                dy: $height * 0.5,
+                dy: $height * 0.2,
                 dx: blockDimensions.blockWidth,
                 arrowOffset: 75,
                 arrow:[{
