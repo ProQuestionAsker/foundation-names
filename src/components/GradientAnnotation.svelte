@@ -32,13 +32,16 @@
     y = {$height + 25}
     text-anchor = "middle"
     alignment-baseline = "hanging"
+    aria-hidden="true"
     font-size = "12px"
     fill = var(--gray)
+    role='presentation'
 >80% of shades fall in this range</text>
 
 <rect x = {$xScale(firstQuant)}
     y = {$height}
     width = {$xScale(lastQuant) - $xScale(firstQuant)}
+    aria-hidden="true"
     height = 20
     fill = "none"
     stroke = "black"

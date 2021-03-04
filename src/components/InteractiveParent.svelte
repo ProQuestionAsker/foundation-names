@@ -8,6 +8,7 @@
     export let filteredData;
     export let width;
     export let id;
+    export let title;
     $: blockWidth = filteredData.length < 1000 ? 20 : 10;
     $: blockHeight = Math.ceil(blockWidth / 3);
     $: blockPadding = filteredData.length < 1000 ? 2 : 1;
@@ -138,7 +139,7 @@
         <LayerCake data={flattenedData} x={d => d.lightness}
             xDomain={[0.15, 0.99]}> 
 
-            <Interactive {options} {blockDimensions} {lineData} {id}/>
+            <Interactive {options} {blockDimensions} {lineData} {id} {title}/>
         </LayerCake>
 
 

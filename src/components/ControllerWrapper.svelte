@@ -8,6 +8,7 @@ import Explore from './Explore.svelte';
     export let blockDimensions;
     export let options;
     export let lineData;
+    export let title;
 
     let controllerContainer;
     let exploreSwatches = false;
@@ -22,12 +23,10 @@ import Explore from './Explore.svelte';
     let explore = false;
     let focused = false;
 
-    $: console.log({focused})
-
     function handleKeyDown(event){
         const key = event.key;
         explore = true;
-  
+
         // key bindings for histograms
         if (options.includes('histogram') || options.includes('natural') || options.includes('line')){
             if (key === 'ArrowRight') {
@@ -37,20 +36,20 @@ import Explore from './Explore.svelte';
                 groupActive = true;
                 takeoverKeys = true;
             }
-            if (key === 'ArrowLeft') {
+            else if (key === 'ArrowLeft') {
                 let newGroup = currentGroup === 0 ? totalGroups - 1 : currentGroup - 1 
                 currentGroup = newGroup
                 found = ''
                 groupActive = true;
                 takeoverKeys = true;
             }
-            if (key === 'Shift' && key === 'Tab' || key === 'Escape' || key === 'Tab') {
+            else if (key === 'Shift' && key === 'Tab' || key === 'Escape' || key === 'Tab') {
                 exploreSwatches = false;
                 controllerContainer.focus();
                 groupActive = false;
                 takeoverKeys = false;
             }
-            if (key === 'ArrowUp' || key === 'ArrowDown'){
+            else if (key === 'ArrowUp' || key === 'ArrowDown'){
                 exploreSwatches = true;
                 const swatches = groupedData[currentGroup][1]
                 const total = swatches.length - 1
@@ -82,6 +81,7 @@ import Explore from './Explore.svelte';
                 takeoverKeys = false
             }       
 
+
         }
 
         // key bindings for word wall
@@ -108,6 +108,16 @@ import Explore from './Explore.svelte';
         explore = false;
     }
 
+    function createAccessibleTitle(title, options){
+        if (options.includes('histogram')){
+            return `Histogram showing ${title}, sorted from dark to light. Graph contains ${totalGroups} columns. Navigate between columns using LEFT and RIGHT arrows and explore swatches within each column using UP and DOWN. Use ESCAPE to exit.`
+        }
+        else if (options.includes('line')){
+            return `Overlapping area chart showing distribution of ${title} compared to all shades, sorted from dark to light. Graph contains ${totalGroups} points of comparison. Navigate between them using the LEFT and RIGHT arrows.  Use ESCAPE to exit.`
+        } else if (options.includes('wordwall')) 
+        {return `A list of shade names for ${title} sorted from dark to light. Progress through the list using the arrow keys. Exit using ESCAPE.`}
+    }
+
     // let ariaLabel;
 
     // $: {
@@ -120,7 +130,11 @@ import Explore from './Explore.svelte';
 
 <svelte:window on:mousemove={clearKeyboard} on:click={clearKeyboard} />
 
-<div class='controller' tabindex="0" on:keydown={handleKeyDown} bind:this={controllerContainer} >
+<div class='controller' tabindex="0" role="application" 
+    aria-roledescription="data visualization" 
+    aria-label={createAccessibleTitle(title, options)}
+    aria-activedescendant="null"
+    on:keydown={handleKeyDown} bind:this={controllerContainer} >
     {#if controllerContainer && explore}
         <Controller {blockDimensions} {options} {currentGroup} {groupedData} {controllerContainer} {found} {exploreSwatches} {groupActive} flatData={$data} {wordIndex} {lineData} />
     {/if}

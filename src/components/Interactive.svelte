@@ -18,6 +18,7 @@
     export let blockDimensions;
     export let lineData;
     export let id;
+    export let title;
     let widthCheck;
 
     let key;
@@ -224,7 +225,7 @@
 
 
 <Html zIndex={5}>
-    <ControllerWrapper {blockDimensions} {options} {lineData}/>
+    <ControllerWrapper {blockDimensions} {options} {lineData} {title}/>
 
     {#if options.includes('tooltip') && widthCheck > 500}
     <!-- tooltips only when necessary and not on mobile -->

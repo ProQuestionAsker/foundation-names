@@ -32,7 +32,6 @@
   
     function setPath (anno, arrow) {
     //   return (anno, i, arrow) => {
-        console.log('set path running')
         //const arrowSource = getElPosition(el);
         const dx = anno.dx ? anno.dx : 0
         const sourceCoords =  [anno.coordinates[0].x - 4 + dx, anno.coordinates[0].y - (anno.dy - anno.arrowOffset)]
@@ -47,9 +46,6 @@
          */
         const targetCoords = [anno.coordinates[0].x + (blockDimensions.blockWidth  - blockDimensions.blockPadding) + dx, anno.coordinates[0].y + (blockDimensions.blockHeight / 2)]
         
-
-        console.log({sourceCoords, targetCoords, clockwise, arrow, anno, dx})
-  
         /* --------------------------------------------
          * Create arrow path
          */

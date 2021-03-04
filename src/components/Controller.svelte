@@ -70,7 +70,6 @@
     >
     </div>
     {/if}
- 
         {#key groupLabel}
             <figure>
                 <div class='sr-only' role='img' tabindex="-1"  bind:this={srValue} use:moveFocus aria-label={groupLabel}>
