@@ -4,7 +4,7 @@
     import copy from "../data/copy.json";
     import { groups } from 'd3-array'
 
-    const baselineIDs = [94, 13]
+    const baselineIDs = [94, 13, 17, 104]
 
     $: baseline = groups(data.filter(d => baselineIDs.includes(+d.id)), d => d.id)
     $: darkToLight = groups(data.filter(d => d.lightToDark === 'FALSE'), d => d.id)

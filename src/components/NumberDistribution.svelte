@@ -59,10 +59,10 @@
         align-items: center;
     }
     .swatch {
-        width: 5px;
-        min-width: 5px;
+        width: 4px;
+        min-width: 4px;
         height: 20px;
-        border-radius: 4px;
+        border-radius: 3px;
     }
     .swatch-label {
         position: absolute;

@@ -63,8 +63,11 @@
         padding: 0 1rem;
     }
     .container{
-        margin: 0 auto;
+        margin: 3rem auto;
         max-width: 1000px;
+        border: 1px solid var(--gray);
+        padding: 1rem 1.5rem;
+        box-shadow: 12px -12px 0 -1px var(--white), 12px -12px 0 0 var(--gray);
     }
 
 </style>

@@ -77,7 +77,10 @@
     .container{
         /* height: 90vh; */
         max-width: 50rem;
-        margin: 0 auto;
+        margin: 3rem auto;
+        border: 1px solid var(--gray);
+        padding: 1rem 1.5rem;
+        box-shadow: 12px -12px 0 -1px var(--white), 12px -12px 0 0 var(--gray);
     }
 
     .chart-container.drink{
