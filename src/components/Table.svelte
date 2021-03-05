@@ -11,7 +11,6 @@
     $: totalPages = Math.ceil(totalRows / perPage)
     $: start =  currentPage * perPage + 1
     $: end = currentPage === totalPages - 1 ? totalRows : start + perPage - 1;
-    $: console.log({start, end})
 
     $: sortStatus = [];
     $: sortDirection = 'ascending'
@@ -56,8 +55,6 @@
     }
 
     $: trimmedRows = sortedRows.slice(start, end + 1)
-
-    $: console.log({trimmedRows, sortedRows})
 
     $: totalRows, currentPage = 0
     $: currentPage, start, end

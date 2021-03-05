@@ -12,9 +12,6 @@
     export let allBrands;
     export let allCategories;
 
-    function filterData(){
-        console.log('something selected')
-    }
 
 
 </script>
@@ -28,7 +25,7 @@
                 <div>
                     <label for="brandSelect">Filter by brand</label>
                     <select id="brandSelect" 
-                        bind:value={brandSel} on:blur="{() => filterData()}">
+                        bind:value={brandSel}>
                         {#each allBrands as brand}
                             <option>{brand}</option>
                         {/each}
@@ -36,7 +33,7 @@
                 </div>
                 <div>
                     <label for="categorySelect">Filter by category</label>
-                    <select id="categorySelect" bind:value={categorySel} on:blur="{() => filterData()}">
+                    <select id="categorySelect" bind:value={categorySel}>
                         {#each allCategories as category}
                             <option>{category}</option>
                         {/each}

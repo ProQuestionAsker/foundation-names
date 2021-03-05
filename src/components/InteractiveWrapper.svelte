@@ -59,8 +59,6 @@
 
         // finding all categories for selected brand
 
-        console.log({allData})
-
         if (brandSel === 'All'){
             allCategories = [...new Set(flatten(allData.map(d => d.categories)))].sort((a, b) => ascending(a, b)).filter(d => d !== 'NA')
             allCategories.unshift('all')
