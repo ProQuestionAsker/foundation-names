@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import {group, ascending} from 'd3-array';
+    import { flatten } from 'layercake'
     import InteractiveParent from "./InteractiveParent.svelte"
     import UI from "./UI.svelte"
     import extendedHeight from './../stores/stores.js';
@@ -27,8 +28,7 @@
         .sort((a, b) => ascending(a.toLowerCase(), b.toLowerCase()))
     allBrands.unshift('All')
 
-    let allCategories = Array.from(group(allData, d => d.category)
-        .keys())
+    let allCategories = [...new Set(flatten(allData.map(d => d.categories)))]
         .sort((a, b) => ascending(a.toLowerCase(), b.toLowerCase()))
     allCategories.unshift('all')
 
@@ -52,20 +52,22 @@
         let filtered;
         if (categorySel === 'all' && brandSel === 'All') filtered = allData;
         else if (categorySel === 'all' && brandSel !== 'All') filtered = allData.filter(d => d.brand === brandSel);
-        else if (categorySel !== 'all' && brandSel === 'All') filtered = allData.filter(d => d.category === categorySel);
-        else filtered = allData.filter(d => d.category === categorySel && d.brand === brandSel)
+        else if (categorySel !== 'all' && brandSel === 'All') filtered = allData.filter(d => d.categories.includes(categorySel));
+        else filtered = allData.filter(d => d.categories.includes(categorySel) && d.brand === brandSel)
 
         // filteredLength = filtered.length
 
         // finding all categories for selected brand
 
+        console.log({allData})
+
         if (brandSel === 'All'){
-            allCategories = Array.from(group(allData, d => d.category).keys()).sort((a, b) => ascending(a, b)).filter(d => d !== 'NA')
+            allCategories = [...new Set(flatten(allData.map(d => d.categories)))].sort((a, b) => ascending(a, b)).filter(d => d !== 'NA')
             allCategories.unshift('all')
         } 
         else {
             const selBrand = allData.filter(d => d.brand === brandSel)
-            allCategories = Array.from(group(selBrand, d => d.category).keys()).sort((a, b) => ascending(a, b)).filter(d => d !== 'NA')
+            allCategories = [...new Set(flatten(selBrand.map(d => d.categories)))].sort((a, b) => ascending(a, b)).filter(d => d !== 'NA')
             allCategories.unshift('all')
         }
 

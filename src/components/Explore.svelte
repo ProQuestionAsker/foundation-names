@@ -21,7 +21,10 @@
     let containerHeight = 100;
     let heightMeasure = 'vh'
 
-
+    $: cleanData = data.map(d => ({
+        ...d,
+        categories: d.categories.split(', ')
+    }))
 
     $: extendedHeight.subscribe(val => exHeight = val)
 
@@ -31,7 +34,7 @@
         return `${containerHeight}${heightMeasure}`
     }
 
-    let filterData = data
+    $: filterData = cleanData
    
 </script>
 
@@ -42,7 +45,7 @@
 
 <div class='container' style="height:{determineHeight(exHeight)}">
     <InteractiveWrapper title={`Explore all ${filterData.length} shades`} filteredData={filterData} 
-    allData={data} {options} {UIOptions} id={'explore'}/>
+    allData={cleanData} {options} {UIOptions} id={'explore'}/>
 </div>
 
 </section>
