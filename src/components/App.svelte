@@ -12,6 +12,7 @@ import GradientHistogram from "./GradientHistogram.svelte";
   import Food from "./Food.svelte"
   import Explore from "./Explore.svelte"
   import Numbers from "./Numbers.svelte"
+  import Methods from "./Methods.svelte"
 
 
 </script>
@@ -38,7 +39,7 @@ import GradientHistogram from "./GradientHistogram.svelte";
 <Nude />
 <Food />
 <Explore />
-
+<Methods />
 
 </article>
 
