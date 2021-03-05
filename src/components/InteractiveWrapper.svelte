@@ -149,7 +149,7 @@
 
     .container--bottom {
         /* flex-grow: 1; */
-        height: 70%;
+        min-height: 70%;
         position: relative;
     }
 

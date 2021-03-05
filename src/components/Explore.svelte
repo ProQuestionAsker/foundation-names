@@ -1,5 +1,6 @@
 <script>
     import data from "../data/shades_export.csv"
+    import copy from "../data/copy.json";
     import SwatchHistogram from "./SwatchHistogram-old.svelte"
     import { group, ascending} from 'd3-array'
     import Gradient from "./Gradient.svelte"
@@ -42,6 +43,9 @@
 
 <SectionHed text={'Explore'} />
 
+{#each copy.explore as {type, value}}
+    <p class='prose'>{@html value}</p>
+{/each}
 
 <div class='container' style="height:{determineHeight(exHeight)}">
     <InteractiveWrapper title={`Explore all ${filterData.length} shades`} filteredData={filterData} 
@@ -59,7 +63,7 @@
         padding: 0 1rem;
     }
     .container{
-        margin: 0 auto 4rem;
+        margin: 0 auto;
         max-width: 1000px;
     }
 

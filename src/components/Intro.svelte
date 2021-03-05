@@ -10,7 +10,7 @@ import copy from "../data/copy.json";
 
 
     {#each copy.intro as {type, value}}
-        <p class='prose'>{value}</p>
+        <p class='prose'>{@html value}</p>
     {/each}
 
 </section>

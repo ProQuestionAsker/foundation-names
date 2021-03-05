@@ -18,7 +18,7 @@
     </div>
 
     {#each copy.darkToLight as {value}}
-    <p class='prose'>{value}</p>
+    <p class='prose'>{@html value}</p>
     {/each}
 
     <div class='container'>
