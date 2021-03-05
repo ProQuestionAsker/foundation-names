@@ -24,9 +24,6 @@
         margin: 0 auto;
     }
 
-    .methods > :global(a) {
-        color: var(--bg);
-    }
 
     p {
         color: var(--bg);

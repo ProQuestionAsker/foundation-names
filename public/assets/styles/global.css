@@ -50,6 +50,10 @@
   --highlight: var(--yellow);
 }
 
+.methods > a {
+  color: red;
+}
+
 .prose {
   max-width: 50rem;
   margin: 0 auto 1rem auto;
