@@ -18,6 +18,12 @@
     const blockWidth = 20;
     $: blockHeight = blockWidth / 4;
 
+    $: cleanedData = data.map(d => ({
+        ...d,
+        categories: d.categories.split(', ')
+    }))
+
+
     //$: filteredData = data.filter(d => d.category === 'food').filter(d => switchValue === 'varied' ? d.namingScheme === 'variety' : d.namingScheme === 'NA' )
 
     let exHeight;
@@ -30,7 +36,7 @@
     const sections = ['drink', 'food']
 
     function filterData(sectionName){
-        const cat = data.filter(d => d.category === sectionName)
+        const cat = data.filter(d => d.categories.includes(sectionName))
 
         return cat
     }
