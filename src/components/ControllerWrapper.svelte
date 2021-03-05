@@ -21,7 +21,7 @@ import Explore from './Explore.svelte';
     let ind = 0
     let wordIndex = 0;
     let explore = false;
-    let focused = false;
+  
 
     function handleKeyDown(event){
         const key = event.key;
@@ -135,6 +135,7 @@ import Explore from './Explore.svelte';
     aria-label={createAccessibleTitle(title, options)}
     aria-activedescendant="null"
     on:keydown={handleKeyDown} bind:this={controllerContainer} >
+    <p>Use your arrow keys to explore the swatches. TAB or ESC to exit.</p>
     {#if controllerContainer && explore}
         <Controller {blockDimensions} {options} {currentGroup} {groupedData} {controllerContainer} {found} {exploreSwatches} {groupActive} flatData={$data} {wordIndex} {lineData} />
     {/if}
@@ -151,5 +152,17 @@ import Explore from './Explore.svelte';
     }
     .controller:focus{
         outline: 4px solid var(--accent-color)
+    }
+
+    .controller p {
+        display: none;
+    }
+
+    .controller:focus p {
+        display: inline-block;
+        text-align: center;
+        margin: 0 auto;
+        color: var(--gray);
+        text-transform: uppercase;
     }
 </style>
