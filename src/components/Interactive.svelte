@@ -44,7 +44,6 @@
     }
 
     function findLineCoordinates(bin, dimension){
-        console.log({bin})
         return [{
             x: $xScale(bin.x0) - blockDimensions.blockWidth,
             y: $height - ((bin[dimension] + 1) * (blockDimensions.blockHeight + blockDimensions.blockPadding))
