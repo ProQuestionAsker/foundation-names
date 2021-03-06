@@ -18,9 +18,13 @@
     let options = ['histogram', 'gradient', 'majority', 'tooltip']
     let UIOptions = ['radio', 'dropdown']
 
+    let screenWidth = 0;
+
     let exHeight;
-    let containerHeight = 100;
+    $: containerHeight = screenWidth < 500 ? 150: 100;
     let heightMeasure = 'vh'
+
+    $: console.log({screenWidth, containerHeight})
 
     $: cleanData = data.map(d => ({
         ...d,
@@ -47,7 +51,7 @@
     <p class='prose'>{@html value}</p>
 {/each}
 
-<div class='container' style="height:{determineHeight(exHeight)}">
+<div class='container' style="height:{determineHeight(exHeight)}" bind:clientWidth={screenWidth}>
     <InteractiveWrapper title={`Explore all ${filterData.length} shades`} filteredData={filterData} 
     allData={cleanData} {options} {UIOptions} id={'explore'}/>
 </div>
@@ -68,6 +72,11 @@
         border: 1px solid var(--gray);
         padding: 1rem 1.5rem;
         box-shadow: 12px -12px 0 -1px var(--white), 12px -12px 0 0 var(--gray);
+        overflow-x: scroll;
+    }
+
+    @media screen and (max-width: 500px) {
+
     }
 
 </style>

@@ -98,7 +98,7 @@
     })
 </script>
 
-<div class='container' bind:clientWidth={width} bind:clientHeight={containerHeight}>
+<div class='container'   bind:clientHeight={containerHeight}>
 
     <div class='container--top'>
         <p class='chart-title'>{title}</p>
@@ -108,21 +108,24 @@
         {/if}
     </div>
 
-    <div class='container--bottom' bind:clientHeight={bottomHeight}>
-        {#if mounted}
-            {#key containerHeight}
-            <InteractiveParent {filteredData} data = {allData} {options} {width} {id} {title}/>
-            {#if exHeight[id] && exHeight[id].height > (ogHeight * 0.7) && radioValue === 'names'}              
-            {#if exHeight[id].expanded === false}
-                    <div class='gradient'></div>
+    <div class='container--bottom' bind:clientHeight={bottomHeight}  class:explore={id === 'explore'}>
+        <div class='scrollx' bind:clientWidth={width}>
+            {#if mounted}
+                {#key containerHeight}
+                <InteractiveParent {filteredData} data = {allData} {options} {width} {id} {title}/>
+                {#if exHeight[id] && exHeight[id].height > (ogHeight * 0.7) && radioValue === 'names'}              
+                {#if exHeight[id].expanded === false}
+                        <div class='gradient'></div>
+                    {/if}
+                    <div class='more-container'>
+                        <button on:click = {() => expandGraphic()}>{exHeight[id].expanded ? 'Show Fewer' : 'Show All'}</button>
+                    </div>
                 {/if}
-                <div class='more-container'>
-                    <button on:click = {() => expandGraphic()}>{exHeight[id].expanded ? 'Show Fewer' : 'Show All'}</button>
-                </div>
-            {/if}
 
-            {/key}
-        {/if}
+                {/key}
+            {/if}
+        </div>
+       
     </div>
 
 </div>
@@ -143,8 +146,26 @@
         flex-direction: column;
     }
 
+    .container--bottom.explore {
+        width: 100%;
+        white-space: nowrap;
+        overflow: auto;
+    }
+
+    .scrollx {
+        width: 100%;
+        height: 100%;
+    }
+
+    .container--bottom.explore .scrollx {
+        width: 700px;
+        height: 100%;
+    }
+
+
     .container--top {
         max-height: 30%;
+        width: 100%;
     }
 
     .container--bottom {
