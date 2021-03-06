@@ -255,7 +255,9 @@ a:hover {
 
 .methods > a {
   color: blue;
+  background-color: red;
 }
+
 img,
 video {
   max-width: 100%;

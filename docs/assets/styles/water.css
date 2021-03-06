@@ -253,9 +253,6 @@ a:visited {
 a:hover {
 }
 
-.methods > a {
-  color: blue;
-}
 img,
 video {
   max-width: 100%;

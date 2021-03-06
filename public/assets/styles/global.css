@@ -37,7 +37,7 @@
   --selection: var(--gray);
   --text-main: var(--off-black);
   --links: var(--off-black);
-  --focus: var(--green);
+  --focus: var(--accent-color);
   --border: var(--gray-light);
   --animation-duration: 0.1s;
   --button-hover: var(--gray-light);
@@ -49,9 +49,8 @@
   --input-thumb: var(--gray-dark);
   --highlight: var(--yellow);
 }
-
-.methods > a {
-  color: red;
+.methods .container a {
+  color: var(--bg);
 }
 
 .prose {
