@@ -49,11 +49,12 @@
         /* --------------------------------------------
          * Create arrow path
          */
-        return swoopyArrow()
+        const swoopy =  swoopyArrow()
           .angle(Math.PI / 2)
           .clockwise(clockwise)
           .x(q => q[0])
           .y(q => q[1])([sourceCoords, targetCoords]);
+          return swoopy
     //   };
     }
   
@@ -66,7 +67,7 @@
     </marker>
   </defs>
   
-  {#if annotations.length}
+  {#if annotations.length && blockDimensions.blockHeight}
     <g class="swoops">
       {#each annotations as anno, i}
             <path

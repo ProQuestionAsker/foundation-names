@@ -146,6 +146,10 @@
         .step p {
             background-color: var(--bg);
         }
+
+        .element-standard {
+            height: 90vh;
+        }
         .element-scroll {
             width: 100%;
             height: 90vh;
