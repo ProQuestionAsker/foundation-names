@@ -35,6 +35,7 @@ import Explore from './Explore.svelte';
                 found = ''
                 groupActive = true;
                 takeoverKeys = true;
+                exploreSwatches = false;
             }
             else if (key === 'ArrowLeft') {
                 let newGroup = currentGroup === 0 ? totalGroups - 1 : currentGroup - 1 
@@ -42,6 +43,7 @@ import Explore from './Explore.svelte';
                 found = ''
                 groupActive = true;
                 takeoverKeys = true;
+                exploreSwatches = false;
             }
             else if (key === 'Shift' && key === 'Tab' || key === 'Escape' || key === 'Tab') {
                 exploreSwatches = false;
@@ -80,7 +82,7 @@ import Explore from './Explore.svelte';
                 exploreSwatches = false
                 takeoverKeys = false
             }       
-
+            console.log({exploreSwatches})
 
         }
 
@@ -135,7 +137,7 @@ import Explore from './Explore.svelte';
     aria-label={createAccessibleTitle(title, options)}
     aria-activedescendant="null"
     on:keydown={handleKeyDown} bind:this={controllerContainer} >
-    <p>Use your arrow keys to explore the swatches. TAB or ESC to exit.</p>
+    <p aria-hidden='true'>Use your arrow keys to explore the swatches. TAB or ESC to exit.</p>
     {#if controllerContainer && explore}
         <Controller {blockDimensions} {options} {currentGroup} {groupedData} {controllerContainer} {found} {exploreSwatches} {groupActive} flatData={$data} {wordIndex} {lineData} />
     {/if}

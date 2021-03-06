@@ -150,6 +150,7 @@
         position: relative;
         height: 90%;
         min-height: 200px;
+        width: 100%;
     }
 
 

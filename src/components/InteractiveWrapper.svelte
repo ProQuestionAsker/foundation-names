@@ -138,19 +138,18 @@
 
     .container {
         height: 100%;
-        flex: 0 0 auto;
         pointer-events: none;
         display: flex;
         flex-direction: column;
     }
 
     .container--top {
-        max-height: 20%;
+        max-height: 30%;
     }
 
     .container--bottom {
-        flex-grow: 2;
         min-height: 70%;
+        height: 80%;
         position: relative;
     }
 
