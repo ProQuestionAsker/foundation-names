@@ -21,7 +21,7 @@
     let screenWidth = 0;
 
     let exHeight;
-    $: containerHeight = screenWidth < 500 ? 150: 100;
+    $: containerHeight = screenWidth < 500 ? 100: 100;
     let heightMeasure = 'vh'
 
     $: console.log({screenWidth, containerHeight})
@@ -72,7 +72,6 @@
         border: 1px solid var(--gray);
         padding: 1rem 1.5rem;
         box-shadow: 12px -12px 0 -1px var(--white), 12px -12px 0 0 var(--gray);
-        overflow-x: scroll;
     }
 
     @media screen and (max-width: 500px) {

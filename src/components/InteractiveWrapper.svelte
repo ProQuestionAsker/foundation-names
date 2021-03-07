@@ -141,7 +141,6 @@
 
     .container {
         height: 100%;
-        pointer-events: none;
         display: flex;
         flex-direction: column;
     }
@@ -149,7 +148,7 @@
     .container--bottom.explore {
         width: 100%;
         white-space: nowrap;
-        overflow: auto;
+        overflow-x: auto;
     }
 
     .scrollx {
