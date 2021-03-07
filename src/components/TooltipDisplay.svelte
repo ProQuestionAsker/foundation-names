@@ -44,14 +44,19 @@
         padding: 0.5rem 1rem;
         border: 1px solid var(--gray);
         pointer-events: none;
+        height: auto;
+        overflow: hidden;
     }
 
     .tooltip p {
         margin: 0.5rem 0;
+        max-width: 250px;
+        white-space: normal;
     }
 
     .brand, .product{
         font-size: 14px;
+        word-wrap: break-word;
     }
 
     .name {

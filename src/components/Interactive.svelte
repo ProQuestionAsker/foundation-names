@@ -19,6 +19,7 @@
     export let lineData;
     export let id;
     export let title;
+    export let parentWidth;
     let widthCheck;
 
     let key;
@@ -42,6 +43,8 @@
                 y: $height - ((d.index + 1) * (blockDimensions.blockHeight + blockDimensions.blockPadding))
             }))
     }
+
+    $: console.log($width)
 
     function findLineCoordinates(bin, dimension){
         return [{
@@ -189,7 +192,7 @@
 </script>
 
 <!-- aria hidden because custom aria controller will be introduced -->
-<div aria-hidden="true" bind:clientWidth={widthCheck}>
+<div aria-hidden="true" >
     {#if (options.includes('shuffled') || options.includes('histogram') || options.includes('natural'))}
         {#key $data.length} 
             <Canvas>
@@ -225,8 +228,7 @@
 
 <Html zIndex={5}>
     <ControllerWrapper {blockDimensions} {options} {lineData} {title}/>
-
-    {#if options.includes('tooltip') && widthCheck > 500}
+    {#if options.includes('tooltip') && parentWidth > 500}
     <!-- tooltips only when necessary and not on mobile -->
         <Tooltip {blockDimensions}/>
     {/if}
@@ -248,3 +250,9 @@
 
 
 
+<style>
+    div {
+        position: relative;
+        height: 100%;
+    }
+</style>

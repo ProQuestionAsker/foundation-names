@@ -9,6 +9,7 @@
     export let width;
     export let id;
     export let title;
+    export let parentWidth;
     $: blockWidth = filteredData.length < 1000 ? 20 : 10;
     $: blockHeight = Math.ceil(blockWidth / 3);
     $: blockPadding = filteredData.length < 1000 ? 2 : 1;
@@ -134,12 +135,12 @@
     
 </script>    
 {#if flattenedData && mounted}
-<div class='lc-container' bind:clientHeight={totalHeight}>
+<div class='lc-container' bind:clientHeight={totalHeight} class:words={options.includes('wordwall')}>
 
         <LayerCake data={flattenedData} x={d => d.lightness}
             xDomain={[0.15, 0.99]}> 
 
-            <Interactive {options} {blockDimensions} {lineData} {id} {title}/>
+            <Interactive {options} {blockDimensions} {lineData} {id} {title} {parentWidth}/>
         </LayerCake>
 
 
@@ -151,6 +152,10 @@
         height: 90%;
         min-height: 200px;
         width: 100%;
+    }
+
+    .lc-container.words{
+        height: 100%;
     }
 
 

@@ -18,7 +18,9 @@
     let options = ['histogram', 'gradient', 'majority', 'tooltip']
     let UIOptions = ['radio', 'dropdown']
 
-    let screenWidth = 0;
+    $: screenWidth = 550;
+
+    $: console.log({explore: screenWidth})
 
     let exHeight;
     $: containerHeight = screenWidth < 500 ? 150: 100;
@@ -35,8 +37,10 @@
 
 
     function determineHeight(exHeight){
-        if (exHeight['explore'].expanded === true) return `${exHeight['explore'].height + containerHeight + 4}px`
-        return `${containerHeight}${heightMeasure}`
+        let newHeight = null
+        if (exHeight['explore'].expanded === true) newHeight = `${(exHeight['explore'].height / 0.98)}px`
+        else newHeight =  `${containerHeight}${heightMeasure}`
+        return newHeight;
     }
 
     $: filterData = cleanData

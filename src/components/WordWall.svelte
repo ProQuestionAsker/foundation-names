@@ -16,7 +16,6 @@
     export let blockDimensions;
     export let id;
     let newHeight;
-
   
     $: if (id) $extendedHeight[id].height = newHeight;
 
@@ -63,9 +62,9 @@
                     currentRowWidth += d.textWidth + (blockPadding * 2)
                 }
 
-
                 if (i === flatWords.length - 1){
-                    newHeight = (row + blockPadding) * 12 
+                    console.log({row})
+                    newHeight = ((row + 10)  * wordHeight + (blockPadding  * 2)) 
                 }
 
                 return ({
@@ -91,7 +90,7 @@
                 // $ctx.textAlign = 'start'
                 $ctx.textBaseline = 'hanging'
                 // // $ctx.strokeText(name, x, y + blockHeight + blockPadding) 
-                $ctx.fillText(swatch.name, swatch.wordX + blockPadding, y)
+                $ctx.fillText(swatch.name, swatch.wordX + blockPadding, y )
 
                 $ctx.strokeStyle = swatch.hex;
                 $ctx.lineWidth = 3;

@@ -45,7 +45,7 @@
     let UIOptions = ['radio']
 
     function determineHeight(sectionLabel, exHeight){
-        if (exHeight[sectionLabel].expanded === true) return `${exHeight[sectionLabel].height + containerHeight + 4}px`
+        if (exHeight[sectionLabel].expanded === true) return `${exHeight[sectionLabel].height / 0.98 }px`
         return `${containerHeight}px`
     }
 

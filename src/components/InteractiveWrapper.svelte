@@ -13,6 +13,7 @@
     export let UIOptions;
     export let id;
     export let containerHeight;
+    let parentWidth;
     let bottomHeight;
 
     let exHeight;
@@ -98,7 +99,7 @@
     })
 </script>
 
-<div class='container'   bind:clientHeight={containerHeight}>
+<div class='container' bind:clientHeight={containerHeight} bind:clientWidth={parentWidth}>
 
     <div class='container--top'>
         <p class='chart-title'>{title}</p>
@@ -112,7 +113,7 @@
         <div class='scrollx' bind:clientWidth={width}>
             {#if mounted}
                 {#key containerHeight}
-                <InteractiveParent {filteredData} data = {allData} {options} {width} {id} {title}/>
+                <InteractiveParent {filteredData} data = {allData} {options} {width} {id} {title} {parentWidth}/>
                 {#if exHeight[id] && exHeight[id].height > (ogHeight * 0.7) && radioValue === 'names'}              
                 {#if exHeight[id].expanded === false}
                         <div class='gradient'></div>
@@ -154,6 +155,7 @@
     .scrollx {
         width: 100%;
         height: 100%;
+        pointer-events: none;
     }
 
     .container--bottom.explore .scrollx {
@@ -171,6 +173,7 @@
         min-height: 70%;
         height: 80%;
         position: relative;
+        flex-grow: 1;
     }
 
     .more-container {
@@ -191,7 +194,7 @@
         height: 50px;
         width: 100%;
         position: absolute;
-        bottom: 4rem;
+        bottom: 66px;
         left: 0;
         background: linear-gradient(0deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
     }
