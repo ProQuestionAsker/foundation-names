@@ -21,7 +21,7 @@
     let screenWidth = 0;
 
     let exHeight;
-    $: containerHeight = screenWidth < 500 ? 100: 100;
+    $: containerHeight = screenWidth < 500 ? 150: 100;
     let heightMeasure = 'vh'
 
     $: console.log({screenWidth, containerHeight})
