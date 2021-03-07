@@ -22,8 +22,8 @@
 
 <div class='layercake-annotations' bind:this={container}>
     {#each annotations as d, i}
-        <div class='annotation annotation-bg'
-        style="top:{d.coordinates[0].y - d.dy}px; left:{findLeft(d)}px; text-align:{d.mobile ? d.mobile : 'center'}">{@html d.text}</div>
+        <!-- <div class='annotation annotation-bg'
+        style="top:{d.coordinates[0].y - d.dy}px; left:{findLeft(d)}px; text-align:{d.mobile ? d.mobile : 'center'}">{@html d.text}</div> -->
         <div class='annotation layercake-annotation'
         style="top:{d.coordinates[0].y - d.dy}px; left:{findLeft(d)}px; text-align:{d.mobile ? d.mobile : 'center'}">{@html d.text}</div>
     {/each}

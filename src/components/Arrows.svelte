@@ -44,7 +44,8 @@
         /* --------------------------------------------
          * Parse where we're drawing to
          */
-        const targetCoords = [anno.coordinates[0].x + (blockDimensions.blockWidth  - blockDimensions.blockPadding) + dx, anno.coordinates[0].y + (blockDimensions.blockHeight / 2)]
+        const blockOffset = clockwise ?  blockDimensions.blockWidth + blockDimensions.blockPadding * 2: 0;
+        const targetCoords = [anno.coordinates[0].x + (blockDimensions.blockWidth  - blockDimensions.blockPadding) + blockOffset, anno.coordinates[0].y + (blockDimensions.blockHeight / 2)]
         
         /* --------------------------------------------
          * Create arrow path

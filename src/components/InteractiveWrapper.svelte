@@ -109,7 +109,7 @@
         {/if}
     </div>
 
-    <div class='container--bottom' bind:clientHeight={bottomHeight}  class:explore={id === 'explore'}>
+    <div class='container--bottom' bind:clientHeight={bottomHeight}  class:explore={id === 'explore'} class:nude={id === 'nude'}>
         <div class='scrollx' bind:clientWidth={width}>
             {#if mounted}
                 {#key containerHeight}
@@ -149,6 +149,10 @@
     .container--bottom {
         width: 100%;
         overflow-x: auto;
+    }
+
+    .container--bottom.nude {
+        overflow-x:visible;
     }
 
     .scrollx {

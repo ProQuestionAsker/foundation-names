@@ -26,5 +26,5 @@
     $: title = `${filteredData.length - 1} shades with "${filterValue}" in the name`
 
 </script>
-<InteractiveWrapper {title} {filteredData} {allData} {options} />
+<InteractiveWrapper {title} {filteredData} {allData} {options} id={'nude'}/>
 

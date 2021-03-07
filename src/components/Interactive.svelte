@@ -86,7 +86,8 @@
                 text: 'Nude Vanilla',
                 coordinates: findCoordinates('nude vanilla'),
                 dy: 60,
-                dx: blockDimensions.blockWidth + (blockDimensions.blockPadding * 2),
+                dx: blockDimensions.blockWidth + (blockDimensions.blockPadding * 2) + 25,
+                textDx: 50,
                 arrowOffset: 15,
                 arrow:[{
                     clockwise: true,
