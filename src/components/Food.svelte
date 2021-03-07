@@ -27,7 +27,7 @@
     //$: filteredData = data.filter(d => d.category === 'food').filter(d => switchValue === 'varied' ? d.namingScheme === 'variety' : d.namingScheme === 'NA' )
 
     let exHeight;
-    let containerHeight = 600;
+    let containerHeight = 650;
     let heightMeasure = 'vh'
 
     $: extendedHeight.subscribe(val => exHeight = val)

@@ -143,6 +143,7 @@
 
     table {
         pointer-events: all;
+        min-width: 700px;
     }
 
     .selected {

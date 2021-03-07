@@ -145,7 +145,7 @@
         flex-direction: column;
     }
 
-    .container--bottom.explore {
+    .container--bottom {
         width: 100%;
         white-space: nowrap;
         overflow-x: auto;
@@ -157,7 +157,7 @@
     }
 
     .container--bottom.explore .scrollx {
-        width: 700px;
+        min-width: 700px;
         height: 100%;
     }
 
