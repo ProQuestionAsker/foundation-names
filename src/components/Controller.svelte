@@ -38,16 +38,23 @@
     function moveFocus(el){
         el.focus();
     }
+
+    function findLightnessRange(){
+        const start = currentGroup === 0 ? 0 : roundNumber(selGroupData[0])
+        const end = currentGroup === groupCount - 1 ? 0.99 : roundNumber(groupedData[currentGroup + 1][0])
+        return `${start} - ${end}`
+    }
     
 
     function updateGroupLabel(currentGroup, found, exploreSwatches){
             ind = 0;
+            let lightnessRange = findLightnessRange()
+            let shadeCount = selGroupData[1].length === 1 ? `${selGroupData[1].length} shade` : `${selGroupData[1].length} shades`;
             if (found !== '') groupLabel = `Name: ${found.name}. Brand: ${found.brand}. Product: ${found.product}.`
-            else if (lineData.length > 0) groupLabel = `${selLineData.count} shades at lightness level. ${selLineData.allCount} shades expected.`
-            else if (currentGroup === 0) groupLabel = `Darkest shades. Group 1 of ${groupCount}. ${selGroupData[1].length} Swatches. Lightness ${roundNumber(groupedData[0][0])} - ${roundNumber(groupedData[1][0])}`
-            else if (currentGroup === groupCount - 1)  groupLabel = `Lightest shades. Group ${groupCount} of ${groupCount}. ${selGroupData[1].length} Swatches. Lightness ${roundNumber(selGroupData[0])} - 0.99`
-            else groupLabel = `Group ${currentGroup + 1} of ${groupCount}. ${selGroupData[1].length} Swatches. Lightness ${roundNumber(selGroupData[0])} - ${roundNumber(groupedData[currentGroup + 1][0])}`
-    
+            else if (lineData.length > 0) groupLabel = `${selLineData.count} shades. ${selLineData.allCount} shades expected. Lightness ${lightnessRange}`
+            else if (currentGroup === 0) groupLabel = `Darkest shades. Group 1 of ${groupCount}. ${shadeCount}. Lightness ${lightnessRange}`
+            else if (currentGroup === groupCount - 1)  groupLabel = `Lightest shades. Group ${groupCount} of ${groupCount}. ${shadeCount}. Lightness ${lightnessRange}`
+            else groupLabel = `Group ${currentGroup + 1} of ${groupCount}. ${shadeCount}. Lightness ${lightnessRange}`
     }
 
     $: updateGroupLabel(currentGroup, found, exploreSwatches)

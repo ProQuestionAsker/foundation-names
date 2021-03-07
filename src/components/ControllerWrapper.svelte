@@ -153,7 +153,8 @@ import Explore from './Explore.svelte';
         display: flex;
     }
     .controller:focus{
-        outline: 4px solid var(--accent-color)
+        border: 4px solid var(--accent-color);
+        outline: none;
     }
 
     .controller p {
