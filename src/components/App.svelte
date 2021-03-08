@@ -17,7 +17,7 @@ import GradientHistogram from "./GradientHistogram.svelte";
 
 
 </script>
-<Meta />
+<Meta {copy}/>
 
 
 
