@@ -1,22 +1,86 @@
 <script>
     // color rotation
+    import { cubicInOut } from 'svelte/easing';
+    import { fade } from 'svelte/transition';
+    import { onMount } from 'svelte'
+    import { scaleLinear } from 'd3-scale'
+
+    // const startColor = hsl(19.5, 0.46, 0.15)
+    // const endColor = hsl(30, 0.5, 0.99)
+    let mounted = false;
+
+    onMount(() => mounted = true)
+
+    const hScale = scaleLinear()
+        .range([19.5, 30])
+        .domain([0, 1])
+
+
+    const sScale = scaleLinear()
+        .range([46, 50])
+        .domain([0, 1])
+
+
+    const lScale = scaleLinear()
+        .range([99, 15])
+        .domain([0, 1])
+
+
+    function randomIntFromInterval(min, max) { // min and max included 
+        return Math.round(10 * (Math.random() * (max - min) + min)) / 10
+    }
+
+    function spin(node, { duration }) {
+		return {
+			duration,
+			css: t => {
+				const eased = cubicInOut(t);
+
+				return `
+					color: hsl(
+						${~~(t * 360)},
+						${Math.min(100, 1000 - 1000 * t)}%,
+						${Math.min(50, 500 - 500 * t)}%
+					);`
+			}
+		};
+	}
+
+    function rotateColors(node, {duration}){
+        return {
+            duration, 
+            css: t => {
+                const eased = cubicInOut(t);
+
+
+                return `
+                    color: hsl(
+                        ${hScale(t)},
+                        ${sScale(t)}%, 
+                        ${lScale(t)}%
+                    )
+                `
+            }
+        }
+    }
 </script>
 
+{#if mounted}
 <div class='grid-container'>
     <div class='the'>The</div>
 
-        <div class='n1 large'>N</div>
-        <div class='a2 large'>A</div>
-        <div class='k3 large'>K</div>
-        <div class='e4 large'>E</div>
-        <div class='d5 large'>D</div>
+        <div in:rotateColors="{{duration: 5000}}" class='n1 large'>N</div>
+        <div in:rotateColors="{{duration: 5000}}" class='a2 large'>A</div>
+        <div in:rotateColors="{{duration: 5000}}" class='k3 large'>K</div>
+        <div in:rotateColors="{{duration: 5000}}" class='e4 large'>E</div>
+        <div in:rotateColors="{{duration: 5000}}" class='d5 large'>D</div>
 
 
-        <div class='t6 large'>T</div>
-        <div class='r7 large'>R</div>
-        <div class='u8 large'>U</div>
-        <div class='t9 large'>T</div>
-        <div class='h10 large'>H</div>
+        <div in:rotateColors="{{duration: 5000}}" class='t6 large'>T</div>
+        <div in:rotateColors="{{duration: 5000}}" class='r7 large'>R</div>
+        <div in:rotateColors="{{duration: 5000}}" class='u8 large'>U</div>
+        <div in:rotateColors="{{duration: 5000}}" class='t9 large'>T</div>
+        <div in:rotateColors="{{duration: 5000}}" class='h10 large'>H</div>
 
     <div class='meta'>
         <div class='meta-by'>
@@ -30,7 +94,7 @@
     <div class="border2"></div>
 </div>
 
-
+{/if}
 <style>
 .grid-container {
   display: grid;
@@ -38,7 +102,12 @@
   grid-template-rows: 10% 1fr 1fr 1fr;
   gap: 0px 0px;
 }
-.the { grid-area: 1 / 1 / 2 / 2; }
+.the {
+     grid-area: 1 / 1 / 2 / 2; 
+     text-transform: uppercase;
+    text-align: center;
+    font-size: 6em;
+}
 .dek { grid-area: 4 / 4 / 5 / 5; }
 .n1 { grid-area: 2 / 1 / 3 / 2; }
 .a2 { grid-area: 2 / 2 / 3 / 3; }
@@ -62,7 +131,7 @@
     }
     
   .large {
-      font-size: 10em;
+      font-size: 12em;
       text-align: center;
   }
 
