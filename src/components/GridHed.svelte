@@ -156,6 +156,8 @@
   .large {
       font-size: 12em;
       text-align: center;
+      font-family: 'Canela Web';
+      font-weight: 300;
   }
 
 </style>
