@@ -14,6 +14,7 @@ import GradientHistogram from "./GradientHistogram.svelte";
   import Numbers from "./Numbers.svelte"
   import Conclusion from "./Conclusion.svelte"
   import Methods from "./Methods.svelte"
+  import GridHed from "./GridHed.svelte"
 
 
 </script>
@@ -24,6 +25,7 @@ import GradientHistogram from "./GradientHistogram.svelte";
   <Header />
 
 <article>
+  <GridHed />
 <Intro />
 
 <!-- <Distribution /> -->
