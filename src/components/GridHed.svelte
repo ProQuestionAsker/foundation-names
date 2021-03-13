@@ -6,6 +6,7 @@
     import { scaleLinear } from 'd3-scale'
     import allData from "../data/shades_export.csv"
     import {interpolate, piecewise} from 'd3-interpolate'
+    import copy from "../data/copy.json";
 
     $: colors = allData.map(d => d.hex)
 
@@ -22,19 +23,6 @@
 
     onMount(() => mounted = true)
 
-    const firstTimeMap = scaleLinear()
-        .range([0, 0.5])
-        .domain([0, 1])
-
-    const secondTimeMap = scaleLinear()
-        .range([0.5, 1])
-        .domain([0, 1])
-
-
-    const lScale = scaleLinear()
-        .range([99, 15])
-        .domain([0, 1])
-
     function displayRandomHex(node, {duration}){
         // choose 2 random hexes to interpolate between
         const first = colors[Math.floor(Math.random() * colors.length) + 1]
@@ -49,68 +37,35 @@
         }
     }
 
-    function randomIntFromInterval(min, max) { // min and max included 
-        return Math.round(10 * (Math.random() * (max - min) + min)) / 10
-    }
-
-    function spin(node, { duration }) {
-		return {
-			duration,
-			css: t => {
-				const eased = cubicInOut(t);
-
-				return `
-					color: hsl(
-						${~~(t * 360)},
-						${Math.min(100, 1000 - 1000 * t)}%,
-						${Math.min(50, 500 - 500 * t)}%
-					);`
-			}
-		};
-	}
-
-    function rotateColors(node, {duration}){
-        return {
-            duration, 
-            css: t => {
-                const eased = cubicInOut(t);
-
-
-                return `
-                    color: hsl(
-                        ${hScale(t)},
-                        ${sScale(t)}%, 
-                        ${lScale(t)}%
-                    )
-                `
-            }
-        }
-    }
 </script>
 
 {#if mounted}
 <div class='grid-container'>
-    <div class='the'>The</div>
 
-        <div in:displayRandomHex="{{duration: 5000}}" class='n1 large'>N</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='a2 large'>A</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='k3 large'>K</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='e4 large'>E</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='d5 large'>D</div>
+        <div class='the'>The</div>
+
+        <div in:displayRandomHex="{{duration: 5000}}" class='n1 large topRow'>N</div>
+        <div in:displayRandomHex="{{duration: 5000}}" class='a2 large topRow'>A</div>
+        <div in:displayRandomHex="{{duration: 5000}}" class='k3 large topRow'>K</div>
+        <div in:displayRandomHex="{{duration: 5000}}" class='e4 large topRow'>E</div>
+        <div in:displayRandomHex="{{duration: 5000}}" class='d5 large topRow'>D</div>
 
 
-        <div in:displayRandomHex="{{duration: 5000}}" class='t6 large'>T</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='r7 large'>R</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='u8 large'>U</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='t9 large'>T</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='h10 large'>H</div>
-
+        <div in:displayRandomHex="{{duration: 5000}}" class='t6 large bottomRow'>T</div>
+        <div in:displayRandomHex="{{duration: 5000}}" class='r7 large bottomRow'>R</div>
+        <div in:displayRandomHex="{{duration: 5000}}" class='u8 large bottomRow'>U</div>
+        <div in:displayRandomHex="{{duration: 5000}}" class='t9 large bottomRow'>T</div>
+        <div in:displayRandomHex="{{duration: 5000}}" class='h10 large bottomRow'>H</div>
+    
     <div class='meta'>
         <div class='meta-by'>
-            <!-- byline information -->
+            <p class='byline'>{@html copy.storyBy}</p>
+            <p class='byline'>{@html copy.codeBy}</p>
             <time>March 2021</time>
         </div>
-        <div class='dek'></div>
+    </div>
+    <div class='dek'>
+        <p>{copy.dek}</p>
     </div>
 
     <div class="border1"></div>
@@ -122,16 +77,36 @@
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 10% 1fr 1fr 1fr;
+  grid-template-rows: 14vh 41vh 41vh 1fr;
   gap: 0px 0px;
+  line-height: 1.1;
 }
+
 .the {
+    padding-top: 1rem;
      grid-area: 1 / 1 / 2 / 2; 
      text-transform: uppercase;
     text-align: center;
-    font-size: 6em;
+    font-size: 4.5em;
+    font-family: 'Canela Web';
+    font-weight: 300;
+    color: var(--gray-dark);
 }
-.dek { grid-area: 4 / 4 / 5 / 5; }
+.dek { 
+    grid-area: 4 / 4 / 5 / 5; 
+    font-family: 'National 2 Narrow Web';
+    font-weight: 300;
+    color: var(--gray-dark);
+    text-transform: uppercase;
+    font-size: 2.5em;
+    text-align: center;
+    padding: 0 0.5em; 
+}
+
+.dek > p {
+    margin: 0;
+    padding: 0;
+}
 .n1 { grid-area: 2 / 1 / 3 / 2; }
 .a2 { grid-area: 2 / 2 / 3 / 3; }
 .k3 { grid-area: 2 / 3 / 3 / 4; }
@@ -145,12 +120,24 @@
 .meta { grid-area: 4 / 2 / 5 / 3; }
 .border1 { 
     grid-area: 1 / 2 / 5 / 3; 
-    border-left: 1px solid var(--gray);
-    border-right: 1px solid var(--gray);
+    border-width: 1px;
+    border-style: solid;
+    border-image: 
+    linear-gradient(
+      to bottom, 
+      var(--gray-light), 
+      rgba(0, 0, 0, 0)
+    ) 1 100%;
     }
 .border2 { grid-area: 1 / 4 / 5 / 5; 
-    border-left: 1px solid var(--gray);
-    border-right: 1px solid var(--gray);
+    border-width: 1px;
+    border-style: solid;
+    border-image: 
+    linear-gradient(
+      to bottom, 
+      var(--gray-light), 
+      rgba(0, 0, 0, 0)
+    ) 1 100%;
     }
     
   .large {

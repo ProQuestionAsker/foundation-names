@@ -16,6 +16,11 @@ import GradientHistogram from "./GradientHistogram.svelte";
   import Methods from "./Methods.svelte"
   import GridHed from "./GridHed.svelte"
 
+  import {onMount} from 'svelte'
+
+  let mounted = false;
+  onMount(() => mounted = true)
+
 
 </script>
 <Meta {copy}/>
@@ -24,19 +29,10 @@ import GradientHistogram from "./GradientHistogram.svelte";
 
   <Header />
 
+  {#if mounted}
 <article>
   <GridHed />
-<Intro />
-
-<!-- <Distribution /> -->
-
-<!-- 
-<h2>Names of Shades by Category and arranged by lightness of color</h2>
-  {#each copy.story as section, i}
-  <section id="section-{i}">
-    <Graphs prose="{section.prose}" />
-  </section>
-{/each} -->
+<!-- <Intro /> -->
 
 <Numbers />
 <Nude />
@@ -46,7 +42,7 @@ import GradientHistogram from "./GradientHistogram.svelte";
 <Methods />
 
 </article>
-
+{/if}
 
 
 
