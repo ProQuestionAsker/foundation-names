@@ -69,8 +69,9 @@
     } */
     /* Inner Design Option */
     .s--inner button {
-        padding: 0.5em;
+        padding: 0.25em;
         background-color: #fff;
+        font-family: 'National 2 Narrow Web'
         /* border: 1px solid var(--gray); */
     }
     [role='switch'][aria-checked='true'] :first-child,
@@ -84,10 +85,14 @@
         user-select: none;
         pointer-events:none;
         padding: 0.25em;
+        font-weight: normal;
+        display: inline-block;
+        min-width: 45px;
     }
 
     .s--inner span {
-        color: var(--accent-color)
+        font-weight: bold;
+        font-family: 'National 2 Narrow Web'
     }
 
     .s--inner button:focus {

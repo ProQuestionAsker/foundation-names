@@ -138,6 +138,7 @@
         font-weight: bold;
         text-align: center;
         margin: 0 auto;
+        font-family: 'National 2 Narrow Web'
     }
 
     .container {

@@ -52,7 +52,7 @@
 </script>
 
 <section id='food'>
-<SectionHed text={'Food and Drinks'} />
+<SectionHed text={'Food & Drink'} />
 
 {#each copy.foodIntro as {type, value}}
     <p class='prose'>{@html value}</p>
@@ -75,12 +75,20 @@
 
 <style>
     .container{
-        /* height: 90vh; */
-        max-width: 50rem;
-        margin: 3rem auto;
-        border: 1px solid var(--gray);
-        padding: 1rem 1.5rem;
-        box-shadow: 12px -12px 0 -1px var(--white), 12px -12px 0 0 var(--gray);
+    /* height: 90vh; */
+    max-width: 75rem;
+    margin: 3rem auto;
+
+    padding: 1rem 1.5rem;
+    border-width: 1px;
+    border-style: solid;
+    border-image: 
+    linear-gradient(
+      to bottom, 
+      var(--gray-light), 
+      rgba(0, 0, 0, 0)
+    ) 1 100%;
+
     }
 
     .chart-container.drink{

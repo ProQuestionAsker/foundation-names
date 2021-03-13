@@ -30,7 +30,7 @@
 </script>
 
 <section>
-        <SectionHed text={'Nude and Natural'} />
+        <SectionHed text={'Nude & Natural'} />
 
 
         {#each copy.nude as {type, value}}
@@ -82,6 +82,10 @@
 </section>
 
 <style>
+    section {
+        max-width: 75rem;
+        margin: 0 auto;
+    }
     .scroll, .standard-group {
         display: flex;
         flex-direction: row-reverse;
@@ -100,19 +104,18 @@
 
     .step-container {
         width: 50vw;
+ 
     }
 
     .step {
         height: 95vh;
-        max-width: 300px;
+        max-width: 325px;
         margin: 0 auto;
     }
 
     .step p {
         background-color: transparent;
-        border: 1px solid var(--off-black);
         padding: 1rem 1.5rem;
-        box-shadow: 12px -12px 0 -1px var(--white), 12px -12px 0 0 #000;
     }
 
     .element-scroll {
@@ -122,6 +125,7 @@
         position: sticky;
         height: 70vh;
         top: 25vh;
+        
     }
 
     .element-standard {
@@ -171,20 +175,19 @@
     }
 
     .warning {
-        max-width: 40rem;
+        max-width: 45rem;
         padding: 1rem;
-        background-color: #F1F0FF;
-        margin: 2rem auto;
-        border: 1px solid var(--accent-color);
+        background-color: var(--muted-accent);
+        margin: 2rem 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-radius: 5px;
         flex-wrap: wrap;
     }
 
     .warning-prose{
         margin: 0;
-        max-width: 400px;
+        max-width: 430px;
+        font-family: 'National 2 Narrow Web'
     }
 </style>

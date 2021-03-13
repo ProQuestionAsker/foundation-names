@@ -38,14 +38,14 @@
 
 <style>
     section {
-        max-width: 50rem;
+        max-width: 75rem;
         margin: 0 auto;
     }
 
     .container {
         display: flex;
-        flex-wrap: wrap;
-        padding: 1rem;
+        flex-direction: column;
+        padding: 1rem 0;
     }
 
 </style>

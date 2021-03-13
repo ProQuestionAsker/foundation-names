@@ -87,7 +87,7 @@
   grid-template-rows: 0.2fr 0.8fr 0.8fr 1fr;
   gap: 0px 0px;
   line-height: 1.1;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto 4rem;
   font-size: 16px;
 }

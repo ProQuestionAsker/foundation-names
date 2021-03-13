@@ -8,6 +8,15 @@ export let text;
 
 <style>
     .divider-text {
-        margin-top: 4rem;
+        margin: 4rem auto 0;
+        max-width: 75rem;     
+    }
+
+    .section-hed {
+        font-family: 'National 2 Narrow Web';
+        font-weight: 200;
+        font-size: 4em;
+        text-transform: uppercase;
+  
     }
 </style>

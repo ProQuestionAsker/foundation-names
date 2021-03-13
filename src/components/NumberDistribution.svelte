@@ -11,8 +11,11 @@
 
 <figure >
     <div class='container'>
-        <p class='brand' aria-hidden="true">{brand}</p>
-        <p class='sub' aria-hidden="true">{product}</p>
+        <div class='meta'>
+            <p class='brand' aria-hidden="true">{brand}</p>
+            <p class='sub' aria-hidden="true">{product}</p>
+        </div>
+
         <div class='swatch-container' role = 'img' aria-label="Colored stripes of {brand}'s {product} sequentially numbered foundation where {values.length} shades go from {lightToDark}">
             {#each values as swatch, i}
             <div class='single-swatch'>
@@ -37,6 +40,7 @@
     .brand {
         font-weight: bold;
         margin-bottom: 0.25rem;
+        margin-top: 0;
     }
     .sub {
         color: var(--gray);
@@ -44,9 +48,28 @@
         font-size: 14px;
     }
     .container {
-        margin-bottom: 3rem;
         flex: 1 1 0px;
+        display: flex;
+        align-items: center;
     }
+
+    .meta {
+        margin-right: 2rem;
+        width: 25%;
+    }
+
+    @media screen and (max-width: 500px){
+        .container{
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .meta {
+            width: auto;
+        }
+    }
+
+
     .swatch-container {
         display: flex;
         position: relative;

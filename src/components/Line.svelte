@@ -61,10 +61,10 @@
 </script>
 
 {#if filteredLine !== '' && blockHeight}     
-    <path class='path-line filtered' transition:fade d={filteredLine}></path>
     {#if options.includes('allLine')}
         <path class='path-line full' transition:fade d={linePath}></path>
     {/if}
+    <path class='path-line filtered' transition:fade d={filteredLine}></path>
 {/if}
 
 <style>
@@ -72,17 +72,17 @@
         fill: none;
         stroke-width: 3px;
         stroke: #ccc;
-        fill-opacity: 0.25;
     }
 
-    .full {
-        fill: #999;
-        stroke: #999;
+    .path-line.full {
+        fill:var(--gray);
+        stroke: var(--gray);
+        fill-opacity: 0.2;
         stroke-dasharray: 5px;
     }
-    .filtered {
-        fill: #574CFA;
-        stroke: #574CFA;
+    .path-line.filtered {
+        fill: var(--muted-accent);
+        stroke: var(--accent-color);
 
     }
 </style>

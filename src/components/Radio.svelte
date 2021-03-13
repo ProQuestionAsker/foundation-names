@@ -13,8 +13,8 @@
   </script>
   
 
-  <fieldset id={`field-${id}`}>
-    <legend>{legend}</legend>
+  <fieldset id={`field-${id}`} aria-labelledby='legend'>
+    <div class='legend' id='legend'>{legend}</div>
     {#each options as { name, label } (name)}
       <input
         class="sr-only"
@@ -31,14 +31,23 @@
     fieldset {
       border-radius: 2px;
       border: 1px solid var(--gray-darker);
+      display: flex;
+      align-items: center;
+      font-family: 'National 2 Narrow Web'
+    }
+
+    .legend {
+      margin-right: 0.5rem;
+      font-weight: bold;
     }
   
     label {
       user-select: none;
       line-height: 1.2em;
-      display: inline;
       font-weight: 400;
       color: var(--gray);
+      min-width: 100px;
+      text-align: center;
     }
   
     .sr-only {
