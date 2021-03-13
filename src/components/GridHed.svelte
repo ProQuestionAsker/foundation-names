@@ -88,7 +88,8 @@
   gap: 0px 0px;
   line-height: 1.1;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto 4rem;
+  font-size: 16px;
 }
 
 .the {
@@ -174,6 +175,38 @@ time {
       text-align: center;
       font-family: 'Canela Web';
       font-weight: 300;
+  }
+
+  @media screen and (max-width: 1000px) {
+    .grid-container{
+        font-size: 12px;
+    }
+
+    .author > p {
+        font-size: 1.25em;
+    }
+
+    time {
+        font-size: 1.25em;
+    }
+  }
+
+  @media screen and (max-width: 500px){
+      .grid-container{
+          font-size: 8px;
+      }
+
+      .dek {
+        grid-area: 4 / 3 / 5 / 5;
+      }
+
+      .author > p {
+        font-size: 1.5em;
+    }
+
+    time {
+        font-size: 1.25em;
+    }
   }
 
 </style>

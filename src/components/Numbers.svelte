@@ -11,6 +11,9 @@
 </script>
 
 <section id='numbers'>   
+    {#each copy.intro as {type, value}}
+        <p class='prose'>{@html value}</p>
+    {/each}
      <div class='container'>
         {#each baseline as product}
             <NumberDistribution data={product} />
