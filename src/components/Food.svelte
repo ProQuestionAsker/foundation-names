@@ -77,7 +77,7 @@
     .container{
     /* height: 90vh; */
     max-width: 75rem;
-    margin: 3rem auto;
+    margin: 5rem auto 8rem;
 
     padding: 1rem 1.5rem;
     border-width: 1px;

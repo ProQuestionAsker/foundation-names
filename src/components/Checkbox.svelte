@@ -42,7 +42,8 @@
     fieldset {
         max-width: 25%;
         border-radius: 2px;
-        border: 1px solid var(--gray-darker)
+        border: 1px solid var(--gray-darker);
+        
     }
 
     legend {
@@ -53,6 +54,8 @@
     label {
         user-select: none;
         line-height: 1.2em;
+        font-weight: bold;
+        font-family: 'National 2 Narrow Web';
     }
 
     .sr-only {
@@ -84,8 +87,9 @@
         width: 1em;
         height: 1em;
         background: transparent;
-        border: 1px solid var(--gray);
+        border: 1px solid var(--accent-color);
         top: 0.2em;
+        border-radius: 5px;
     }
 
     input[type='checkbox'] + label::after {
@@ -107,7 +111,7 @@
 
     input[type='checkbox']:focus + label::before {
         outline: var(--accent-color) solid 1px;
-        border-radius: 0.1em;
+        border-radius: 5px;
     }
 
     input[type='checkbox']:disabled + label {
@@ -122,13 +126,13 @@
 
     
     input[type='checkbox'] + label::before {
-        border-radius: 0.1em;
+        border-radius: 5px;
         transition: background 0.3s ease-out;
     }
 
     input[type='checkbox']:checked + label::before {
         background: var(--accent-color);
-        border-radius: 0.1em;
+        border-radius: 5px;
         transition: background 0.3s ease-in;
     }
 
@@ -145,7 +149,7 @@
     input[type='checkbox']:focus + label::before {
         outline: var(--accent-color) solid 1px;
         box-shadow: 0 0px 8px var(--accent-color);
-        border-radius: 0.1em;
+        border-radius: 5px;
     }
 
     

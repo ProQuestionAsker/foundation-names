@@ -71,11 +71,18 @@
         padding: 0 1rem;
     }
     .container{
-        margin: 3rem auto;
-        max-width: 1000px;
-        border: 1px solid var(--gray);
+        margin: 5rem auto 8rem;
+        max-width: 75rem;
         padding: 1rem 1.5rem;
-        box-shadow: 12px -12px 0 -1px var(--white), 12px -12px 0 0 var(--gray);
+        border-width: 1px;
+        border-style: solid;
+        border-image: 
+        linear-gradient(
+        to bottom, 
+        var(--gray-light), 
+        rgba(0, 0, 0, 0)
+        ) 1 100%;
+
     }
 
     @media screen and (max-width: 500px) {
