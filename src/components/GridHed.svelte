@@ -59,8 +59,15 @@
     
     <div class='meta'>
         <div class='meta-by'>
-            <p class='byline'>{@html copy.storyBy}</p>
-            <p class='byline'>{@html copy.codeBy}</p>
+            <div class='author'>
+                <p class='label'>Story by</p>
+                <p class='byline'>{@html copy.storyBy}</p>  
+            </div>
+
+            <div class='author'>
+                <p class='label'>Data & Code by</p>
+                <p class='byline'>{@html copy.codeBy}</p>  
+            </div>
             <time>March 2021</time>
         </div>
     </div>
@@ -77,9 +84,11 @@
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 14vh 41vh 41vh 1fr;
+  grid-template-rows: 0.2fr 0.8fr 0.8fr 1fr;
   gap: 0px 0px;
   line-height: 1.1;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .the {
@@ -117,7 +126,27 @@
 .u8 { grid-area: 3 / 3 / 4 / 4; }
 .t9 { grid-area: 3 / 4 / 4 / 5; }
 .h10 { grid-area: 3 / 5 / 4 / 6; }
-.meta { grid-area: 4 / 2 / 5 / 3; }
+.meta { 
+    grid-area: 4 / 2 / 5 / 3; 
+    font-family: 'National 2 Narrow Web';
+    padding: 0 1em;
+}
+
+.author {
+    margin-bottom: 1rem;
+}
+.author > .label {
+    font-weight: bold;
+}
+
+.author > p {
+    margin: 0;
+    font-size: 1em;
+}
+
+time {
+    font-weight: bold;
+}
 .border1 { 
     grid-area: 1 / 2 / 5 / 3; 
     border-width: 1px;
