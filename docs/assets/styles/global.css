@@ -14,7 +14,7 @@
   --gray: #949494;
   --gray-light: #c9c9c9;
   --off-white: #f0f0f0;
-  --white: #fff;
+  --white: #f9f9f9;
   --purple: #a239ca;
   --blue: #4717f6;
   --green: #34a29e;
@@ -26,7 +26,8 @@
   --default: var(--gray-light);
   --primary: var(--red);
   --secondary: var(--green);
-  --accent-color: #574cfa;
+  --accent-color: #2e7f72;
+  --muted-accent: rgba(46, 127, 114, 0.1);
 
   /* water.css */
 
@@ -49,17 +50,14 @@
   --input-thumb: var(--gray-dark);
   --highlight: var(--yellow);
 }
-.methods .container a {
-  color: var(--bg);
-}
 
 .prose {
-  max-width: 50rem;
-  margin: 0 auto 1rem auto;
+  max-width: 45rem;
+  margin-bottom: 1rem;
   font-family: var(--serif);
   font-size: 18px;
 }
-
+/* 
 .divider-wrapper {
   margin: 4rem auto 0 auto;
   max-width: 45rem;
@@ -87,7 +85,7 @@
   text-align: center;
   display: inline;
   border: 6px solid var(--white);
-}
+} */
 
 section {
   padding: 0 1rem;
