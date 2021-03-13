@@ -67,8 +67,9 @@
 
 <style>
 
-    section {
-        padding: 0 1rem;
+section {
+        max-width: 75rem;
+        margin: 0 auto;
     }
     .container{
         margin: 5rem auto 8rem;

@@ -74,6 +74,10 @@
 
 
 <style>
+    section {
+        max-width: 75rem;
+        margin: 0 auto;
+    }
     .container{
     /* height: 90vh; */
     max-width: 75rem;

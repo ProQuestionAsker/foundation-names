@@ -13,7 +13,8 @@
     </section>
 
     <style>
-        section {
-            margin-bottom: 3rem;
-        }
+            section {
+        max-width: 75rem;
+        margin: 0 auto 3rem;
+    }
     </style>
