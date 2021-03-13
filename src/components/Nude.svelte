@@ -128,6 +128,19 @@
         
     }
 
+    .element-scroll::after{
+
+        content: '';
+        display: inline-block;
+        position: absolute;
+        left: -30px;
+        top: 0;
+        height: 100%;
+        width: 1px;
+        background:linear-gradient(180deg, #C4C4C4 0%, #F9F9F9 100%); 
+  
+    }
+
     .element-standard {
         height: 50vh;
     }

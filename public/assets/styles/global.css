@@ -50,9 +50,6 @@
   --input-thumb: var(--gray-dark);
   --highlight: var(--yellow);
 }
-.methods .container a {
-  color: var(--bg);
-}
 
 .prose {
   max-width: 45rem;
