@@ -15,7 +15,8 @@
 
   <fieldset id={`field-${id}`} aria-labelledby='legend'>
     <div class='legend' id='legend'>{legend}</div>
-    {#each options as { name, label } (name)}
+    <div class='buttons'>
+       {#each options as { name, label } (name)}
       <input
         class="sr-only"
         type="radio"
@@ -24,6 +25,8 @@
         value={slugify(name)} />
       <label class='option' for={`${id}-${slugify(name)}`}> {label} </label>
     {/each}
+    </div>
+   
   </fieldset>
 
   
@@ -32,13 +35,24 @@
       border-radius: 2px;
       border: 1px solid var(--gray-darker);
       display: flex;
+      flex-direction: row;
       align-items: center;
       font-family: 'National 2 Narrow Web'
+    }
+
+    @media screen and (max-width: 500px) {
+      fieldset {
+        flex-direction: column;
+      }
     }
 
     .legend {
       margin-right: 0.5rem;
       font-weight: bold;
+    }
+
+    .buttons {
+      display: flex;
     }
   
     label {

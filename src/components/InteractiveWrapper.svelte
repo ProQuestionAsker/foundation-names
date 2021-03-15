@@ -137,8 +137,8 @@
         font-size: 24px;
         font-weight: bold;
         text-align: center;
-        margin: 0 auto 2rem;
-        font-family: 'National 2 Narrow Web'
+        font-family: 'National 2 Narrow Web';
+        margin: 0.5rem auto;
     }
 
     .container {

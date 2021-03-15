@@ -64,6 +64,13 @@
 <style>
     .ui-elements {
         pointer-events: all;
+        margin-top: 2rem;
+    }
+
+    @media screen and (max-width: 500px){
+        .ui-elements{
+            margin-top: 0rem;
+        }
     }
 
     .select-group {
