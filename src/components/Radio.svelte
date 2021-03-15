@@ -7,14 +7,16 @@
     export let legend;
     export let value = options[0].name;
     export let id;
+
+    const uniqueID = `legend-${Math.floor(Math.random() * 100)}`
   
     const slugify = (str = "") =>
       str.toLowerCase().replace(/ /g, "-").replace(/\./g, "");
   </script>
   
 
-  <fieldset id={`field-${id}`} aria-labelledby='legend'>
-    <div class='legend' id='legend'>{legend}</div>
+  <fieldset id={`field-${id}`} aria-labelledby={uniqueID}>
+    <div class='legend' id={uniqueID}>{legend}</div>
     <div class='buttons'>
        {#each options as { name, label } (name)}
       <input

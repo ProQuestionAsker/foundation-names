@@ -28,22 +28,21 @@ import GradientHistogram from "./GradientHistogram.svelte";
 
 
   <Header />
-
-  {#if mounted}
 <article>
   <GridHed />
-<!-- <Intro /> -->
+  {#if mounted}
 
-<Numbers />
-<Nude />
-<Food />
-<Explore />
-<Conclusion />
-<Methods />
+  <!-- <Intro /> -->
 
-</article>
+  <Numbers />
+  <Nude />
+  <Food />
+  <Explore />
+  <Conclusion />
+  <Methods />
+
 {/if}
-
+</article>
 
 
 

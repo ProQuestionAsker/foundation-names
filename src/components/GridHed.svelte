@@ -4,15 +4,13 @@
     import { fade } from 'svelte/transition';
     import { onMount } from 'svelte'
     import { scaleLinear } from 'd3-scale'
-    import allData from "../data/shades_export.csv"
     import {interpolate, piecewise} from 'd3-interpolate'
     import copy from "../data/copy.json";
 
-    $: colors = allData.map(d => d.hex)
 
-    $: console.log({colors})
+    const curatedColors = ["#5B3D33", "#66524C", "#A6634D", "#C38654", "#C99263", "#E59E71", "#E9B6A6", "#F4C591", "#FEEDDB", "#FFE3B5", "#412619", "#4B2C27", "#8C4529", "#8F452E", "#A47063", "#D89C6A", "#E5CDB8", "#EBC4AA", "#F5DCBA", "#FDDEC9"]
 
-    function generateRandomColor(){
+function gerateRandomColor(){
         const rand = Math.floor(Math.random() * colors.length) + 1  
         return colors[rand]
     }
@@ -25,8 +23,8 @@
 
     function displayRandomHex(node, {duration}){
         // choose 2 random hexes to interpolate between
-        const first = colors[Math.floor(Math.random() * colors.length) + 1]
-        const second = colors[Math.floor(Math.random() * colors.length) + 1]
+        const first = curatedColors[Math.floor(Math.random() * curatedColors.length) + 1]
+        const second = curatedColors[Math.floor(Math.random() * curatedColors.length) + 1]
         const interpolateColors = piecewise(interpolate, [first, second, '#282828'])
        
         return {
