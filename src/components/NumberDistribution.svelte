@@ -44,13 +44,15 @@
     }
     .sub {
         color: var(--gray);
-        margin-top: 0;
+        margin: 0;
+        
         font-size: 14px;
     }
     .container {
         flex: 1 1 0px;
         display: flex;
         align-items: center;
+        margin-bottom: 3em;
     }
 
     .meta {

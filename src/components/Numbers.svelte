@@ -46,6 +46,7 @@
         display: flex;
         flex-direction: column;
         padding: 1rem 0;
+        margin-bottom: 3em;
     }
 
 </style>
