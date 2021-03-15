@@ -68,7 +68,7 @@
     <tbody>
         <tr>
             {#each headers as header, i (header)}
-                <th aria-sort={sortStatus[header]}>
+                <th aria-sort={sortStatus[header]} role="columnheader" scope="col">
                     {header}
                     <button class={i === sortBy ? 'sort selected' : 'sort'} 
                         on:click="{() => {
@@ -78,6 +78,7 @@
                     >
                         <Icon name={sortIcons[sortStatus[header]].icon} direction={sortIcons[sortStatus[header]].direction}
                             stroke = {i === sortBy ? 'white' : 'gray'} />
+                        <span class='sr-only'>Sort by {header}</span>
                     </button>
                 </th>
             {/each}

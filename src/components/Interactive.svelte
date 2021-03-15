@@ -12,6 +12,7 @@
     import ControllerWrapper from "./ControllerWrapper.svelte"
     import Annotations from "./Annotations.svelte"
     import Arrows from "./Arrows.svelte"
+import App from "./App.svelte";
 
     const { data, width, height, xScale } = getContext('LayerCake')
     export let options = [];
@@ -228,7 +229,10 @@
 
 
 <Html zIndex={5}>
+    {#if !options.includes('table')}
     <ControllerWrapper {blockDimensions} {options} {lineData} {title}/>
+    {/if}
+    
     {#if options.includes('tooltip') && parentWidth > 500}
     <!-- tooltips only when necessary and not on mobile -->
         <Tooltip {blockDimensions}/>
