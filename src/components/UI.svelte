@@ -87,8 +87,9 @@
     }
 
     .select-group label {
-        text-transform: uppercase;
-        color: var(--gray);
+        line-height: 1.2em;
+        font-weight: bold;
+        font-family: 'National 2 Narrow Web';
     }
 
     fieldset {

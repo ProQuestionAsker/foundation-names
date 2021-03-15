@@ -43,7 +43,7 @@
         margin-top: 0;
     }
     .sub {
-        color: var(--gray);
+        color: var(--gray-text);
         margin: 0;
         
         font-size: 14px;
@@ -93,7 +93,7 @@
         position: absolute;
         text-align: center;
         font-size: 12px;
-        color: var(--gray);
+        color: var(--gray-text);
         margin: 0;
         top: 25px;
     }
@@ -101,7 +101,7 @@
         width: 1px;
         height: 5px;
         margin-top: 2px;
-        background-color: var(--gray);
+        background-color: var(--gray-text);
         align-self: center;
     }
 </style>

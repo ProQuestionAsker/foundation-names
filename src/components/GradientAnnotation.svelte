@@ -34,7 +34,7 @@
     alignment-baseline = "hanging"
     aria-hidden="true"
     font-size = "12px"
-    fill = var(--gray)
+    fill = var(--gray-text)
     role='presentation'
 >80% of shades fall in this range</text>
 

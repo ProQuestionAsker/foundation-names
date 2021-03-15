@@ -207,6 +207,15 @@ time {
     time {
         font-size: 1.25em;
     }
+
+    .border1, .border2 {
+        border-image: 
+    linear-gradient(
+      to bottom, 
+      var(--gray-lighter), 
+      rgba(0, 0, 0, 0)
+    ) 1 100%;
+    }
   }
 
 </style>
