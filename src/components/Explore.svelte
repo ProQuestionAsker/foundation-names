@@ -18,7 +18,7 @@
     let options = ['histogram', 'gradient', 'majority', 'tooltip']
     let UIOptions = ['radio', 'dropdown']
 
-    $: screenWidth = 550;
+    $: screenWidth = 350;
 
     $: console.log({explore: screenWidth})
 
