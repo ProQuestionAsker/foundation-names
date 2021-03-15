@@ -38,22 +38,25 @@ function gerateRandomColor(){
 </script>
 
 {#if mounted}
+
 <div class='grid-container'>
+    <h1 class='sr-only'>{copy.title}</h1>
+    <p class='sr-only'>{copy.dek}</p>
 
-        <div class='the'>The</div>
+        <div aria-hidden="true" class='the'>The</div>
 
-        <div in:displayRandomHex="{{duration: 5000}}" class='n1 large topRow'>N</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='a2 large topRow'>A</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='k3 large topRow'>K</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='e4 large topRow'>E</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='d5 large topRow'>D</div>
+        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='n1 large topRow'>N</div>
+        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='a2 large topRow'>A</div>
+        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='k3 large topRow'>K</div>
+        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='e4 large topRow'>E</div>
+        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='d5 large topRow'>D</div>
 
 
-        <div in:displayRandomHex="{{duration: 5000}}" class='t6 large bottomRow'>T</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='r7 large bottomRow'>R</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='u8 large bottomRow'>U</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='t9 large bottomRow'>T</div>
-        <div in:displayRandomHex="{{duration: 5000}}" class='h10 large bottomRow'>H</div>
+        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='t6 large bottomRow'>T</div>
+        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='r7 large bottomRow'>R</div>
+        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='u8 large bottomRow'>U</div>
+        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='t9 large bottomRow'>T</div>
+        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='h10 large bottomRow'>H</div>
     
     <div class='meta'>
         <div class='meta-by'>
@@ -70,7 +73,7 @@ function gerateRandomColor(){
         </div>
     </div>
     <div class='dek'>
-        <p>{copy.dek}</p>
+        <p aria-hidden="true">{copy.dek}</p>
     </div>
 
     <div class="border1"></div>
@@ -79,6 +82,17 @@ function gerateRandomColor(){
 
 {/if}
 <style>
+
+.sr-only {
+        position: absolute;
+        clip: rect(1px, 1px, 1px, 1px);
+        padding: 0;
+        border: 0;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+    }
+
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
