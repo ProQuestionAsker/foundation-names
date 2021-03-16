@@ -131,7 +131,7 @@ import App from "./App.svelte";
             annotations = [{
                 text: 'When the <span class=anno-all>all shades</span> line is higher, there are fewer shades named “nude” than we’d expect',
                 coordinates: findLineCoordinates(biggestUnder, 'allCount'),
-                dy: $height * 0.2,
+                dy: $height * 0.25,
                 mobile: 'left',
                 arrowOffset: 70,
                 arrow:[{
@@ -145,7 +145,7 @@ import App from "./App.svelte";
             }, {
                 text: 'When the <span class=anno-nude>“nude” shades</span> line is higher, there are more shades in this color range than we expect',
                 coordinates: findLineCoordinates(biggestOver, 'count'),
-                dy: $height * 0.2,
+                dy: $height * 0.25,
                 dx: blockDimensions.blockWidth,
                 arrowOffset: 75,
                 arrow:[{
