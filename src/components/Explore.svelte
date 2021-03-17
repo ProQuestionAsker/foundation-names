@@ -36,7 +36,7 @@
     $: extendedHeight.subscribe(val => exHeight = val)
 
 
-    function determineHeight(exHeight){
+    function determineHeight(exHeight, screenWidth){
         let newHeight = null
         if (exHeight['explore'].expanded === true) newHeight = `${(exHeight['explore'].height / 0.98)}px`
         else newHeight =  `${containerHeight}${heightMeasure}`
@@ -44,6 +44,12 @@
     }
 
     $: filterData = cleanData
+    let newHeight = exHeight;
+
+    $: {
+        newHeight = determineHeight(exHeight, screenWidth)
+    }
+    //$: determineHeight(exHeight, screenWidth)
    
 </script>
 
@@ -55,7 +61,7 @@
     <p class='prose'>{@html value}</p>
 {/each}
 
-<div class='container' style="height:{determineHeight(exHeight)}" bind:clientWidth={screenWidth}>
+<div class='container' style="height:{newHeight}" bind:clientWidth={screenWidth}>
     <InteractiveWrapper title={`Explore all ${filterData.length} shades`} filteredData={filterData} 
     allData={cleanData} {options} {UIOptions} id={'explore'}/>
 </div>
