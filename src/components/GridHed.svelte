@@ -15,18 +15,19 @@ function gerateRandomColor(){
         return colors[rand]
     }
 
+const title = [...'NakedTruth']
+
     // const startColor = hsl(19.5, 0.46, 0.15)
     // const endColor = hsl(30, 0.5, 0.99)
     let mounted = false;
 
     onMount(() => mounted = true)
 
-    function displayRandomHex(node, {duration}){
-        // choose 2 random hexes to interpolate between
-        const first = curatedColors[Math.floor(Math.random() * curatedColors.length) + 1]
-        const second = curatedColors[Math.floor(Math.random() * curatedColors.length) + 1]
+    function displayRandomHex(node, {duration, index}){
+        const first = curatedColors[index]
+        const second = curatedColors[index + 10]
         const interpolateColors = piecewise(interpolate, [first, second, '#282828'])
-       
+       console.log({first, second})
         return {
             duration,
             css: t => {
@@ -35,9 +36,15 @@ function gerateRandomColor(){
         }
     }
 
+    function findGridArea(index){
+        const numCount = index + 1
+        const rowIndex = ~~(numCount / 6)
+        const remainder = rowIndex === 0 ? numCount % 6 : (numCount % 6) + 1
+        return `${rowIndex + 2} / ${remainder} / ${rowIndex + 3} / ${remainder + 1}` 
+    }
+
 </script>
 
-{#if mounted}
 
 <div class='grid-container'>
     <h1 class='sr-only'>{copy.title}</h1>
@@ -45,19 +52,14 @@ function gerateRandomColor(){
 
         <div aria-hidden="true" class='the'>The</div>
 
-        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='n1 large topRow'>N</div>
-        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='a2 large topRow'>A</div>
-        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='k3 large topRow'>K</div>
-        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='e4 large topRow'>E</div>
-        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='d5 large topRow'>D</div>
+        {#each title as letter, i}
+            <div aria-hidden="true" 
+                in:displayRandomHex="{{duration: 5000, index: i}}" 
+                class='large'
+                style="grid-area:{findGridArea(i)}"
+                >{letter}</div>
+        {/each}
 
-
-        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='t6 large bottomRow'>T</div>
-        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='r7 large bottomRow'>R</div>
-        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='u8 large bottomRow'>U</div>
-        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='t9 large bottomRow'>T</div>
-        <div aria-hidden="true" in:displayRandomHex="{{duration: 5000}}" class='h10 large bottomRow'>H</div>
-    
     <div class='meta'>
         <div class='meta-by'>
             <div class='author'>
@@ -80,7 +82,6 @@ function gerateRandomColor(){
     <div class="border2"></div>
 </div>
 
-{/if}
 <style>
 
 .sr-only {
@@ -129,16 +130,7 @@ function gerateRandomColor(){
     margin: 0;
     padding: 0;
 }
-.n1 { grid-area: 2 / 1 / 3 / 2; }
-.a2 { grid-area: 2 / 2 / 3 / 3; }
-.k3 { grid-area: 2 / 3 / 3 / 4; }
-.e4 { grid-area: 2 / 4 / 3 / 5; }
-.d5 { grid-area: 2 / 5 / 3 / 6; }
-.t6 { grid-area: 3 / 1 / 4 / 2; }
-.r7 { grid-area: 3 / 2 / 4 / 3; }
-.u8 { grid-area: 3 / 3 / 4 / 4; }
-.t9 { grid-area: 3 / 4 / 4 / 5; }
-.h10 { grid-area: 3 / 5 / 4 / 6; }
+
 .meta { 
     grid-area: 4 / 2 / 5 / 3; 
     font-family: 'National 2 Narrow Web';

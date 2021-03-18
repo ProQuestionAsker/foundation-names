@@ -16,32 +16,25 @@ import GradientHistogram from "./GradientHistogram.svelte";
   import Methods from "./Methods.svelte"
   import GridHed from "./GridHed.svelte"
 
-  import {onMount} from 'svelte'
-
-  let mounted = false;
-  onMount(() => mounted = true)
-
 
 </script>
 <Meta {copy}/>
 
 
 
-  <Header />
+<Header />
 <article>
   <GridHed />
-  {#if mounted}
 
-  <!-- <Intro /> -->
 
-  <Numbers />
-  <Nude />
-  <Food />
-  <Explore />
-  <Conclusion />
-  <Methods />
+    <Numbers />
+    <Nude />
+    <Food />
+    <Explore />
+    <Conclusion />
+    <Methods />
 
-{/if}
+
 </article>
 
 
