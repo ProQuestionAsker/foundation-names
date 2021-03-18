@@ -4,6 +4,7 @@ const dev = !!import.meta.hot;
 
 const app = new App({
   target: document.querySelector("main"),
+  intro: true,
   hydrate: !dev
 });
 

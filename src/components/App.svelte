@@ -15,6 +15,7 @@ import GradientHistogram from "./GradientHistogram.svelte";
   import Conclusion from "./Conclusion.svelte"
   import Methods from "./Methods.svelte"
   import GridHed from "./GridHed.svelte"
+  import data from "../data/shades_export.csv"
 
 
 </script>
@@ -27,12 +28,12 @@ import GradientHistogram from "./GradientHistogram.svelte";
   <GridHed />
 
 
-    <Numbers />
-    <Nude />
-    <Food />
-    <Explore />
-    <Conclusion />
-    <Methods />
+  <Numbers />
+  <Nude />
+  <Food {data} />
+  <Explore {data} />
+  <Conclusion />
+  <Methods />
 
 
 </article>

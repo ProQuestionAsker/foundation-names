@@ -10,24 +10,14 @@
 
     const curatedColors = ["#5B3D33", "#66524C", "#A6634D", "#C38654", "#C99263", "#E59E71", "#E9B6A6", "#F4C591", "#FEEDDB", "#FFE3B5", "#412619", "#4B2C27", "#8C4529", "#8F452E", "#A47063", "#D89C6A", "#E5CDB8", "#EBC4AA", "#F5DCBA", "#FDDEC9"]
 
-function gerateRandomColor(){
-        const rand = Math.floor(Math.random() * colors.length) + 1  
-        return colors[rand]
-    }
 
-const title = [...'NakedTruth']
+    const title = [...'NakedTruth']
 
-    // const startColor = hsl(19.5, 0.46, 0.15)
-    // const endColor = hsl(30, 0.5, 0.99)
-    let mounted = false;
-
-    onMount(() => mounted = true)
 
     function displayRandomHex(node, {duration, index}){
         const first = curatedColors[index]
         const second = curatedColors[index + 10]
         const interpolateColors = piecewise(interpolate, [first, second, '#282828'])
-       console.log({first, second})
         return {
             duration,
             css: t => {
@@ -45,16 +35,15 @@ const title = [...'NakedTruth']
 
 </script>
 
-
 <div class='grid-container'>
     <h1 class='sr-only'>{copy.title}</h1>
     <p class='sr-only'>{copy.dek}</p>
 
-        <div aria-hidden="true" class='the'>The</div>
+        <div aria-hidden="true" transition:fade class='the'>The</div>
 
         {#each title as letter, i}
             <div aria-hidden="true" 
-                in:displayRandomHex="{{duration: 5000, index: i}}" 
+                in:displayRandomHex={{duration: 5000, index: i}}
                 class='large'
                 style="grid-area:{findGridArea(i)}"
                 >{letter}</div>

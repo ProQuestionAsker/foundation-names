@@ -1,5 +1,4 @@
 <script>
-    import data from "../data/shades_export.csv"
     import SwatchHistogram from "./SwatchHistogram-old.svelte"
     import Gradient from "./Gradient.svelte"
     import Line from "./Line.svelte"
@@ -14,6 +13,7 @@
     import extendedHeight from './../stores/stores.js';
 
 
+    export let data;
     const xKey = 'lightness'
     const blockWidth = 20;
     $: blockHeight = blockWidth / 4;

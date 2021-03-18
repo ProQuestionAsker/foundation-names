@@ -1,5 +1,4 @@
 <script>
-    import data from "../data/shades_export.csv"
     import copy from "../data/copy.json";
     import SwatchHistogram from "./SwatchHistogram-old.svelte"
     import { group, ascending} from 'd3-array'
@@ -15,12 +14,11 @@
     import InteractiveWrapper from "./InteractiveWrapper.svelte"
     import extendedHeight from './../stores/stores.js';
 
+    export let data;
     let options = ['histogram', 'gradient', 'majority', 'tooltip']
     let UIOptions = ['radio', 'dropdown']
 
     $: screenWidth = 350;
-
-    $: console.log({explore: screenWidth})
 
     let exHeight;
     $: containerHeight = screenWidth < 500 ? 150: 100;
