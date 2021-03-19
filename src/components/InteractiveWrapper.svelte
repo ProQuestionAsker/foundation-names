@@ -5,6 +5,7 @@
     import InteractiveParent from "./InteractiveParent.svelte"
     import UI from "./UI.svelte"
     import extendedHeight from './../stores/stores.js';
+    import Source from "./Source.svelte";
 
     export let title;
     export let filteredData;
@@ -131,6 +132,7 @@
 
 </div>
 
+<Source data={filteredData} title={id} />
 
 <style>
     .chart-title {
