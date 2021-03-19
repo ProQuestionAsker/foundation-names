@@ -9,7 +9,7 @@
 
 <div class='container'>
     <div>
-        <p><strong>Source: <a href=https://pudding.cool>The Pudding</a></strong></p>
+        <p><strong>Source: The Pudding</strong></p>
     </div>
     <DataDownload {data} {title} />  
 </div>
@@ -17,11 +17,14 @@
 <style>
     .container {
         display: flex;
-        justify-content: space-between;
         color: var(--gray-text);
         font-size: 0.8em;
         font-family: 'National 2 Narrow Web';
-        align-items: center;
+        align-items: baseline;
+    }
+
+    p {
+        margin: 0.5em 1em 0 0;
     }
 
     a {
