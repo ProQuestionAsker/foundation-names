@@ -1,8 +1,13 @@
 <script>
     import DataDownload from './DataDownload.svelte'
+    import { onMount } from 'svelte'
 
     export let data;
     export let title;
+
+    let mounted = false;
+
+    onMount(() => {mounted = true})
 
 
 </script>
@@ -11,7 +16,9 @@
     <div>
         <p><strong>Source: The Pudding</strong></p>
     </div>
-    <!-- <DataDownload {data} {title} />   -->
+    {#if mounted}
+        <DataDownload {data} {title} />  
+    {/if}
 </div>
 
 <style>
