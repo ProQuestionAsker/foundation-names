@@ -4,15 +4,23 @@
     export let data;
     export let title;
 
+    let hiddenElement;
+
     $: formatted = csvFormat(data)
     $: blob = new Blob([formatted], { type: 'text/csv;charset=utf-8;' });
     $: filename = title;
-    $: url = URL.createObjectURL(blob);
+    $: url = window.URL.createObjectURL(blob);
+
+    function downloadCSV(){
+		console.log({hiddenElement})
+		hiddenElement.click();
+	}
 
     $: console.table({formatted})
 </script>
 
-<a href={url} download={filename}>Download the data</a>
+<button on:click={downloadCSV}>Download the data</button>
+<a href={url} download={filename} hidden on:click={() => console.log('clicked')} bind:this={hiddenElement}>Download the data</a>
 
 <style>
     a {
