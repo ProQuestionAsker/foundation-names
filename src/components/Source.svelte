@@ -11,7 +11,7 @@
     <div>
         <p><strong>Source: The Pudding</strong></p>
     </div>
-    <DataDownload {data} {title} />  
+    <!-- <DataDownload {data} {title} />   -->
 </div>
 
 <style>
